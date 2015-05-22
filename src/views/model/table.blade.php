@@ -17,6 +17,23 @@
 			@endif
 		</div>
 	</div>
+    @if($modelItem->hasCustomFilters())
+    <div class="row">
+        <div class="col-lg-12">
+            <form action="{{$_SERVER['REQUEST_URI']}}" id="filterForm" method="GET">
+                @foreach ($modelItem->getCustomFilters() as $filter)
+                    <label for="filter1">{{$filter->getTitle()}}
+                        <select id="filter1" name="{{$filter->getName()}}" onchange="document.getElementById('filterForm').submit()" class="form-control input-sm">
+                            @foreach ($filter->getOptions() as $key => $value)
+                                <option value="{{$key}}" @if ($key == $filter->getValue()) selected @endif >{{$value}}</option>
+                            @endforeach
+                        </select>
+                    </label>
+                @endforeach
+            </form>
+        </div>
+    </div>
+    @endif
 	<div class="row">
 		<div class="col-lg-12">
 			<a class="btn btn-primary navbar-btn" {{ $modelItem->isCreatable() ? '' : 'disabled' }} href="{{{ $newEntryRoute }}}"><i class="fa fa-plus"></i> {{{ Lang::get('admin::lang.table.new-entry') }}}</a>

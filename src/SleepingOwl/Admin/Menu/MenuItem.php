@@ -3,7 +3,9 @@
 use SleepingOwl\Admin\Admin;
 use SleepingOwl\Html\HtmlBuilder;
 use SleepingOwl\Admin\Router;
+use SleepingOwl\AdminAuth\Facades\AdminAuth;
 use Illuminate\Support\Arr;
+use \App\Models\Administrator;
 
 /**
  * Class MenuItem
@@ -50,6 +52,14 @@ class MenuItem
 	 * @var bool
 	 */
 	protected $hidden = false;
+
+    /**
+     * @return bool
+     */
+    public function isHidden()
+    {
+        return $this->hidden;
+    }
 
 	/**
 	 * @param string|null $modelClass
@@ -289,13 +299,4 @@ class MenuItem
 		$this->hidden = $hidden;
 		return $this;
 	}
-
-	/**
-	 * @return bool
-	 */
-	public function isHidden()
-	{
-		return $this->hidden;
-	}
-
 }

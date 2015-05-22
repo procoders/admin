@@ -80,7 +80,10 @@ class Filter
 	 */
 	public function filter(Builder $query, $parameters)
 	{
-		$parameter = $this->getParameter($parameters);
+        if (!empty($this->value)) {
+            $parameters[$this->name] = $this->value;
+        }
+        $parameter = $this->getParameter($parameters);
 		if (is_null($parameter)) return null;
 
 		if ( ! $this->applyScope($query, $parameter) && $this->name)

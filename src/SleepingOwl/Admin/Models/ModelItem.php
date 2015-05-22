@@ -86,7 +86,14 @@ class ModelItem
 	 * @var bool
 	 */
 	protected $columnFilter = false;
-	protected $stateSave = true;
+    /**
+     * @var bool
+     */
+    protected $stateSave = true;
+    /**
+     * @var array
+     */
+    protected $customFilters = [];
 
 	/**
 	 * @param $modelClass
@@ -447,6 +454,10 @@ class ModelItem
 		return $this->columnFilter;
 	}
 
+    /**
+     * @param null $stateSave
+     * @return $this|bool
+     */
 	public function stateSave($stateSave = null)
 	{
 		if (is_null($stateSave))
@@ -457,4 +468,27 @@ class ModelItem
 		return $this;
 	}
 
+    /**
+     * @param $filter
+     */
+    public function addCustomFilter($filter)
+    {
+        $this->customFilters[] = $filter();
+    }
+
+    /**
+     * @return array
+     */
+    public function getCustomFilters()
+    {
+        return $this->customFilters;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasCustomFilters()
+    {
+        return !empty($this->customFilters);
+    }
 }
