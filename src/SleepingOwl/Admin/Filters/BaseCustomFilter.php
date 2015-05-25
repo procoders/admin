@@ -21,11 +21,20 @@ Class BaseCustomFilter {
         return $this;
     }
 
+    public function model($model) {
+        $this->model = $model;
+        return $this;
+    }
+
     public function getName() {
         return $this->name;
     }
 
     public function getTitle() {
         return $this->title;
+    }
+
+    public function getModel() {
+        return $this->model;
     }
 }

@@ -475,7 +475,10 @@ class ModelItem
     public function addCustomFilter($filterCallback)
     {
         $filter = call_user_func($filterCallback);
-        $this->customFilters[] = $filter;
+        if ($filter) {
+            $this->customFilters[] = $filter;
+        }
+
         return $this;
     }
 
