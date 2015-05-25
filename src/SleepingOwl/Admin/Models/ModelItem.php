@@ -469,11 +469,14 @@ class ModelItem
 	}
 
     /**
-     * @param $filter
+     * @param $filterCallback
+     * @returns $this
      */
-    public function addCustomFilter($filter)
+    public function addCustomFilter($filterCallback)
     {
-        $this->customFilters[] = $filter();
+        $filter = call_user_func($filterCallback);
+        $this->customFilters[] = $filter;
+        return $this;
     }
 
     /**
