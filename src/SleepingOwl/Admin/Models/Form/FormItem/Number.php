@@ -3,7 +3,7 @@
 
 namespace SleepingOwl\Admin\Models\Form\FormItem;
 
-
+use SleepingOwl\Admin\AssetManager\AssetManager;
 
 Class Number extends BaseFormItem {
 
