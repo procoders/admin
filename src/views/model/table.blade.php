@@ -21,15 +21,22 @@
     <div class="row">
         <div class="col-lg-12">
             <form action="{{$_SERVER['REQUEST_URI']}}" id="filterForm" method="GET">
-                @foreach ($modelItem->getCustomFilters() as $filter)
-                    <label for="filter1">{{$filter->getTitle()}}
-                        <select id="filter1" name="{{$filter->getName()}}" onchange="document.getElementById('filterForm').submit()" class="form-control input-sm">
-                            @foreach ($filter->getOptions() as $key => $value)
-                                <option value="{{$key}}" @if ($key == $filter->getValue()) selected @endif >{{$value}}</option>
-                            @endforeach
-                        </select>
-                    </label>
+                @foreach ($modelItem->getCustomFilters() as $key => $filter)
+                    @if($filter->getType() == 'dropdown')
+                        <label for="filter{{$key}}">{{$filter->getTitle()}}
+                            <select id="filter{{$key}}" name="{{$filter->getName()}}" onchange="document.getElementById('filterForm').submit()" class="form-control input-sm">
+                                @foreach ($filter->getOptions() as $key => $value)
+                                    <option value="{{$key}}" @if ($key == $filter->getValue()) selected @endif >{{$value}}</option>
+                                @endforeach
+                            </select>
+                        </label>
+                    @endif
+                    @if($filter->getType() == 'checkbox')
+                        <label for="filter{{$key}}">{{$filter->getTitle()}}</label>
+                        <input type="checkbox" name="{{$filter->getName()}}" value='1' @if ($filter->getValue() == '1')) checked="checked" @endif onchange="document.getElementById('filterForm').submit()" >
+                    @endif
                 @endforeach
+                
             </form>
         </div>
     </div>

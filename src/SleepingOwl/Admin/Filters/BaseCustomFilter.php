@@ -11,6 +11,8 @@ Class BaseCustomFilter {
 
     protected $model;
 
+    protected $type;
+
     public function name($name) {
         $this->name = $name;
         return $this;
@@ -26,6 +28,11 @@ Class BaseCustomFilter {
         return $this;
     }
 
+    public function type($type) {
+        $this->type = $type;
+        return $this;
+    }
+
     public function getName() {
         return $this->name;
     }
@@ -36,5 +43,9 @@ Class BaseCustomFilter {
 
     public function getModel() {
         return $this->model;
+    }
+
+    public function getType() {
+        return $this->type;
     }
 }
