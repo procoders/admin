@@ -24,7 +24,7 @@
                 @foreach ($modelItem->getCustomFilters() as $key => $filter)
                     @if($filter->getType() == 'dropdown')
                         <label for="filter{{$key}}">{{$filter->getTitle()}}
-                            <select id="filter{{$key}}" name="{{$filter->getName()}}" onchange="document.getElementById('filterForm').submit()" class="form-control input-sm">
+                            <select id="filter{{$key}}" name="{{$filter->getName()}}" class="form-control input-sm">
                                 @foreach ($filter->getOptions() as $key => $value)
                                     <option value="{{$key}}" @if ($key == $filter->getValue()) selected @endif >{{$value}}</option>
                                 @endforeach
@@ -33,10 +33,15 @@
                     @endif
                     @if($filter->getType() == 'checkbox')
                         <label for="filter{{$key}}">{{$filter->getTitle()}}</label>
-                        <input type="checkbox" name="{{$filter->getName()}}" value='1' @if ($filter->getValue() == '1')) checked="checked" @endif onchange="document.getElementById('filterForm').submit()" >
+                        <input type="checkbox" name="{{$filter->getName()}}" value='1' @if ($filter->getValue() == '1')) checked="checked" @endif >
+                    @endif
+                    @if ($filter->getType() == 'text')
+                        <label for="filter{{$key}}">{{$filter->getTitle()}}</label>
+                        <input type="text" name="{{$filter->getName()}}" value="{{$filter->getValue()}}">
                     @endif
                 @endforeach
-                
+
+                <input type="submit">
             </form>
         </div>
     </div>
