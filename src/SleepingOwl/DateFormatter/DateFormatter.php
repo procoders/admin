@@ -11,7 +11,7 @@ class DateFormatter
 	const SHORT = 3;
 	const NONE = -1;
 
-	public static function format($date, $dateFormat = self::SHORT, $timeFormat = self::NONE)
+	public static function format($date, $dateFormat = self::SHORT, $timeFormat = self::NONE, $customPattern = null)
 	{
 		if ( ! $date instanceof Carbon)
 		{
@@ -27,7 +27,8 @@ class DateFormatter
 		{
 			throw new \Exception('You must install "intl" php extension.');
 		}
-		$formatter = datefmt_create(App::getLocale(), $dateFormat, $timeFormat, \Config::get('app.timezone'));
+
+		$formatter = datefmt_create(App::getLocale(), $dateFormat, $timeFormat, \Config::get('app.timezone'), null, $customPattern);
 		$pattern = $formatter->getPattern();
 		$pattern = str_replace('yy', 'y', $pattern);
 		$formatter->setPattern($pattern);

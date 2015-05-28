@@ -72,6 +72,4 @@ abstract class SleepingOwlModel extends \Eloquent implements ValidationModelInte
 		}
 		return $result;
 	}
-
-
 }

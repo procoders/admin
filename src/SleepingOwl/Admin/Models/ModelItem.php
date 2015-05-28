@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use SleepingOwl\Models\Interfaces\ModelWithOrderFieldInterface;
+use SleepingOwl\Admin\Filters as CustomFilters;
 
 /**
  * Class ModelItem
