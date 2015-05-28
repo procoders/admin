@@ -151,9 +151,17 @@ class ModelRepository implements ModelRepositoryInterface
 		$rules = $this->modelItem->getForm()->getValidationRules();
 		$this->instance->validate($data, $rules);
 
-		$this->instance->fill($data);
+        $this->instance->fill($data);
 
-		$this->instance->save();
+        if (method_exists($this->instance, 'getRepository')) {
+            if (method_exists($this->instance->getRepository(), 'saveFromArray')) {
+                $this->instance->getRepository()->saveFromArray($data);
+            } else {
+                $this->instance->save();
+            }
+        } else {
+            $this->instance->save();
+        }
 	}
 
 	/**
