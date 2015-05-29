@@ -41,8 +41,8 @@
 	</div>
     @if($modelItem->hasCustomFilters())
         <div class="row">
-            <div class="col-lg-12">
-                <form action="{{$_SERVER['REQUEST_URI']}}" id="filterForm" method="GET">
+            <form action="{{$_SERVER['REQUEST_URI']}}" id="filterForm" method="GET">
+                <div class="col-md-11">
                     @foreach ($modelItem->getCustomFilters() as $key => $filter)
                         @if($filter->getType() == 'dropdown' && $filter->getName() != 'adults' && !$filter->getName() != 'child')
                             <label for="filter{{$key}}">{{$filter->getTitle()}}
@@ -54,12 +54,18 @@
                             </label>
                         @endif
                         @if ($filter->getType() == 'text')
-                            <label for="filter{{$key}}">{{$filter->getTitle()}}</label>
-                            <input type="text" name="{{$filter->getName()}}" value="{{$filter->getValue()}}" class="form-control input-sm">
+                            <label for="filter{{$key}}">{{$filter->getTitle()}}
+                                <div>
+                                    <input type="text" name="{{$filter->getName()}}" value="{{$filter->getValue()}}" class="form-control input-sm">
+                                </div>
+                            </label>
                         @endif
                         @if($filter->getType() == 'checkbox')
-                            <label for="filter{{$key}}">{{$filter->getTitle()}}</label>
-                            <input type="checkbox" name="{{$filter->getName()}}" value="1" @if ($filter->getValue() == '1') checked="checked" @endif >
+                            <label for="filter{{$key}}" style="text-align: center;">{{$filter->getTitle()}}
+                                <div>
+                                    <input type="checkbox" name="{{$filter->getName()}}" value="1" @if ($filter->getValue() == '1') checked="checked" @endif>
+                                </div>
+                            </label>
                         @endif
                         @if($filter->getType() == 'date')
                             <div class="form-group">
@@ -88,9 +94,11 @@
                             </label>
                         @endif
                     @endforeach
+                </div>
+                <div class="col-md-1" style="text-align: right; margin-top: 20px;">
                     <input type="submit" value="Search" class="btn btn-primary">
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     @endif
 	<div class="row">
