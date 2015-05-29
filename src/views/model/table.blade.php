@@ -3,7 +3,8 @@
 @section('innerContent')
     <script>
         $(function(){
-            jQuery('#filterForm').on('submit', processForm)
+            jQuery('#dataTable_filter').remove();
+            jQuery('#filterForm').on('submit', processForm);
         })
         function processForm (e){
             e.preventDefault();
@@ -43,7 +44,7 @@
             <div class="col-lg-12">
                 <form action="{{$_SERVER['REQUEST_URI']}}" id="filterForm" method="GET">
                     @foreach ($modelItem->getCustomFilters() as $key => $filter)
-                        @if($filter->getType() == 'dropdown')
+                        @if($filter->getType() == 'dropdown' && $filter->getName() != 'adults' && !$filter->getName() != 'child')
                             <label for="filter{{$key}}">{{$filter->getTitle()}}
                                 <select id="filter{{$key}}" name="{{$filter->getName()}}" class="form-control input-sm">
                                     @foreach ($filter->getOptions() as $key => $value)
@@ -54,11 +55,11 @@
                         @endif
                         @if ($filter->getType() == 'text')
                             <label for="filter{{$key}}">{{$filter->getTitle()}}</label>
-                            <input type="text" name="{{$filter->getName()}}" value="{{$filter->getValue()}}">
+                            <input type="text" name="{{$filter->getName()}}" value="{{$filter->getValue()}}" class="form-control input-sm">
                         @endif
                         @if($filter->getType() == 'checkbox')
                             <label for="filter{{$key}}">{{$filter->getTitle()}}</label>
-                            <input type="checkbox" name="{{$filter->getName()}}" value="1" @if ($filter->getValue() == '1')) checked="checked" @endif >
+                            <input type="checkbox" name="{{$filter->getName()}}" value="1" @if ($filter->getValue() == '1') checked="checked" @endif >
                         @endif
                         @if($filter->getType() == 'date')
                             <div class="form-group">
@@ -71,8 +72,23 @@
                                 </div>
                             </div>
                         @endif
+                        @if($filter->getName() == 'adults' || $filter->getName() == 'child')
+                            <label for="filter{{$key}}">{{$filter->getTitle()}}
+                                <select id="filter{{$key}}" name="{{$filter->getName()}}" class="form-control input-sm">
+                                    @foreach ($filter->getOptions() as $key => $value)
+                                        @if ($key == $filter->getValue())
+                                            <option value="{{$key}}" selected>{{$value}}</option>
+                                        @elseif ($filter->getName() == 'adults' && $key == '1')
+                                            <option value="{{$key}}" selected>{{$value}}</option>
+                                        @else
+                                            <option value="{{$key}}">{{$value}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </label>
+                        @endif
                     @endforeach
-                    <input type="submit" value="ÏÛÙÜ">
+                    <input type="submit" value="Search" class="btn btn-primary">
                 </form>
             </div>
         </div>
@@ -85,7 +101,7 @@
 					<thead>
 						<tr>
 							@foreach ($columns as $column)
-								{!! $column->renderHeader() !!}
+                                {!! $column->renderHeader() !!}
 							@endforeach
 						</tr>
 					</thead>
