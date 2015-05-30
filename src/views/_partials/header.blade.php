@@ -5,5 +5,5 @@
 		<span class="icon-bar"></span>
 		<span class="icon-bar"></span>
 	</button>
-	<a class="navbar-brand" href="{{ Admin::instance()->router->routeHome() }}">{{{ $adminTitle }}}</a>
+	<a class="navbar-brand" href="{{ Admin::instance()->router->routeHome() }}">OneHotel Boocking</a>
 </div>
