@@ -63,7 +63,7 @@
                         @if($filter->getType() == 'checkbox')
                             <label for="filter{{$key}}" style="text-align: center;">{{$filter->getTitle()}}
                                 <div>
-                                    <input type="checkbox" name="{{$filter->getName()}}" value="1" @if ($filter->getValue() == '1') checked="checked" @endif>
+                                    <input type="checkbox" name="{{$filter->getName()}}" value="1" checked="checked">
                                 </div>
                             </label>
                         @endif
