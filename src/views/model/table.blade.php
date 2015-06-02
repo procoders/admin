@@ -42,44 +42,46 @@
     @if($modelItem->hasCustomFilters())
         <div class="row">
             <form action="{{$_SERVER['REQUEST_URI']}}" id="filterForm" method="GET">
-                <div class="col-md-11">
-                    @foreach ($modelItem->getCustomFilters() as $key => $filter)
-                        @if($filter->getType() == 'dropdown' && $filter->getName() != 'adults' && !$filter->getName() != 'child')
-                            <label for="filter{{$key}}">{{$filter->getTitle()}}
-                                <select id="filter{{$key}}" name="{{$filter->getName()}}" class="form-control input-sm">
-                                    @foreach ($filter->getOptions() as $key => $value)
-                                        <option value="{{$key}}" @if ($key == $filter->getValue()) selected @endif >{{$value}}</option>
-                                    @endforeach
-                                </select>
-                            </label>
-                        @endif
-                        @if ($filter->getType() == 'text')
-                            <label for="filter{{$key}}">{{$filter->getTitle()}}
-                                <div>
-                                    <input type="text" name="{{$filter->getName()}}" value="{{$filter->getValue()}}" class="form-control input-sm">
-                                </div>
-                            </label>
-                        @endif
-                        @if($filter->getType() == 'checkbox')
-                            <label for="filter{{$key}}" style="text-align: center;">{{$filter->getTitle()}}
-                                <div>
-                                    <input type="checkbox" name="{{$filter->getName()}}" value="1" checked="checked">
-                                </div>
-                            </label>
-                        @endif
-                        @if($filter->getType() == 'date')
-                            <div class="form-group">
-                                <label for="{{$filter->getName()}}">{{$filter->getTitle()}}</label>
-                                <div class="datepicker form-group input-group">
-                                    <input data-date-picktime="" class="form-control" name="{{$filter->getName()}}" type="text"  id="{{$filter->getName()}}" placeholder="{{$filter->getTitle()}}" value="{{$filter->getValue()}}" readonly="readonly">
-                                    <span class="input-group-addon">
-                                        <span class="fa fa-calendar"></span>
-                                    </span>
-                                </div>
-                            </div>
-                        @endif
-                        @if($filter->getName() == 'adults' || $filter->getName() == 'child')
-                            <label for="filter{{$key}}">{{$filter->getTitle()}}
+                <table class="col-md-11" border="10" bordercolor="white">
+                    <tr>
+                        @foreach ($modelItem->getCustomFilters() as $key => $filter)
+                            <td>
+                                @if($filter->getType() == 'dropdown' && $filter->getName() != 'adults' && !$filter->getName() != 'child')
+                                    <select id="filter{{$key}}" name="{{$filter->getName()}}" class="form-control input-sm">
+                                        @foreach ($filter->getOptions() as $key => $value)
+                                            <option value="{{$key}}" @if ($key == $filter->getValue()) selected @endif >{{$value}}</option>
+                                        @endforeach
+                                    </select>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($filter->getType() == 'text')
+                                    <div>
+                                        <input type="text" name="{{$filter->getName()}}" value="{{$filter->getValue()}}" class="form-control input-sm" placeholder="{{$filter->getTitle()}}">
+                                    </div>
+                                @endif
+                            </td>
+                            <td>
+                                @if($filter->getType() == 'checkbox' )
+                                    <label for="filter{{$key}}" style="text-align: center;">{{$filter->getTitle()}}
+                                        <input type="checkbox" name="{{$filter->getName()}}" value="1" checked="checked">
+                                    </label>
+                                @endif
+                            </td>
+                            <td>
+                                @if($filter->getType() == 'date')
+                                    <div class="form-group">
+                                        <div class="datepicker form-group input-group">
+                                            <input data-date-picktime="" class="form-control input-sm" name="{{$filter->getName()}}" type="text"  id="{{$filter->getName()}}" placeholder="{{$filter->getTitle()}}" value="{{$filter->getValue()}}" readonly="readonly">
+                                            <span class="input-group-addon">
+                                                <span class="fa fa-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                @endif
+                            </td>
+                            <td>
+                            @if($filter->getName() == 'adults' || $filter->getName() == 'child')
                                 <select id="filter{{$key}}" name="{{$filter->getName()}}" class="form-control input-sm">
                                     @foreach ($filter->getOptions() as $key => $value)
                                         @if ($key == $filter->getValue())
@@ -91,13 +93,16 @@
                                         @endif
                                     @endforeach
                                 </select>
-                            </label>
-                        @endif
-                    @endforeach
-                </div>
-                <div class="col-md-1" style="text-align: right; margin-top: 20px;">
-                    <input type="submit" value="Search" class="btn btn-primary">
-                </div>
+                            @endif
+                            </td>
+                        @endforeach
+                        <td>
+                            <div class="col-md-1">
+                                <input type="submit" value="Search" class="btn btn-primary">
+                            </div>
+                        </td>
+                    </tr>
+                </table>
             </form>
         </div>
     @endif
