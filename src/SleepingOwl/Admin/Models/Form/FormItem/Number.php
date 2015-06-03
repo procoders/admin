@@ -4,6 +4,7 @@
 namespace SleepingOwl\Admin\Models\Form\FormItem;
 
 use SleepingOwl\Admin\AssetManager\AssetManager;
+use SleepingOwl\Admin\Admin;
 
 Class Number extends BaseFormItem {
 
@@ -72,17 +73,24 @@ Class Number extends BaseFormItem {
      */
     public function render()
     {
-
         $model = $this->form->instance;
         $value = $this->column;
+
+        $oldInputValue = Admin::$instance->formBuilder->getSessionStore()->getOldInput($value);
+        if (! $oldInputValue) {
+            $inputValue = $model->$value;
+        } else {
+            $inputValue = $oldInputValue;
+        }
 
         AssetManager::addScript('/adm/js/bootstrap-number-input.js');
         return view('admin/hotel/form/number')
             ->with('column', $this->column)
-            ->with('value', $model->$value)
+            ->with('value', $inputValue)
             ->with('name', $this->name)
             ->with('label', $this->label)
             ->with('minValue', $this->minValue)
             ->with('maxValue', $this->maxValue);
     }
+
 }
