@@ -40,71 +40,36 @@
 		</div>
 	</div>
     @if($modelItem->hasCustomFilters())
-        <div class="row">
-            <form action="{{$_SERVER['REQUEST_URI']}}" id="filterForm" method="GET">
-                <table class="col-md-11" border="10" bordercolor="white">
-                    <tr>
-                        @foreach ($modelItem->getCustomFilters() as $key => $filter)
-                            <td>
-                                @if($filter->getType() == 'dropdown' && $filter->getName() != 'adults' && !$filter->getName() != 'child')
-                                    <select id="filter{{$key}}" name="{{$filter->getName()}}" class="form-control input-sm">
-                                        @foreach ($filter->getOptions() as $key => $value)
-                                            <option value="{{$key}}" @if ($key == $filter->getValue()) selected @endif >{{$value}}</option>
-                                        @endforeach
-                                    </select>
-                                @endif
-                            </td>
-                            <td>
-                                @if ($filter->getType() == 'text')
-                                    <div>
-                                        <input type="text" name="{{$filter->getName()}}" value="{{$filter->getValue()}}" class="form-control input-sm" placeholder="{{$filter->getTitle()}}">
-                                    </div>
-                                @endif
-                            </td>
-                            <td>
-                                @if($filter->getType() == 'checkbox' )
-                                    <label for="filter{{$key}}" style="text-align: center;">{{$filter->getTitle()}}
-                                        <input type="checkbox" name="{{$filter->getName()}}" value="1" checked="checked">
-                                    </label>
-                                @endif
-                            </td>
-                            <td>
-                                @if($filter->getType() == 'date')
-                                    <div class="form-group">
-                                        <div class="datepicker form-group input-group">
-                                            <input data-date-picktime="" class="form-control input-sm" name="{{$filter->getName()}}" type="text"  id="{{$filter->getName()}}" placeholder="{{$filter->getTitle()}}" value="{{$filter->getValue()}}" readonly="readonly">
-                                            <span class="input-group-addon">
-                                                <span class="fa fa-calendar"></span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                @endif
-                            </td>
-                            <td>
-                            @if($filter->getName() == 'adults' || $filter->getName() == 'child')
-                                <select id="filter{{$key}}" name="{{$filter->getName()}}" class="form-control input-sm">
-                                    @foreach ($filter->getOptions() as $key => $value)
-                                        @if ($key == $filter->getValue())
-                                            <option value="{{$key}}" selected>{{$value}}</option>
-                                        @elseif ($filter->getName() == 'adults' && $key == '1')
-                                            <option value="{{$key}}" selected>{{$value}}</option>
-                                        @else
-                                            <option value="{{$key}}">{{$value}}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            @endif
-                            </td>
-                        @endforeach
-                        <td>
-                            <div class="col-md-1">
-                                <input type="submit" value="Search" class="btn btn-primary">
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </form>
-        </div>
+        <form action="{{$_SERVER['REQUEST_URI']}}" id="filterForm" method="GET">
+            <div style="width: 100%; margin-bottom: 20px;">
+                @foreach ($modelItem->getCustomFilters() as $key => $filter)
+                    @if ($filter->getType() == 'dropdown' && $filter->getName() != 'adults' && !$filter->getName() != 'child')
+                        <div style="display: inline-block; width: 200px; margin-right: 15px">
+                            <select id="filter{{$key}}" name="{{$filter->getName()}}" class="form-control input-sm" onchange="processForm(event)">
+                                @foreach ($filter->getOptions() as $key => $value)
+                                    <option value="{{$key}}" @if ($key == $filter->getValue()) selected @endif >{{$value}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @endif
+                    @if ($filter->getType() == 'text')
+                        <div style="display: inline-block; width: 200px; margin-right: 20px">
+                            <input type="text" placeholder="Search..." class="form-control input-sm" style="position: absolute; width: 190px;" name="{{$filter->getName()}}" value="{{$filter->getValue()}}">
+                            <button class="btn btn-default input-sm" type="submit" style="position: relative; left:150px; border: none; border-left: 1px solid #ccc; height: 28px; top: 1px; border-radius: 3px 0px 0px 3px;">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    @endif
+                    @if($filter->getType() == 'checkbox')
+                        <div style="display: inline-block; width: 200px; position: absolute;">
+                            <label for="filter{{$key}}" style="font-weight: normal; font-size: 12px; display: block;">{{$filter->getTitle()}}</label>
+                            <input type="checkbox" name="{{$filter->getName()}}" value="1" @if((int)$filter->getValue() == 1) checked="checked" @endif style="position: relative; top: -10px; left:23px;" onchange="processForm(event)">
+
+                        </div>
+                    @endif
+                @endforeach
+            </div>
+        </form>
     @endif
 	<div class="row">
 		<div class="col-lg-12">
