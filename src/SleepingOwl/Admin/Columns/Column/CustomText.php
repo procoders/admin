@@ -42,7 +42,7 @@ Class CustomText implements ColumnInterface {
      */
     public function renderHeader()
     {
-        return '<th style="width: 100px;">' . $this->label . '</th>';
+        return '<th data-sortable="false" style="width: 100px;">' . $this->label . '</th>';
     }
 
     /**
