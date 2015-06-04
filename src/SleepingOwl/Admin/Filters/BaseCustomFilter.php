@@ -13,6 +13,8 @@ Class BaseCustomFilter {
 
     protected $type;
 
+    protected $method;
+
     public function name($name) {
         $this->name = $name;
         return $this;
@@ -30,6 +32,11 @@ Class BaseCustomFilter {
 
     public function type($type) {
         $this->type = $type;
+        return $this;
+    }
+
+    public function method($method) {
+        $this->method = $method;
         return $this;
     }
 
