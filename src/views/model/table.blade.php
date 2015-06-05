@@ -101,7 +101,7 @@
     @endif
 	<div class="row">
 		<div class="col-lg-12">
-			<a class="btn btn-primary navbar-btn" {{ $modelItem->isCreatable() ? '' : 'disabled' }} href="{{{ $newEntryRoute }}}"><i class="fa fa-plus"></i> {{{ Lang::get('admin::lang.table.new-entry') }}}</a>
+			<a class="btn btn-success navbar-btn" {{ $modelItem->isCreatable() ? '' : 'disabled' }} href="{{{ $newEntryRoute }}}"><i class="fa fa-plus" style="float: right;"></i> {{{ Lang::get('admin::lang.table.new-entry') }}}</a>
 			<div class="table-responsive">
 				<table class="table table-striped table-hover" id="dataTable" {!! $modelItem->renderTableAttributes() !!}>
 					<thead>
