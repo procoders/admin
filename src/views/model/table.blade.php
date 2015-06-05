@@ -54,10 +54,24 @@
                     @endif
                     @if ($filter->getType() == 'text')
                         <div style="display: inline-block; width: 200px; margin-right: 15px; height: 30px; padding-top: 1px;">
-                            <input type="text" placeholder="Search..." class="form-control input-sm" style="position: absolute; width: 190px; top: 160px;" name="{{$filter->getName()}}" value="{{$filter->getValue()}}">
-                            <button class="btn btn-default input-sm" type="submit" style="position: relative; left: 70px; border: none; border-left: 1px solid #ccc; height: 28px; background-color: #eeeeee; border-radius: 0;" >
-                                <i class="fa fa-search"></i>
-                            </button>
+                            @if ($filter->isDateFilter())
+                                <div class="form-group">
+                                    <div class="datepicker form-group input-group" id="datepicker">
+                                        <input data-date-picktime="" style="position: absolute; width: 190px; top: 10px; border-radius: 3px; background-color: #fff;" class="form-control input-sm" name="{{$filter->getName()}}" type="text"  placeholder="{{$filter->getTitle()}}" value="{{$filter->getValue()}}" readonly="readonly">
+                                        <span class="input-group-addon" style="position: relative; left: 108px; top: 11px; z-index: 10; border: none; border-left: 1px solid #ccc; height: 28px; background-color: #eeeeee; border-radius: 0;">
+                                            <span class="fa fa-calendar"></span>
+                                        </span>
+                                        <button class="btn btn-default input-sm" type="submit" style="position: relative; left: 23px; top:11px; z-index:10; border: none; border-left: 1px solid #ccc; height: 28px; background-color: #eeeeee; border-radius: 0;" >
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            @else
+                                <input type="text" placeholder="Search..." class="form-control input-sm" style="position: absolute; width: 190px; top: 160px;" name="{{$filter->getName()}}" value="{{$filter->getValue()}}">
+                                <button class="btn btn-default input-sm" type="submit" style="position: relative; left: 70px; border: none; border-left: 1px solid #ccc; height: 28px; background-color: #eeeeee; border-radius: 0;" >
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            @endif
                         </div>
                     @endif
                     @if($filter->getType() == 'boolDropdown')
