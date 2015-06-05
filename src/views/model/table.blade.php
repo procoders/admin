@@ -22,6 +22,13 @@
             });
             window.location.replace(url.slice(0, -1));
         }
+        function resetForm() {
+            var form = jQuery('#filterForm');
+            form[0].reset();
+            form.find('select').each(function(){
+                $(this).val(-1);
+            })
+        }
     </script>
 	<div class="row">
 		<div class="col-lg-12">
@@ -88,6 +95,7 @@
                         </div>
                     @endif
                 @endforeach
+                <a href="#" onclick="resetForm()">Reset form</a>
             </div>
         </form>
     @endif
