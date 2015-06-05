@@ -54,6 +54,11 @@ class MenuItem
 	protected $hidden = false;
 
     /**
+     * @var bool
+     */
+    protected $separator = false;
+
+    /**
      * @return bool
      */
     public function isHidden()
@@ -299,4 +304,14 @@ class MenuItem
 		$this->hidden = $hidden;
 		return $this;
 	}
+
+    public function separator($val)
+    {
+        $this->separator = (bool)$val;
+    }
+
+    public function isSeparator()
+    {
+        return $this->separator;
+    }
 }
