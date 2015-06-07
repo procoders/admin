@@ -53,7 +53,7 @@
             <div style="width: 100%; text-align: center; height:30px; margin-bottom: 30px;">
                 @foreach ($modelItem->getCustomFilters() as $key => $filter)
                     @if ($filter->getType() == 'dropdown')
-                        <div style="display: inline-block; width: 200px; margin-right: 15px">
+                        <div style="display: inline-block; width: 200px; margin-right: 15px;  position: relative; vertical-align: top;">
                             <select id="filter{{$key}}" name="{{$filter->getName()}}" class="form-control input-sm" onchange="processForm(event)">
                                 @foreach ($filter->getOptions() as $fKey => $value)
                                     <option value="{{$fKey}}" @if ($fKey == $filter->getValue()) selected @endif>{{$value}}</option>
@@ -89,7 +89,7 @@
                         </div>
                     @endif
                     @if($filter->getType() == 'boolDropdown')
-                        <div style="display: inline-block; width: 200px; margin-right: 15px;">
+                        <div style="display: inline-block; width: 200px; margin-right: 15px;  position: relative; vertical-align: top;">
                             <select id="filter{{$key}}" name="{{$filter->getName()}}" class="form-control input-sm" onchange="processForm(event)">
                                 <option value="-1">- {{$filter->getTitle()}} -</option>
                                 <option value="1" @if((int)$filter->getValue() == 1) selected @endif>{{$filter->getTrueValueName()}}</option>
