@@ -76,8 +76,8 @@
                                     </div>
                                 </div>
                             @elseif ($filter->getName() == 'price')
-                                <input type="text" placeholder="Price" class="form-control input-sm" style="position: absolute; width: 190px; top: 171px;" name="{{$filter->getName()}}" value="{{$filter->getValue()}}">
-                                <button class="btn btn-default input-sm" type="submit" style="position: relative; left: 70px; border: none; border-left: 1px solid #ccc; height: 28px; background-color: #eeeeee; border-radius: 0;" >
+                                <input type="text" placeholder="Price" class="form-control input-sm" style=" width: 190px; top: 171px;" name="{{$filter->getName()}}" value="{{$filter->getValue()}}">
+                                <button class="btn btn-default input-sm" type="submit" style="position: absolute; line-height: 18px; top: 2px; right: 11px; border: none; border-left: 1px solid #ccc; height: 28px; background-color: #eeeeee; border-radius: 0;" >
                                     <i class="fa fa-search"></i>
                                 </button>
                             @else
