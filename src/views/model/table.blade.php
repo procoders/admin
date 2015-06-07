@@ -47,6 +47,8 @@
 		</div>
 	</div>
     @if($modelItem->hasCustomFilters())
+    <div class="row">
+        <div class="col-lg-12">
         <form action="{{$_SERVER['REQUEST_URI']}}" id="filterForm" method="GET">
             <div style="width: 100%; text-align: center; height:30px; margin-bottom: 30px;">
                 @foreach ($modelItem->getCustomFilters() as $key => $filter)
@@ -98,6 +100,8 @@
                 <a href="#" onclick="resetForm()">Reset form</a>
             </div>
         </form>
+        </div>
+    </div>
     @endif
 	<div class="row">
 		<div class="col-lg-12">
