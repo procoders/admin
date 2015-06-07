@@ -62,7 +62,7 @@
                         </div>
                     @endif
                     @if ($filter->getType() == 'text')
-                        <div style="display: inline-block; width: 200px; margin-right: 15px; height: 30px; padding-top: 1px;">
+                        <div style="display: inline-block; width: 200px; margin-right: 15px; height: 30px; padding-top: 1px; position: relative;">
                             @if ($filter->isDateFilter())
                                 <div class="form-group">
                                     <div class="datepicker form-group input-group" id="datepicker">
