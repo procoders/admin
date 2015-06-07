@@ -62,7 +62,7 @@
                         </div>
                     @endif
                     @if ($filter->getType() == 'text')
-                        <div style="display: inline-block; width: 200px; margin-right: 15px; height: 30px; padding-top: 1px; position: relative;">
+                        <div style="display: inline-block; width: 200px; margin-right: 15px; height: 30px; padding-top: 1px; position: relative; vertical-align: top;">
                             @if ($filter->isDateFilter())
                                 <div class="form-group">
                                     <div class="datepicker form-group input-group" id="datepicker">
@@ -97,7 +97,7 @@
                         </div>
                     @endif
                 @endforeach
-                <a href="#" onclick="resetForm()">Reset form</a>
+                <a href="#" onclick="resetForm()" style="display:inline-block; vertical-align:top; margin-top:4px;">Reset form</a>
             </div>
         </form>
         </div>
