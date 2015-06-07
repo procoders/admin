@@ -62,7 +62,7 @@
                         </div>
                     @endif
                     @if ($filter->getType() == 'text')
-                        <div style="display: inline-block; width: 200px; margin-right: 15px; height: 30px; padding-top: 1px; position: relative; vertical-align: top;">
+                        <div style="display: inline-block; width: 200px; margin-right: 15px; height: 30px; position: relative; vertical-align: top;">
                             @if ($filter->isDateFilter())
                                 <div class="form-group">
                                     <div class="datepicker form-group input-group" id="datepicker">
@@ -77,12 +77,12 @@
                                 </div>
                             @elseif ($filter->getName() == 'price')
                                 <input type="text" placeholder="Price" class="form-control input-sm" style=" width: 190px; top: 171px;" name="{{$filter->getName()}}" value="{{$filter->getValue()}}">
-                                <button class="btn btn-default input-sm" type="submit" style="position: absolute; line-height: 18px; top: 2px; right: 11px; border: none; border-left: 1px solid #ccc; height: 28px; background-color: #eeeeee; border-radius: 0;" >
+                                <button class="btn btn-default input-sm" type="submit" style="position: absolute; line-height: 18px; top: 1px; right: 11px; border: none; border-left: 1px solid #ccc; height: 28px; background-color: #eeeeee; border-radius: 0;" >
                                     <i class="fa fa-search"></i>
                                 </button>
                             @else
                                 <input type="text" placeholder="Search..." class="form-control input-sm" style="width: 190px; top: 160px;" name="{{$filter->getName()}}" value="{{$filter->getValue()}}">
-                                <button class="btn btn-default input-sm" type="submit" style="position: absolute; line-height: 18px; top: 2px; right: 11px; border: none; border-left: 1px solid #ccc; height: 28px; background-color: #eeeeee; border-radius: 0;" >
+                                <button class="btn btn-default input-sm" type="submit" style="position: absolute; line-height: 18px; top: 1px; right: 11px; border: none; border-left: 1px solid #ccc; height: 28px; background-color: #eeeeee; border-radius: 0;" >
                                     <i class="fa fa-search"></i>
                                 </button>
                             @endif
