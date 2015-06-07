@@ -65,7 +65,7 @@
                         <div style="display: inline-block; width: 200px; margin-right: 15px; height: 30px; position: relative; vertical-align: top;">
                             @if ($filter->isDateFilter())
                                 <div class="form-group">
-                                    <div class="datepicker form-group input-group" id="datepicker">
+                                    <div class="datepicker form-group input-group" id="datepicker" style="margin-top: -10px;">
                                         <input data-date-picktime="" style="position: absolute; width: 190px; top: 10px; border-radius: 3px; background-color: #fff;" class="form-control input-sm" name="{{$filter->getName()}}" type="text"  placeholder="{{$filter->getTitle()}}" value="{{$filter->getValue()}}" readonly="readonly">
                                         <span class="input-group-addon" style="position: relative; left: 108px; top: 11px; z-index: 10; border: none; border-left: 1px solid #ccc; height: 28px; background-color: #eeeeee; border-radius: 0;">
                                             <span class="fa fa-calendar"></span>
