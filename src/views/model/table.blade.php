@@ -89,7 +89,7 @@
                         </div>
                     @endif
                     @if($filter->getType() == 'boolDropdown')
-                        <div style="display: inline-block; width: 200px;">
+                        <div style="display: inline-block; width: 200px; margin-right: 15px;">
                             <select id="filter{{$key}}" name="{{$filter->getName()}}" class="form-control input-sm" onchange="processForm(event)">
                                 <option value="-1">- {{$filter->getTitle()}} -</option>
                                 <option value="1" @if((int)$filter->getValue() == 1) selected @endif>{{$filter->getTrueValueName()}}</option>
