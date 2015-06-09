@@ -218,6 +218,8 @@ class FormBuilder extends IlluminateFormBuilder
 	 */
 	public function checkboxGroup($name, $label, $value = null, array $options = [])
 	{
+        if (is_null($value))
+            $value = 1;
         return view('admin::_partials/form_elements/checkbox')
             ->with('name', $name)
             ->with('label', $label)
