@@ -21,7 +21,7 @@
 		<script src="{{ $script }}"></script>
 	@endforeach
 </head>
-<body>
+<body class="pace-done">
 	@yield('content')
 </body>
 </html>

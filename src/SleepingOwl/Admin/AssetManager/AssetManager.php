@@ -11,12 +11,23 @@ class AssetManager
 	 * Styles array to include on every admin page
 	 * @var array
 	 */
-	protected static $styles = ['admin::all.min.css'];
+	protected static $styles = [
+        'admin::assets/plugins/bootstrap/css/bootstrap.min.css',
+        'admin::assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css',
+        'admin::assets/plugins/font-awesome/css/font-awesome.min.css',
+        'admin::assets/css/animate.min.css',
+        'admin::assets/css/style.min.css',
+        'admin::assets/css/style-responsive.min.css',
+        'admin::assets/css/theme/default.css',
+    ];
 	/**
 	 * Scripts array to include on every admin page
 	 * @var array
 	 */
-	protected static $scripts = ['admin::all.min.js'];
+	protected static $scripts = [
+        'admin::assets/plugins/jquery/jquery-1.9.1.min',
+	    'admin::assets/plugins/pace/pace.min.js'
+    ];
 
 	public static function styles()
 	{

@@ -7,6 +7,9 @@ use Lang;
 
 class LangController extends Controller
 {
+
+    const MAX_AGE = 31536000;
+
 	public function getAll()
 	{
 		$lang = Lang::get('admin::lang');
@@ -30,8 +33,8 @@ class LangController extends Controller
 	 */
 	protected function cacheResponse(Response $response)
 	{
-		$response->setSharedMaxAge(31536000);
-		$response->setMaxAge(31536000);
+		$response->setSharedMaxAge(self::MAX_AGE);
+		$response->setMaxAge(self::MAX_AGE);
 		$response->setExpires(new \DateTime('+1 year'));
 
 		return $response;

@@ -242,6 +242,15 @@ class MenuItem
 	 */
 	public function render($level = 1)
 	{
+        if ($this->isHidden())
+            return true;
+
+        return view('admin::_partials.side_bar.item')
+            ->with('icon', $this->getIcon())
+            ->with('title', $this->getLabel())
+            ->with('link', $this->getUrl())
+            ->with('subItems', $this->subItems);
+        /*
 		if ($this->isHidden()) return;
 		if ($this->hasSubItems())
 		{
@@ -277,6 +286,7 @@ class MenuItem
 			$content = $this->renderSingleItem();
 		}
 		return $this->htmlBuilder->tag('li', [], $content);
+        */
 	}
 
 	/**

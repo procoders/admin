@@ -8,15 +8,15 @@ use SleepingOwl\Admin\Models\ModelItem;
 /**
  * Class Column
  *
- * @method static \SleepingOwl\Admin\Columns\Column\Image image($name, $label = null)
- * @method static \SleepingOwl\Admin\Columns\Column\String string($name, $label = null)
- * @method static \SleepingOwl\Admin\Columns\Column\Date date($name, $label = null)
- * @method static \SleepingOwl\Admin\Columns\Column\Lists lists($name, $label = null)
- * @method static \SleepingOwl\Admin\Columns\Column\Count count($name, $label = null)
- * @method static \SleepingOwl\Admin\Columns\Column\Control control()
- * @method static \SleepingOwl\Admin\Columns\Column\Filter filter($alias)
- * @method static \SleepingOwl\Admin\Columns\Column\Url url($name)
- * @method static \SleepingOwl\Admin\Columns\Column\Action action($name, $label = null)
+ * @method static Column\Image image($name, $label = null)
+ * @method static Column\String string($name, $label = null)
+ * @method static Column\Date date($name, $label = null)
+ * @method static Column\Lists lists($name, $label = null)
+ * @method static Column\Count count($name, $label = null)
+ * @method static Column\Control control()
+ * @method static Column\Filter filter($alias)
+ * @method static Column\Url url($name)
+ * @method static Column\Action action($name, $label = null)
  */
 class Column
 {
