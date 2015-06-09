@@ -137,19 +137,12 @@ abstract class BaseColumn implements ColumnInterface
 	 *
 	 * @return array
 	 */
-	protected function getAttributesForHeader()
+    public function getAttributesForHeader()
 	{
-		$attributes = [];
-		if ( ! $this->isSortable())
-		{
-			$attributes['data-sortable'] = 'false';
-		}
-		if ($this->isSortableDefault())
-		{
-			$attributes['data-sortable-default'] = $this->sortableDest;
-		}
-		$attributes['style'] = 'width:10px;';
-		return $attributes;
+        return [
+            'sortable' => $this->isSortable(),
+            'default-sortable' => $this->isSortableDefault()
+        ];
 	}
 
 	/**
@@ -245,5 +238,10 @@ abstract class BaseColumn implements ColumnInterface
 	{
 		return $this->name;
 	}
+
+    public function getLabel()
+    {
+        return $this->label;
+    }
 
 }

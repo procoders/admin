@@ -236,6 +236,13 @@ class MenuItem
 		return Admin::instance()->models->modelWithClassname($this->modelClass);
 	}
 
+    public function getSubUrls()
+    {
+        return array_map(function($i) {
+            return $i->getUrl();
+        }, (array)$this->subItems);
+    }
+
 	/**
 	 * @param int $level
 	 * @return string
@@ -249,44 +256,8 @@ class MenuItem
             ->with('icon', $this->getIcon())
             ->with('title', $this->getLabel())
             ->with('link', $this->getUrl())
-            ->with('subItems', $this->subItems);
-        /*
-		if ($this->isHidden()) return;
-		if ($this->hasSubItems())
-		{
-			$level++;
-			$content = $this->htmlBuilder->tag('i', [
-				'class' => [
-					'fa',
-					'fa-fw',
-					$this->getIcon()
-				]
-			]);
-			$content .= ' ' . $this->getLabel() . $this->htmlBuilder->tag('span', ['class' => 'fa arrow']);
-			$content = $this->htmlBuilder->tag('a', ['href' => $this->getUrl()], $content);
-
-			$subitemsContent = '';
-			foreach ($this->subItems as $item)
-			{
-				$subitemsContent .= $item->render($level);
-			}
-
-			$classByLevel = [
-				2 => 'nav-second-level',
-				3 => 'nav-third-level'
-			];
-			$content .= $this->htmlBuilder->tag('ul', [
-				'class' => [
-					'nav',
-					Arr::get($classByLevel, $level, null)
-				]
-			], $subitemsContent);
-		} else
-		{
-			$content = $this->renderSingleItem();
-		}
-		return $this->htmlBuilder->tag('li', [], $content);
-        */
+            ->with('subItems', $this->subItems)
+            ->with('item', $this);
 	}
 
 	/**

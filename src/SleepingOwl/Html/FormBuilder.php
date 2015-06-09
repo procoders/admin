@@ -218,10 +218,11 @@ class FormBuilder extends IlluminateFormBuilder
 	 */
 	public function checkboxGroup($name, $label, $value = null, array $options = [])
 	{
-		$content = $this->hidden($name, 0, ['type' => 'hidden']);
-		$content .= $this->labelWithoutEscaping($name, $this->checkbox($name, 1, $value, $options) . $label);
-		$content = $this->html->tag('div', ['class' => 'checkbox'], $content);
-		return $this->wrapContent($name, $content);
+        return view('admin::_partials/form_elements/checkbox')
+            ->with('name', $name)
+            ->with('label', $label)
+            ->with('value', $value)
+            ->with('options', $options);
 	}
 
 	/**
@@ -252,7 +253,12 @@ class FormBuilder extends IlluminateFormBuilder
 	public function selectGroup($name, $label, array $list = [], $value = null, array $options = [])
 	{
 		$options = $this->updateOptions($options);
-		return $this->makeGroup($name, $label, $this->html->tag('div', [], $this->select($name, $list, $value, $options)));
+        return view('admin::_partials/form_elements/select')
+            ->with('name', $name)
+            ->with('label', $label)
+            ->with('value', $value)
+            ->with('options', $list);
+		/*return $this->makeGroup($name, $label, $this->html->tag('div', [], $this->select($name, $list, $value, $options)));*/
 	}
 
 	/**

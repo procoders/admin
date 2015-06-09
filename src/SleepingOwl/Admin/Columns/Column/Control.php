@@ -7,6 +7,9 @@ use SleepingOwl\Models\Interfaces\ModelWithOrderFieldInterface;
 
 class Control extends BaseColumn
 {
+    const EDIT_BUTTON = 'EDIT_BUTTON';
+    const DELETE_BUTTON = 'DELETE_BUTTON';
+
 	/**
 	 * @var \SleepingOwl\Admin\Router
 	 */
@@ -34,6 +37,7 @@ class Control extends BaseColumn
 	 */
 	public function render($instance, $totalCount)
 	{
+
 		$buttons = [];
 		if ( ! $this->modelItem->isOrderable())
 		{
@@ -51,17 +55,14 @@ class Control extends BaseColumn
 	 */
 	protected function editButton($instance, $active = true)
 	{
-		$editParameters = [
-			'class'       => 'btn btn-default btn-sm',
-			'href'        => $this->router->routeToEdit($this->modelItem->getAlias(), $instance->getKey()),
-			'data-toggle' => 'tooltip',
-			'title'       => Lang::get('admin::lang.table.edit')
-		];
-		if ( ! $active)
-		{
-			$editParameters[] = 'disabled';
-		}
-		return $this->htmlBuilder->tag('a', $editParameters, '<i class="fa fa-pencil"></i>');
+        if ($active == false)
+            return '';
+
+        return view('admin::_partials.button')
+            ->with('type', self::EDIT_BUTTON)
+            ->with('link', $this->router->routeToEdit($this->modelItem->getAlias(), $instance->getKey()))
+            ->with('data-toggle', 'tooltip')
+            ->with('title', Lang::get('admin::lang.table.edit'));
 	}
 
 	/**
@@ -71,25 +72,14 @@ class Control extends BaseColumn
 	 */
 	protected function destroyButton($instance, $active = true)
 	{
-		$content = '';
-		$content .= $this->formBuilder->open([
-			'method' => 'delete',
-			'url'    => $this->router->routeToDestroy($this->modelItem->getAlias(), $instance->getKey()),
-			'class'  => 'inline-block'
-		]);
-		$attributes = [
-			'class'       => 'btn btn-danger btn-sm btn-delete',
-			'type'        => 'submit',
-			'data-toggle' => 'tooltip',
-			'title'       => Lang::get('admin::lang.table.delete'),
-		];
-		if ( ! $active)
-		{
-			$attributes[] = 'disabled';
-		}
-		$content .= $this->htmlBuilder->tag('button', $attributes, '<i class="fa fa-times"></i>');
-		$content .= $this->formBuilder->close();
-		return $content;
+        if ($active == false)
+            return '';
+
+        return view('admin::_partials.button')
+            ->with('type', self::DELETE_BUTTON)
+            ->with('link', $this->router->routeToDestroy($this->modelItem->getAlias(), $instance->getKey()))
+            ->with('data-toggle', 'tooltip')
+            ->with('title', Lang::get('admin::lang.table.edit'));
 	}
 
 	/**

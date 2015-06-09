@@ -3,14 +3,21 @@
 @section('innerContent')
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header">{{{ $title }}}</h1>
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    {{{ $title }}}
+                </div>
+                <div class="panel-body">
+			        {!! $form->render() !!}
+                </div>
+            </div>
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-lg-12">
-			{!! $form->render() !!}
-		</div>
-	</div>
+    <?php
+    AssetManager::addStyle('admin::css/bootstrap-select.min.css');
+    AssetManager::addScript('admin::js/bootstrap-select.min.js');
+    AssetManager::addScript('admin::js/form-plugins.js');
+    ?>
     <script>
         var myFile = document.getElementById("teq");
         if(myFile) {
@@ -26,6 +33,9 @@
                 }
             });
         }
+        $(document).ready(function() {
+            handleSelectpicker();
+        });
     </script>
 
 @stop

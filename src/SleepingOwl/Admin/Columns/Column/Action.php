@@ -71,6 +71,7 @@ class Action extends BaseColumn
 	 */
 	protected function button($instance)
 	{
+
 		if ( ! is_null($this->url))
 		{
 			if (is_callable($this->url))

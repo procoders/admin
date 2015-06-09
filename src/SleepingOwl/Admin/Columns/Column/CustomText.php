@@ -72,4 +72,9 @@ Class CustomText implements ColumnInterface {
     {
         return 'custom_text';
     }
+
+    public function getLabel()
+    {
+        return $this->label;
+    }
 }

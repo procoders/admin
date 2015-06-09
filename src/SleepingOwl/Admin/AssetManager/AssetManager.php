@@ -12,21 +12,36 @@ class AssetManager
 	 * @var array
 	 */
 	protected static $styles = [
-        'admin::assets/plugins/bootstrap/css/bootstrap.min.css',
-        'admin::assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css',
-        'admin::assets/plugins/font-awesome/css/font-awesome.min.css',
-        'admin::assets/css/animate.min.css',
-        'admin::assets/css/style.min.css',
-        'admin::assets/css/style-responsive.min.css',
-        'admin::assets/css/theme/default.css',
+        'admin::css/bootstrap.min.css',
+        'admin::css/jquery-ui.min.css',
+        'admin::css/font-awesome.min.css',
+        'admin::css/animate.min.css',
+        'admin::css/style.min.css',
+        'admin::css/style-responsive.min.css',
+        'admin::css/theme/default.css',
     ];
 	/**
 	 * Scripts array to include on every admin page
 	 * @var array
 	 */
 	protected static $scripts = [
-        'admin::assets/plugins/jquery/jquery-1.9.1.min',
-	    'admin::assets/plugins/pace/pace.min.js'
+        'admin::js/jquery-1.9.1.min.js',
+	    'admin::js/pace.min.js',
+        'admin::js/bootstrap.min.js',
+        'admin::js/jquery-migrate-1.1.0.min.js',
+        'admin::js/jquery-ui.min.js',
+        'admin::js/jquery.slimscroll.min.js',
+        'admin::js/jquery.cookie.js',
+        'admin::js/jquery.gritter.min.js',
+        'admin::js/jquery.flot.min.js',
+        'admin::js/jquery.flot.time.min.js',
+        'admin::js/jquery.flot.resize.min.js',
+        'admin::js/jquery.flot.pie.min.js',
+        'admin::js/jquery.sparkline.js',
+        'admin::js/jquery-jvectormap-1.2.2.min.js',
+        'admin::js/jquery-jvectormap-world-mill-en.js',
+        'admin::js/bootstrap-datepicker.js',
+        'admin::js/apps.js'
     ];
 
 	public static function styles()

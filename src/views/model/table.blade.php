@@ -1,43 +1,17 @@
 @extends('admin::_layout.inner')
 
 @section('innerContent')
-    <script>
-        $(function(){
-            jQuery('#dataTable_filter').remove();
-            jQuery('#filterForm').on('submit', processForm);
-        })
-        function processForm (e){
-            e.preventDefault();
-            var url = jQuery('#filterForm').attr('action').split('?');
-            url = url[0]+'?';
-            jQuery('#filterForm :input').each(function(){
-                if (($(this).val().length !== 0 && $(this).val() != '-1' && typeof($(this).val()) != 'undefined')) {
-                    if ($(this).attr('type') != 'submit' && $(this).attr('type') != 'button' && $(this).attr('type') != 'checkbox') {
-                        url += this.name + '=' + $(this).val() + '&';
-                    }
-                    if ($(this).attr('type') == 'checkbox' && $(this).is(':checked')) {
-                        url += this.name + '=' + $(this).val() + '&';
-                    }
-                }
-            });
-            window.location.replace(url.slice(0, -1));
-        }
-        function resetForm() {
-            var form = jQuery('#filterForm');
-            form[0].reset();
-            form.find('select').each(function(){
-                $(this).val(-1);
-            })
-        }
-    </script>
 	<div class="row">
 		<div class="col-lg-12">
 			<h1 class="page-header">
 				{{{ $title }}}
-				@if(isset($subtitle))
-					({{{ $subtitle }}})
-				@endif
+				@if(isset($subtitle)) <small>{{ $subtitle }}</small> @endif
+                <a class="btn btn-success m-r-5 pull-right" {{ $modelItem->isCreatable() ? '' : 'disabled' }} href="{{{ $newEntryRoute }}}">
+                    <i class="fa fa-plus"></i>
+                    {{{ Lang::get('admin::lang.table.new-entry') }}}
+                </a>
 			</h1>
+            {{-- TODO: change this --}}
 			@if(Session::has('message'))
 				<div class="alert alert-danger alert-dismissable">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -46,6 +20,60 @@
 			@endif
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-inverse">
+                <div class="panel-heading">{{{ $title }}}</div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table id="data-table" class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        @foreach ($columns as $column)
+                                        <th>{{ ucfirst($column->getLabel()) }}</th>
+                                        @endforeach
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($rows as $i => $row)
+                                        <tr class="@if ($i%2) odd @else even @endif">
+                                            @foreach ($columns as $column)
+                                                {!! $column->render($row, count($rows)) !!}
+                                            @endforeach
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                                @if ($modelItem->isColumnFilter() && ! $modelItem->isAsync())
+                                    <tfoot>
+                                        <tr>
+                                            @foreach ($columns as $column)
+                                                <td></td>
+                                            @endforeach
+                                        </tr>
+                                    </tfoot>
+                                @endif
+                            </table>
+                        </div>
+                    </div>
+			</div>
+		</div>
+	</div>
+    <?php
+        AssetManager::addStyle('admin::css/data-table.css');
+        AssetManager::addScript('admin::js/jquery.dataTables.js');
+        AssetManager::addScript('admin::js/dataTables.fixedHeader.js');
+        AssetManager::addScript('admin::js/table-manage-fixed-header.js');
+    ?>
+    <script>
+        $(document).ready(function() {
+            App.init();
+            TableManageFixedHeader.init();
+        });
+    </script>
+@stop
+
+
+{{--
     @if($modelItem->hasCustomFilters())
     <div class="row">
         <div class="col-lg-12">
@@ -103,38 +131,35 @@
         </div>
     </div>
     @endif
-	<div class="row">
-		<div class="col-lg-12">
-			<a class="btn btn-success navbar-btn" {{ $modelItem->isCreatable() ? '' : 'disabled' }} href="{{{ $newEntryRoute }}}" style="float: right;"><i class="fa fa-plus"></i> {{{ Lang::get('admin::lang.table.new-entry') }}}</a>
-			<div class="table-responsive">
-				<table class="table table-striped table-hover" id="dataTable" {!! $modelItem->renderTableAttributes() !!}>
-					<thead>
-						<tr>
-							@foreach ($columns as $column)
-                                {!! $column->renderHeader() !!}
-							@endforeach
-						</tr>
-					</thead>
-					<tbody>
-						@foreach ($rows as $row)
-							<tr>
-								@foreach ($columns as $column)
-									{!! $column->render($row, count($rows)) !!}
-								@endforeach
-							</tr>
-						@endforeach
-					</tbody>
-					@if ($modelItem->isColumnFilter() && ! $modelItem->isAsync())
-						<tfoot>
-							<tr>
-								@foreach ($columns as $column)
-									<td></td>
-								@endforeach
-							</tr>
-						</tfoot>
-					@endif
-				</table>
-			</div>
-		</div>
-	</div>
-@stop
+
+    <script>
+        $(function(){
+            jQuery('#dataTable_filter').remove();
+            jQuery('#filterForm').on('submit', processForm);
+        })
+        function processForm (e){
+            e.preventDefault();
+            var url = jQuery('#filterForm').attr('action').split('?');
+            url = url[0]+'?';
+            jQuery('#filterForm :input').each(function(){
+                if (($(this).val().length !== 0 && $(this).val() != '-1' && typeof($(this).val()) != 'undefined')) {
+                    if ($(this).attr('type') != 'submit' && $(this).attr('type') != 'button' && $(this).attr('type') != 'checkbox') {
+                        url += this.name + '=' + $(this).val() + '&';
+                    }
+                    if ($(this).attr('type') == 'checkbox' && $(this).is(':checked')) {
+                        url += this.name + '=' + $(this).val() + '&';
+                    }
+                }
+            });
+            window.location.replace(url.slice(0, -1));
+        }
+        function resetForm() {
+            var form = jQuery('#filterForm');
+            form[0].reset();
+            form.find('select').each(function(){
+                $(this).val(-1);
+            })
+        }
+    </script>
+
+--}}

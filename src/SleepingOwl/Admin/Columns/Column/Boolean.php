@@ -42,4 +42,9 @@ class Boolean implements ColumnInterface {
     {
         return $this->name;
     }
+
+    public function getLabel()
+    {
+        return $this->title;
+    }
 }

@@ -22,7 +22,9 @@
         </div>
 		<div id="page-wrapper">
             @include('admin::_partials.sidebar')
+            <div id="content" class="content">
 			@yield('innerContent')
+            </div>
 		</div>
 	</div>
 @stop

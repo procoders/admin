@@ -127,8 +127,10 @@ class Form
 		$content[] = $this->formBuilder->model($this->instance, [
 			'method' => $this->method,
 			'url'    => $this->saveUrl,
-			'errors' => $this->errors
+			'errors' => $this->errors,
+            'class'  => 'form-horizontal form-bordered'
 		]);
+
 		foreach ($this->items as $item)
 		{
 			$content[] = $item->render();
@@ -136,7 +138,8 @@ class Form
 		$content[] = $this->formBuilder->submitGroup($this->backUrl);
 		$content[] = $this->formBuilder->close();
 
-		return implode('', $content);
+		$response =  implode('', $content);
+        return $response;
 	}
 
 	/**
