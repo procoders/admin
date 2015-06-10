@@ -1,30 +1,53 @@
 @extends('admin::_layout.base')
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-                <div class="login-panel panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">{{ Lang::get('admin::lang.auth.title') }}</h3>
-                    </div>
-                    <div class="panel-body">
-                        {!! Form::open(['url' => $loginPostUrl]) !!}
-                            <fieldset>
-                                <div class="form-group <?=($errors->has('username')) ? 'has-error' : ''?>">
-                                    {!! $errors->first('username', Form::label('username', ':message', ['class' => 'control-label'])) !!}
-                                    {!! Form::text('username', null, ['class' => 'form-control', 'placeholder' => Lang::get('admin::lang.auth.username'), 'autofocus']) !!}
-                                </div>
-                                <div class="form-group <?=($errors->has('password')) ? 'has-error' : ''?>">
-                                    {!! $errors->first('password', Form::label('password', ':message', ['class' => 'control-label'])) !!}
-                                    {!! Form::password('password', ['class' => 'form-control', 'placeholder' => Lang::get('admin::lang.auth.password')]) !!}
-                                </div>
-                                {!! Form::button(Lang::get('admin::lang.auth.login'), ['class' => 'btn btn-lg btn-success btn-block', 'type' => 'submit']) !!}
-                            </fieldset>
-                        {!! Form::close() !!}
-                    </div>
+    <div class="login-cover">
+        <div class="login-cover-image"><img src="{{Admin::instance()->router->routeToAsset('img/login-bg/bg-6.jpg')}}" data-id="login-cover-image" alt="" /></div>
+        <div class="login-cover-bg"></div>
+    </div>
+    <div id="page-container" class="fade">
+        <div class="login login-v2" data-pageload-addclass="animated fadeIn">
+            <div class="login-header">
+                <div class="brand">
+                    One Hotel
+                    <small>{{ Lang::get('admin::lang.auth.title') }}</small>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-sign-in"></i>
                 </div>
             </div>
+            <div class="login-content">
+                <form action="{{$loginPostUrl}}" method="POST" class="margin-bottom-0">
+                    <div class="form-group m-b-20">
+                        <input type="text" class="form-control input-lg" name="username" placeholder="{{ Lang::get('admin::lang.auth.username') }}" />
+                    </div>
+                    <div class="form-group m-b-20">
+                        <input type="password" class="form-control input-lg" name="password" placeholder="{{ Lang::get('admin::lang.auth.password') }}" />
+                    </div>
+                    <div class="login-buttons">
+                        <button type="submit" class="btn btn-success btn-block btn-lg">Sign me in</button>
+                    </div>
+                    <div class="m-t-20">
+                        Not a member yet? Click <a href="/registration">here</a> to register.
+                    </div>
+                </form>
+            </div>
         </div>
+        <ul class="login-bg-list">
+            <li><a href="#" data-click="change-bg"><img src="{{Admin::instance()->router->routeToAsset('img/login-bg/bg-1.jpg')}}" alt="" /></a></li>
+            <li><a href="#" data-click="change-bg"><img src="{{Admin::instance()->router->routeToAsset('img/login-bg/bg-2.jpg')}}" alt="" /></a></li>
+            <li><a href="#" data-click="change-bg"><img src="{{Admin::instance()->router->routeToAsset('img/login-bg/bg-3.jpg')}}" alt="" /></a></li>
+            <li><a href="#" data-click="change-bg"><img src="{{Admin::instance()->router->routeToAsset('img/login-bg/bg-4.jpg')}}" alt="" /></a></li>
+            <li><a href="#" data-click="change-bg"><img src="{{Admin::instance()->router->routeToAsset('img/login-bg/bg-5.jpg')}}" alt="" /></a></li>
+            <li class="active"><a href="#" data-click="change-bg"><img src="{{Admin::instance()->router->routeToAsset('img/login-bg/bg-6.jpg')}}" alt="" /></a></li>
+        </ul>
     </div>
+    <?php AssetManager::addScript('admin::js/login.js'); ?>
+    <script>
+        $(document).ready(function() {
+            App.init();
+            LoginV2.init();
+        });
+    </script>
 @stop
+

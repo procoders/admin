@@ -280,7 +280,8 @@ class FormBuilder extends IlluminateFormBuilder
             ->with('name', $name)
             ->with('label', $label)
             ->with('value', $value)
-            ->with('options', $list);
+            ->with('options', $list)
+            ->with('id', (!empty($options['id']) ? $options['id'] : $name));
 		/*return $this->makeGroup($name, $label, $this->html->tag('div', [], $this->select($name, $list, $value, $options)));*/
 	}
 
