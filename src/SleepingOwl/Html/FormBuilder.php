@@ -135,6 +135,7 @@ class FormBuilder extends IlluminateFormBuilder
 	public function datetime($name, $label, $value = null, array $options = [], $dateFormat = DateFormatter::SHORT,
 							 $timeFormat = DateFormatter::NONE)
 	{
+        /*
 		$value = $this->getValueAttribute($name, $value);
 		if ( ! is_null($value))
 		{
@@ -144,6 +145,20 @@ class FormBuilder extends IlluminateFormBuilder
 		$options = $this->addClassToOptions('form-control', $options);
 		$content = $this->textAddon($name, $value, '<span></span>', 'after', $options, ['class' => 'datepicker']);
 		return $this->makeGroup($name, $label, $content);
+        */
+
+        $value = $this->getValueAttribute($name, $value);
+        if ( ! is_null($value))
+        {
+            $value = DateFormatter::format($value, $dateFormat, $timeFormat);
+        }
+
+        return view('admin::_partials/form_elements/date')
+            ->with('name', $name)
+            ->with('label', $label)
+            ->with('value', $value)
+            ->with('options', $options)
+            ->with('format', $dateFormat);
 	}
 
 	/**
@@ -155,8 +170,14 @@ class FormBuilder extends IlluminateFormBuilder
 	 */
 	public function textGroup($name, $label, $value = null, array $options = [])
 	{
+
 		$options = $this->updateOptions($options);
-		return $this->makeGroup($name, $label, $this->text($name, $value, $options));
+        return view('admin::_partials/form_elements/input_text')
+            ->with('name', $name)
+            ->with('label', $label)
+            ->with('value', (is_null($value)) ? $this->model->$name : $value)
+            ->with('options', $options);
+		/*return $this->makeGroup($name, $label, $this->text($name, $value, $options));*/
 	}
 
 	/**
@@ -273,6 +294,14 @@ class FormBuilder extends IlluminateFormBuilder
 	public function textareaGroup($name, $label, $value = null, array $options = [])
 	{
 		$options = $this->updateOptions($options);
+        $options['id'] = uniqid();
+
+        return view('admin::_partials/form_elements/textarea')
+            ->with('name', $name)
+            ->with('label', $label)
+            ->with('value', $value)
+            ->with('options', $options)
+            ->with('id', $options['id']);
 		return $this->makeGroup($name, $label, $this->textarea($name, $value, $options));
 	}
 
@@ -343,10 +372,9 @@ class FormBuilder extends IlluminateFormBuilder
 	 */
 	public function submitGroup($cancelUrl)
 	{
-		$content = $this->submit(Lang::get('admin::lang.table.save'), ['class' => 'btn btn-primary']);
-		$content .= ' ';
-		$content .= $this->html->link($cancelUrl, Lang::get('admin::lang.table.cancel'), ['class' => 'btn btn-default']);
-		return $this->wrapGroup($content);
+        return view('admin::_partials/form_elements/actions')
+            ->with('cancelUrl', $cancelUrl);
+
 	}
 
 	/**

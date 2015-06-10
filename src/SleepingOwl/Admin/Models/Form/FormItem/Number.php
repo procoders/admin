@@ -84,7 +84,7 @@ Class Number extends BaseFormItem {
         }
 
         AssetManager::addScript('/adm/js/bootstrap-number-input.js');
-        return view('admin/hotel/form/number')
+        return view('admin::_partials/form_elements/input_number')
             ->with('column', $this->column)
             ->with('value', $inputValue)
             ->with('name', $this->name)

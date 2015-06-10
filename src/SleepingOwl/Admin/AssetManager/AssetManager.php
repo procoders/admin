@@ -40,7 +40,6 @@ class AssetManager
         'admin::js/jquery.sparkline.js',
         'admin::js/jquery-jvectormap-1.2.2.min.js',
         'admin::js/jquery-jvectormap-world-mill-en.js',
-        'admin::js/bootstrap-datepicker.js',
         'admin::js/apps.js'
     ];
 

@@ -66,7 +66,6 @@
     ?>
     <script>
         $(document).ready(function() {
-            App.init();
             TableManageFixedHeader.init();
         });
     </script>

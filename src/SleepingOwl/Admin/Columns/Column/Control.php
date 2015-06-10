@@ -79,7 +79,7 @@ class Control extends BaseColumn
             ->with('type', self::DELETE_BUTTON)
             ->with('link', $this->router->routeToDestroy($this->modelItem->getAlias(), $instance->getKey()))
             ->with('data-toggle', 'tooltip')
-            ->with('title', Lang::get('admin::lang.table.edit'));
+            ->with('title', Lang::get('admin::lang.table.delete'));
 	}
 
 	/**
