@@ -25,4 +25,7 @@ interface ColumnInterface
 	 */
 	public function getName();
 
+    public function isSortable();
+
+    public function getLabel();
 } 

@@ -125,4 +125,9 @@ class Control extends BaseColumn
 		$content .= $this->formBuilder->close();
 		return $content;
 	}
+
+    public function isSortable()
+    {
+        return false;
+    }
 } 

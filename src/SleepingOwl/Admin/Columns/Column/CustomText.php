@@ -15,6 +15,14 @@ Class CustomText implements ColumnInterface {
      */
     protected $label;
 
+    protected $sortable = true;
+
+    public function sortable($value)
+    {
+        $this->sortable = (bool)$value;
+        return $this;
+    }
+
     /**
      * @param $method
      * @return $this
@@ -76,5 +84,10 @@ Class CustomText implements ColumnInterface {
     public function getLabel()
     {
         return $this->label;
+    }
+
+    public function isSortable()
+    {
+        return $this->sortable;
     }
 }

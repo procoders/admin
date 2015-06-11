@@ -169,4 +169,9 @@ class Action extends BaseColumn
 		return $this;
 	}
 
+    public function isSortable()
+    {
+        return false;
+    }
+
 }

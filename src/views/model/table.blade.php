@@ -27,7 +27,7 @@
                     <div class="panel-body">
                         <div class="table-responsive">
                             <?php $tableId = uniqid(); ?>
-                            <table id="{{$tableId}}" class="table table-striped table-bordered">
+                            <table id="{{$tableId}}" class="table table-striped table-bordered adm-table">
                                 <thead>
                                     <tr>
                                         @foreach ($columns as $column)
@@ -63,18 +63,39 @@
         AssetManager::addStyle('admin::css/data-table.css');
         AssetManager::addScript('admin::js/jquery.dataTables.js');
         AssetManager::addScript('admin::js/dataTables.colReorder.js');
+        AssetManager::addScript('admin::js/dataTables.keyTable.js');
         AssetManager::addScript('admin::js/dataTables.fixedHeader.js');
+        AssetManager::addScript('admin::js/dataTables.colVis.js');
         AssetManager::addScript('admin::js/table-manager.js');
     ?>
+    <style>
+        .adm-table td.focus {
+            -webkit-box-shadow: inset 1px 0px 11px 0px rgba(22, 123, 169, 0.64);
+            -moz-box-shadow:    inset 1px 0px 11px 0px rgba(22, 123, 169, 0.64);
+            box-shadow:         inset 1px 0px 11px 0px rgba(22, 123, 169, 0.64);
+            border: none;
+            outline: none !important;
+        }
+    </style>
     <script>
         $(document).ready(function() {
-            AdminTable.init('{{$tableId}}');
+            AdminTable.init('{{$tableId}}', {
+                exclColumns: {{count($columns)-1}},
+                sortConfig: [
+                @foreach ($columns as $i => $column)
+                    @if ($column->isSortable() == false)
+                    { 'bSortable': false, 'aTargets': [ {{$i}} ]},
+                    @endif
+                @endforeach
+                ]
+            });
         });
     </script>
 @stop
 
 
 {{--
+// { 'bSortable': false, 'aTargets': [ 1 ] }
     @if($modelItem->hasCustomFilters())
     <div class="row">
         <div class="col-lg-12">

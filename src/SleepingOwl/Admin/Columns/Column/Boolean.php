@@ -7,6 +7,13 @@ class Boolean implements ColumnInterface {
 
     protected $title;
     protected $name;
+    protected $sortable = true;
+
+    public function sortable($value)
+    {
+        $this->sortable = (bool)$value;
+        return $this;
+    }
 
     public function title($title)
     {
@@ -46,5 +53,10 @@ class Boolean implements ColumnInterface {
     public function getLabel()
     {
         return $this->title;
+    }
+
+    public function isSortable()
+    {
+        return $this->sortable;
     }
 }
