@@ -23,6 +23,7 @@
 </head>
 <body class="pace-done">
 	@yield('content')
+
     <script>
         $(document).ready(function() {
             App.init();
