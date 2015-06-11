@@ -4,7 +4,7 @@
     <div id="page-loader" class="fade in"><span class="spinner"></span></div>
 
     <div class="login-cover">
-        <div class="login-cover-image" style="background: url('{{Admin::instance()->router->routeToAsset('img/login-bg/bg-6.jpg')}}'); background-size: cover;"></div>
+        <div class="login-cover-image" style="background: url('{{Admin::instance()->router->routeToAsset('img/login-bg/bg-3.jpg')}}'); background-size: cover;"></div>
         <div class="login-cover-bg"></div>
     </div>
     <div id="page-container" class="fade">
