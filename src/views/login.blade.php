@@ -38,10 +38,10 @@
         <ul class="login-bg-list">
             <li><a href="#" data-click="change-bg"><img src="{{Admin::instance()->router->routeToAsset('img/login-bg/bg-1.jpg')}}" alt="" /></a></li>
             <li><a href="#" data-click="change-bg"><img src="{{Admin::instance()->router->routeToAsset('img/login-bg/bg-2.jpg')}}" alt="" /></a></li>
-            <li><a href="#" data-click="change-bg"><img src="{{Admin::instance()->router->routeToAsset('img/login-bg/bg-3.jpg')}}" alt="" /></a></li>
+            <li class="active"><a href="#" data-click="change-bg"><img src="{{Admin::instance()->router->routeToAsset('img/login-bg/bg-3.jpg')}}" alt="" /></a></li>
             <li><a href="#" data-click="change-bg"><img src="{{Admin::instance()->router->routeToAsset('img/login-bg/bg-4.jpg')}}" alt="" /></a></li>
             <li><a href="#" data-click="change-bg"><img src="{{Admin::instance()->router->routeToAsset('img/login-bg/bg-5.jpg')}}" alt="" /></a></li>
-            <li class="active"><a href="#" data-click="change-bg"><img src="{{Admin::instance()->router->routeToAsset('img/login-bg/bg-6.jpg')}}" alt="" /></a></li>
+            <li><a href="#" data-click="change-bg"><img src="{{Admin::instance()->router->routeToAsset('img/login-bg/bg-6.jpg')}}" alt="" /></a></li>
         </ul>
     </div>
     <?php AssetManager::addScript('admin::js/login.js'); ?>
