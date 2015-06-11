@@ -26,7 +26,8 @@
                 <div class="panel-heading">{{{ $title }}}</div>
                     <div class="panel-body">
                         <div class="table-responsive">
-                            <table id="data-table" class="table table-striped table-bordered">
+                            <?php $tableId = uniqid(); ?>
+                            <table id="{{$tableId}}" class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
                                         @foreach ($columns as $column)
@@ -61,12 +62,13 @@
     <?php
         AssetManager::addStyle('admin::css/data-table.css');
         AssetManager::addScript('admin::js/jquery.dataTables.js');
+        AssetManager::addScript('admin::js/dataTables.colReorder.js');
         AssetManager::addScript('admin::js/dataTables.fixedHeader.js');
-        AssetManager::addScript('admin::js/table-manage-fixed-header.js');
+        AssetManager::addScript('admin::js/table-manager.js');
     ?>
     <script>
         $(document).ready(function() {
-            TableManageFixedHeader.init();
+            AdminTable.init('{{$tableId}}');
         });
     </script>
 @stop
