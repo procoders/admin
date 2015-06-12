@@ -25,7 +25,7 @@ class AgesDropdownFilter extends BaseCustomFilter {
         //TODO depends on hotel
         $options['-1'] = '- Adults -';
         for($i = 1; $i <= self::MAX_ADULTS_NUM; $i++) {
-            $options['ad'.$i] = $i;
+            $options[$i . ' Ad'] = $i . '&nbsp;Ad';
         }
         return $options;
     }
@@ -35,7 +35,7 @@ class AgesDropdownFilter extends BaseCustomFilter {
         //TODO depends on hotel
         $options['-1'] = '- Child -';
         for($i = 0; $i <= self::MAX_CHILD_NUM; $i++) {
-            $options['ch'.$i] = $i;
+            $options[$i . ' Ch'] = $i . '&nbsp;Ch';
         }
         return $options;
     }

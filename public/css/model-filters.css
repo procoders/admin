@@ -1,0 +1,49 @@
+.adm-table td.focus {
+    -webkit-box-shadow: inset 1px 0px 11px 0px rgba(22, 123, 169, 0.64);
+    -moz-box-shadow:    inset 1px 0px 11px 0px rgba(22, 123, 169, 0.64);
+    box-shadow:         inset 1px 0px 11px 0px rgba(22, 123, 169, 0.64);
+    border: none;
+    outline: none !important;
+}
+.filter-wrapper {
+    width: 100%;
+    text-align: center;
+    height:30px;
+    margin-bottom: 30px;
+}
+.filter-wrapper .dropdown {
+    display: inline-block;
+    width: 150px;
+    margin-right: 15px;
+    position: relative;
+    vertical-align: top;
+}
+.filter-wrapper .text, .filter-wrapper .input-date {
+    display: inline-block;
+    width: 150px;
+    margin-right: 15px;
+    height: 30px;
+    position: relative;
+    vertical-align: top;
+}
+.filter-wrapper .date {
+    display: inline-block;
+    width: 150px;
+    margin-right: 15px;
+    height: 30px;
+    position: relative;
+    vertical-align: top;
+}
+.filter-wrapper .input-date {
+    border-radius: 4px !important;
+    background: white;
+}
+.filter-wrapper .date .datepicker {
+    z-index: 200 !important;
+    padding: 0;
+}
+.filter-wrapper .reset {
+    display:inline-block;
+    vertical-align:top;
+    margin-top:4px;
+}

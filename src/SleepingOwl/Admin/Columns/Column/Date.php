@@ -17,7 +17,13 @@ class Date extends BaseColumn
 		'long'   => 1,
 		'medium' => 2,
 		'short'  => 3,
+        'custom' => 4
 	];
+
+    /**
+     * TODO: refactor
+     */
+    protected $customFormat = null;
 
 	/**
 	 * @var int
@@ -33,10 +39,14 @@ class Date extends BaseColumn
 	 * @param int $formatDate
 	 * @return $this
 	 */
-	public function formatDate($formatDate)
+	public function formatDate($formatDate, $customFormat = '')
 	{
-		if ( ! isset(static::$formats[$formatDate])) throw new \InvalidArgumentException;
-		$this->formatDate = static::$formats[$formatDate];
+		if ( ! isset(static::$formats[$formatDate]))
+            throw new \InvalidArgumentException;
+        if ($formatDate == 'custom') {
+            $this->customFormat = $customFormat;
+        }
+        $this->formatDate = static::$formats[$formatDate];
 		return $this;
 	}
 
@@ -67,10 +77,13 @@ class Date extends BaseColumn
 	 */
 	protected function getAttributesForCell($instance)
 	{
+        $date = new \DateTime($this->valueFromInstance($instance, $this->name));
+
 		return [
 			'class'      => 'column-date',
 			'data-order' => $this->valueFromInstance($instance, $this->name),
-		];
+            'data-timestamp'  => $date->getTimestamp()
+        ];
 	}
 
 	/**
@@ -84,7 +97,7 @@ class Date extends BaseColumn
 		$formattedDate = '';
 		if ( ! is_null($date))
 		{
-			$formattedDate = DateFormatter::format($date, $this->formatDate, $this->formatTime);
+			$formattedDate = DateFormatter::format($date, $this->formatDate, $this->formatTime, $this->customFormat);
 		}
 
 		return parent::render($instance, $totalCount, $formattedDate);
