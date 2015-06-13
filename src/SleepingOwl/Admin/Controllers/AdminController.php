@@ -205,6 +205,7 @@ class AdminController extends BaseController
 		$data = [
 			'title'         => $this->modelItem->getTitle(),
 			'columns'       => $this->modelItem->getColumns(),
+            'viewFilters'   => $this->modelItem->getViewFilters(),
 			'newEntryRoute' => $this->admin_router->routeToCreate($this->modelName, Input::query()),
 			'modelItem'     => $this->modelItem,
 			'rows'          => []

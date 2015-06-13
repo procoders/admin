@@ -3,6 +3,8 @@
 use SleepingOwl\Admin\Admin;
 use SleepingOwl\Admin\Columns\Column;
 use SleepingOwl\Admin\Columns\Interfaces\ColumnInterface;
+use SleepingOwl\Admin\ViewFilters\ViewFilter;
+use SleepingOwl\Admin\ViewFilters\Interfaces\ViewFilterInterface;
 use SleepingOwl\Admin\Exceptions\MethodNotFoundException;
 use SleepingOwl\Admin\Models\Filters\Filter;
 use SleepingOwl\Admin\Models\Form\Form;
@@ -10,7 +12,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use SleepingOwl\Models\Interfaces\ModelWithOrderFieldInterface;
-use SleepingOwl\Admin\Filters as CustomFilters;
 
 /**
  * Class ModelItem
@@ -47,6 +48,10 @@ class ModelItem
 	 * @var Filter[]
 	 */
 	protected $filters;
+    /**
+     * @var ViewFilter[]
+     */
+    protected $viewFilters;
 	/**
 	 * @var bool
 	 */
@@ -91,10 +96,6 @@ class ModelItem
      * @var bool
      */
     protected $stateSave = true;
-    /**
-     * @var array
-     */
-    protected $customFilters = [];
 
 	/**
 	 * @param $modelClass
@@ -106,6 +107,7 @@ class ModelItem
 		$this->alias = $this->getAliasFromClass($modelClass);
 		$this->columns = [];
 		$this->filters = [];
+        $this->viewFilters = [];
 		$this->form = null;
 
 		Admin::instance()->models->addItem($this);
@@ -152,8 +154,9 @@ class ModelItem
 	 */
 	public function isCreatable()
 	{
-		if (is_bool($this->creatable)) return $this->creatable;
-		return ! call_user_func($this->creatable);
+		return (is_bool($this->creatable))
+            ? $this->creatable
+            : !call_user_func($this->creatable);
 	}
 
 	/**
@@ -162,8 +165,10 @@ class ModelItem
 	 */
 	public function isEditable($instance)
 	{
-		if (is_bool($this->editable)) return $this->editable;
-		return ! call_user_func($this->editable, $instance);
+
+        return (is_bool($this->editable))
+            ? $this->editable
+            : !call_user_func($this->editable, $instance);
 	}
 
 	/**
@@ -172,8 +177,9 @@ class ModelItem
 	 */
 	public function isDeletable($instance)
 	{
-		if (is_bool($this->deletable)) return $this->deletable;
-		return ! call_user_func($this->deletable, $instance);
+        return (is_bool($this->deletable))
+            ? $this->deletable
+            : !call_user_func($this->deletable, $instance);
 	}
 
 	/**
@@ -274,6 +280,36 @@ class ModelItem
 		$this->columns[] = $column;
 	}
 
+    /**
+     * @param $callback
+     * @return $this
+     */
+    public function viewFilters($callback)
+    {
+
+        $old = static::$current;
+        static::$current = $this;
+        call_user_func($callback);
+        static::$current = $old;
+        return $this;
+    }
+
+    /**
+     * @param ViewFilterInterface $filter
+     */
+    public function addViewFilter(ViewFilterInterface $filter)
+    {
+        $this->viewFilters[] = $filter;
+    }
+
+    /**
+     * @return array|ViewFilter[]
+     */
+    public function getViewFilters()
+    {
+        return $this->viewFilters;
+    }
+
 	/**
 	 * @param $title
 	 * @return $this
@@ -371,11 +407,12 @@ class ModelItem
 		return Str::snake(Str::plural(class_basename($modelClass)));
 	}
 
-	/**
-	 * @param $method
-	 * @param $param
-	 * @throws MethodNotFoundException
-	 */
+    /**
+     * @param $method
+     * @param $param
+     * @return $this|mixed
+     * @throws MethodNotFoundException
+     */
 	public function __call($method, $param)
 	{
 		if ($method === 'as')
@@ -468,34 +505,4 @@ class ModelItem
 		$this->stateSave = $stateSave;
 		return $this;
 	}
-
-    /**
-     * @param $filterCallback
-     * @returns $this
-     */
-    public function addCustomFilter($filterCallback)
-    {
-        $filter = call_user_func($filterCallback);
-        if ($filter) {
-            $this->customFilters[] = $filter;
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getCustomFilters()
-    {
-        return $this->customFilters;
-    }
-
-    /**
-     * @return bool
-     */
-    public function hasCustomFilters()
-    {
-        return !empty($this->customFilters);
-    }
 }

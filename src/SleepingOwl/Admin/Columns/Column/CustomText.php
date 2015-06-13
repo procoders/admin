@@ -15,6 +15,8 @@ Class CustomText implements ColumnInterface {
      */
     protected $label;
 
+    protected $name;
+
     protected $sortable = true;
 
     public function sortable($value)
@@ -71,6 +73,12 @@ Class CustomText implements ColumnInterface {
     public function isHidden()
     {
         return false;
+    }
+
+    public function name($name)
+    {
+        $this->name = $name;
+        return $this;
     }
 
     /**

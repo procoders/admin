@@ -26,7 +26,7 @@
 			<div class="panel panel-inverse">
                 <div class="panel-heading">{{{ $title }}}</div>
                     <div class="panel-body">
-                        @if($modelItem->hasCustomFilters())
+                        @if (!empty($viewFilters))
                             @include('admin::model.filters')
                         @endif
                         <div class="table-responsive">
@@ -78,7 +78,8 @@
         AssetManager::addStyle('admin::css/model-filters.css');
         ?>
 
-        <?php
+
+        {{--
             $sortings = [];
             foreach ($columns as $i => $column) {
                 if ($column->isSortable() == false)
@@ -104,7 +105,8 @@
                 }
                 $filters[] = $filterData;
             }
-        ?>
+
+
 
         var filters = {!! json_encode($filters) !!};
         $(document).ready(function() {
@@ -114,5 +116,6 @@
                 filters: filters
             });
         });
+        --}}
     </script>
 @stop
