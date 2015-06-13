@@ -42,6 +42,11 @@ var AdminTable = function () {
                             });
                             break;
                         case 'boolDropdown':
+                            $('#' + id + '-bool-' + i).on('change', function(){
+                                var val = $(this).val();
+                                var sequance = $(this).data('sequance');
+                                customFilters().bool(val, sequance, table);
+                            });
                             break;
                     }
                 }
@@ -91,6 +96,19 @@ var AdminTable = function () {
                             }
 
                             return valid;
+                        });
+                        table.column(sequance).draw();
+                    },
+                    bool: function(filterValue, sequance, table) {
+                        $.fn.dataTable.ext.search = [];
+                        $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+                            var value = table.data()[dataIndex][sequance];
+                            if (filterValue * 1 < 1)
+                                return true;
+                            if (value['@data-search'] !== undefined) {
+                                value = value['@data-search'];
+                            }
+                            return (filterValue == value);
                         });
                         table.column(sequance).draw();
                     }

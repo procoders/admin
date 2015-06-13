@@ -34,7 +34,7 @@
                     @elseif($filter->getType() == 'boolDropdown')
                         <div style="display: inline-block; width: 200px; margin-right: 15px;  position: relative; vertical-align: top;">
                             <select name="{{$filter->getName()}}" data-live-search="true" data-style="btn-white" class="selectpicker form-control input-sm" id="{{$tableId}}-bool-{{$key}}" data-sequance="{{$filter->getColumnSequenceNumber()}}">
-                                <option value="-1">- {{$filter->getTitle()}} -</option>
+                                <option value="0">- {{$filter->getTitle()}} -</option>
                                 <option value="1" @if((int)$filter->getValue() == 1) selected @endif>{{$filter->getTrueValueName()}}</option>
                             </select>
                         </div>
