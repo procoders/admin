@@ -79,6 +79,14 @@
         ?>
 
 
+        $(document).ready(function() {
+            var table = AdminTable.init('{{$tableId}}', {
+                exclColumns: {{count($columns)-1}},
+                sortConfig: [{!! json_encode($unsortableColumns) !!}],
+            filters: filters
+        });
+        });
+
         {{--
             $sortings = [];
             foreach ($columns as $i => $column) {
@@ -90,7 +98,7 @@
             }
 
             $filters = [];
-
+        var filters = {!! json_encode($filters) !!};
             foreach ($modelItem->getCustomFilters() as $key => $filter) {
                 $filterData = [
                     'type' => $filter->getType(),
@@ -108,14 +116,7 @@
 
 
 
-        var filters = {!! json_encode($filters) !!};
-        $(document).ready(function() {
-            var table = AdminTable.init('{{$tableId}}', {
-                exclColumns: {{count($columns)-1}},
-                sortConfig: [{!! json_encode($sortings) !!}],
-                filters: filters
-            });
-        });
+
         --}}
     </script>
 @stop

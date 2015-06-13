@@ -202,12 +202,21 @@ class AdminController extends BaseController
 			return $this->asyncTable();
 		}
 		$this->queryState->save();
+
+        $columns = $this->modelItem->getColumns();
+        $unsortableColumns = [];
+        foreach ($columns as $i => $column) {
+            if ($column->isSortable() == false)
+                $unsortableColumns[] = $i;
+        }
+
 		$data = [
 			'title'         => $this->modelItem->getTitle(),
-			'columns'       => $this->modelItem->getColumns(),
+			'columns'       => $columns,
             'viewFilters'   => $this->modelItem->getViewFilters(),
 			'newEntryRoute' => $this->admin_router->routeToCreate($this->modelName, Input::query()),
 			'modelItem'     => $this->modelItem,
+            'unsortableColumns' => $unsortableColumns,
 			'rows'          => []
 		];
 		if ( ! $this->modelItem->isAsync())

@@ -9,8 +9,8 @@ AssetManager::addStyle('admin::css/datepicker.css');
                 @foreach ($viewFilters as $filterIndex => $filter)
                     {!! $filter->render($tableId, $filterIndex) !!}
                 @endforeach
+                <a href="#" id="reset-{{$tableId}}" class="reset">Reset form</a>
             </div>
-            <a href="#" id="reset-{{$tableId}}" class="reset">Reset form</a>
         </form>
     </div>
 </div>
