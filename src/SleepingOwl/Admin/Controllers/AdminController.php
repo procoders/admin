@@ -205,18 +205,36 @@ class AdminController extends BaseController
 
         $columns = $this->modelItem->getColumns();
         $unsortableColumns = [];
+        $nameToSequanceNumber = [];
         foreach ($columns as $i => $column) {
+            $nameToSequanceNumber[$column->getName()] = $i;
             if ($column->isSortable() == false)
                 $unsortableColumns[] = $i;
+        }
+
+        $viewFilters = $this->modelItem->getViewFilters();
+        $jsFilters = [];
+
+        foreach ($viewFilters as $i => $filter) {
+            $filterData = [
+                'type' => $filter->getFilterType(),
+                'sequanceNumber' => (isset($nameToSequanceNumber[$filter->getName()])) ? $nameToSequanceNumber[$filter->getName()] : null
+            ];
+
+            if ($filter->getFilterType() == \SleepingOwl\Admin\ViewFilters\ViewFilter\Date::TYPE) {
+                $filterData['rule'] = $filter->getRule();
+            }
+            $jsFilters[] = $filterData;
         }
 
 		$data = [
 			'title'         => $this->modelItem->getTitle(),
 			'columns'       => $columns,
-            'viewFilters'   => $this->modelItem->getViewFilters(),
+            'viewFilters'   => $viewFilters,
 			'newEntryRoute' => $this->admin_router->routeToCreate($this->modelName, Input::query()),
 			'modelItem'     => $this->modelItem,
             'unsortableColumns' => $unsortableColumns,
+            'jsFilters' => $jsFilters,
 			'rows'          => []
 		];
 		if ( ! $this->modelItem->isAsync())

@@ -44,6 +44,7 @@
 .filter-wrapper .reset {
     display:inline-block;
     vertical-align:top;
+    z-index: 300;
     margin-top:4px;
 }
 

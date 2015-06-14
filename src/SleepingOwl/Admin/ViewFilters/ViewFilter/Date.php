@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 Class Date extends BaseViewFilter
 {
 
-    const TYPE = 'text';
+    const TYPE = 'date';
 
     protected $rule;
 

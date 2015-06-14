@@ -79,44 +79,14 @@
         ?>
 
 
+        var filters = {!! json_encode($jsFilters) !!};
+
         $(document).ready(function() {
             var table = AdminTable.init('{{$tableId}}', {
                 exclColumns: {{count($columns)-1}},
                 sortConfig: [{!! json_encode($unsortableColumns) !!}],
-            filters: filters
+                filters: filters
         });
         });
-
-        {{--
-            $sortings = [];
-            foreach ($columns as $i => $column) {
-                if ($column->isSortable() == false)
-                    $sortings[] = [
-                        'bSortable' => false,
-                        'aTargets' => [$i],
-                    ];
-            }
-
-            $filters = [];
-        var filters = {!! json_encode($filters) !!};
-            foreach ($modelItem->getCustomFilters() as $key => $filter) {
-                $filterData = [
-                    'type' => $filter->getType(),
-                    'sequanceNumber' => (int)$filter->getColumnSequenceNumber()
-                ];
-                if ($filterData['type'] == 'text') {
-                    if ($filter->getName() == 'price') {
-                        $filterData['type'] = 'price';
-                    }
-                } elseif ($filterData['type'] == 'date') {
-                    $filterData['rule'] = $filter->getRule();
-                }
-                $filters[] = $filterData;
-            }
-
-
-
-
-        --}}
     </script>
 @stop

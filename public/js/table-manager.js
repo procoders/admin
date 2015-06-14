@@ -8,14 +8,16 @@ var AdminTable = function () {
                 for(var i=0; i < filters.length; i++) {
                     switch (filters[i].type) {
                         case 'dropdown':
+                            $('#' + id + '-dropdown-' + i).data('sequance', filters[i].sequanceNumber);
                             $('#' + id + '-dropdown-' + i).on('change', function(){
-                                var val = ($(this).val() == -1) ? '' : $(this).val();
+                                var val = $(this).val();
                                 var sequance = $(this).data('sequance');
                                 table.column(sequance).search(val).draw();
                             });
                             break;
                         case 'text':
                         case 'price':
+                            $('#' + id + '-' + filters[i].type + '-' + i).data('sequance', filters[i].sequanceNumber);
                             $('#' + id + '-' + filters[i].type + '-' + i).keyup(function(){
                                 var val = $(this).val();
                                 var sequance = $(this).data('sequance');
@@ -23,6 +25,7 @@ var AdminTable = function () {
                             });
                             break;
                         case 'date':
+                            $('#' + id + '-date-' + i).data('sequance', filters[i].sequanceNumber);
                             $('#' + id + '-date-' + i).datepicker({
                                 format: 'dd.mm.yyyy',
                                 todayHighlight: true,
@@ -41,7 +44,8 @@ var AdminTable = function () {
                                 }
                             });
                             break;
-                        case 'boolDropdown':
+                        case 'bool':
+                            $('#' + id + '-bool-' + i).data('sequance', filters[i].sequanceNumber);
                             $('#' + id + '-bool-' + i).on('change', function(){
                                 var val = $(this).val();
                                 var sequance = $(this).data('sequance');
@@ -103,7 +107,7 @@ var AdminTable = function () {
                         $.fn.dataTable.ext.search = [];
                         $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
                             var value = table.data()[dataIndex][sequance];
-                            if (filterValue * 1 < 1)
+                            if (filterValue.length < 1)
                                 return true;
                             if (value['@data-search'] !== undefined) {
                                 value = value['@data-search'];
