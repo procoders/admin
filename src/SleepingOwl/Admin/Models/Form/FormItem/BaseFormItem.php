@@ -26,6 +26,9 @@ abstract class BaseFormItem implements FormItemInterface
 	 * @var string
 	 */
 	protected $name;
+
+    protected $value = NULL;
+
 	/**
 	 * @var string
 	 */
@@ -59,6 +62,17 @@ abstract class BaseFormItem implements FormItemInterface
 			$this->form = $modelItem->getForm();
 		}
 	}
+
+    public function value($value)
+    {
+        $this->value = $value;
+        return $this;
+    }
+
+    public function getValue()
+    {
+        return $this->value;
+    }
 
 	/**
 	 * @return string

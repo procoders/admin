@@ -2,6 +2,8 @@
 
 use Illuminate\Html\HtmlBuilder as IlluminateHtmlBuilder;
 use SleepingOwl\DateFormatter\DateFormatter;
+use SleepingOwl\Admin\Admin;
+use SleepingOwl\Admin\AssetManager\AssetManager;
 
 /**
  * Class HtmlBuilder
@@ -104,7 +106,44 @@ class HtmlBuilder extends IlluminateHtmlBuilder
     }
 
     /**
-     * This method will generate input type text field
+     * @param $name
+     * @param string $label
+     * @param int $value
+     * @param array $options
+     * @return $this
+     */
+    public static function number($name, $label = '', $value = 0, $options = [])
+    {
+        if (empty($options['id']))
+            $options['id'] = uniqid();
+
+        return view('admin::_partials/form_elements/input_number')
+            ->with('value', $value)
+            ->with('name', $name)
+            ->with('label', $label)
+            ->with('options', $options);
+    }
+
+    /**
+     * This method will generate input email
+     *
+     * @param $name
+     * @param string $label
+     * @param string $value
+     * @param array $options
+     * @return $this
+     */
+    public static function emailField($name, $label = '', $value = '', $options = [])
+    {
+        return view('admin::_partials/form_elements/input_email')
+            ->with('name', $name)
+            ->with('label', $label)
+            ->with('value', $value)
+            ->with('options', $options);
+    }
+
+    /**
+     * This method will generate input type password field
      *
      * @param $name
      * @param string $label
@@ -115,6 +154,50 @@ class HtmlBuilder extends IlluminateHtmlBuilder
     public static function password($name, $label = '', $value = '', $options = [])
     {
         return view('admin::_partials/form_elements/input_password')
+            ->with('name', $name)
+            ->with('label', $label)
+            ->with('value', $value)
+            ->with('options', $options);
+    }
+
+    /**
+     * This method will generate input type text field
+     *
+     * @param $name
+     * @param string $label
+     * @param string $value
+     * @param array $options
+     * @return $this
+     */
+    public static function price($name, $label = '', $value = '', $options = [], $currency = '$')
+    {
+        return view('admin::_partials/form_elements/input_price')
+            ->with('name', $name)
+            ->with('label', $label)
+            ->with('value', $value)
+            ->with('options', $options)
+            ->with('currency', $currency);
+    }
+
+    /**
+     * This method will generate input color
+     *
+     * @param $name
+     * @param string $label
+     * @param string $value
+     * @param array $options
+     * @return $this
+     */
+    public static function color($name, $label = '', $value = '', $options = [])
+    {
+        AssetManager::addScript(Admin::instance()->router->routeToAsset('js/bootstrap-colorpicker.js'));
+        AssetManager::addStyle(Admin::instance()->router->routeToAsset('css/bootstrap-colorpicker.min.css'));
+
+        if (empty($options['id'])) {
+            $options['id'] = uniqid();
+        }
+
+        return view('admin::_partials/form_elements/input_color')
             ->with('name', $name)
             ->with('label', $label)
             ->with('value', $value)
@@ -158,8 +241,10 @@ class HtmlBuilder extends IlluminateHtmlBuilder
     public static function date($name, $label, $value = null, array $options = [], $dateFormat = DateFormatter::SHORT,
                          $timeFormat = DateFormatter::NONE)
     {
+        $value = DateFormatter::format($value, $dateFormat, $timeFormat, 'MM/dd/y');
 
-        $value = DateFormatter::format($value, $dateFormat, $timeFormat);
+        AssetManager::addScript(Admin::instance()->router->routeToAsset('js/bootstrap-datepicker.js'));
+        AssetManager::addStyle(Admin::instance()->router->routeToAsset('css/datepicker.css'));
 
         return view('admin::_partials/form_elements/date')
             ->with('name', $name)

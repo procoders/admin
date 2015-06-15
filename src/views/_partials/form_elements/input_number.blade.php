@@ -1,8 +1,14 @@
 <div class="form-group">
     <label class="col-md-2 control-label">{{$label}}</label>
     <div class="col-md-10">
-        <input type="text" value="{{$value}}" name="{{$name}}" min="{{$minValue}}" max="{{$maxValue}}" class="form-control input-number"/>
+        <input type="number" value="{{$value}}" name="{{$name}}" @foreach ($options as $key => $option) {{$key}}="{{$option}}" @endforeach class="form-control"/>
     </div>
+    <script>
+        $(document).ready(function() {
+           $('{{'#' . $options['id']}}').keyup(function(e) {
+               if (/\D/g.test(this.value))
+                   this.value = this.value.replace(/\D/g, '');
+           });
+        });
+    </script>
 </div>
-
-<script>$('.input-number').bootstrapNumber({upClass: 'danger', downClass: 'success'});</script>

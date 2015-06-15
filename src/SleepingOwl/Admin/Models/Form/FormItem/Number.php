@@ -5,6 +5,7 @@ namespace SleepingOwl\Admin\Models\Form\FormItem;
 
 use SleepingOwl\Admin\AssetManager\AssetManager;
 use SleepingOwl\Admin\Admin;
+use SleepingOwl\Html\HtmlBuilder;
 
 Class Number extends BaseFormItem {
 
@@ -83,13 +84,13 @@ Class Number extends BaseFormItem {
             $inputValue = $oldInputValue;
         }
 
-        return view('admin::_partials/form_elements/input_number')
-            ->with('column', $this->column)
-            ->with('value', $inputValue)
-            ->with('name', $this->name)
-            ->with('label', $this->label)
-            ->with('minValue', $this->minValue)
-            ->with('maxValue', $this->maxValue);
+        $options = [
+            'data-min-value' => $this->minValue,
+            'data-max-value' => $this->maxValue
+        ];
+
+
+        HtmlBuilder::number($this->name, $this->label, (int)$inputValue, $options);
     }
 
 }

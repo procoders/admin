@@ -8,8 +8,4 @@
         </div>
     </div>
 </div>
-<?php
-AssetManager::addScript('admin::js/bootstrap-datepicker.js');
-AssetManager::addStyle('admin::css/datepicker.css');
-?>
 <script>$(document).ready(function() {$('#{{$id}}').datepicker({todayHighlight: true});});</script>

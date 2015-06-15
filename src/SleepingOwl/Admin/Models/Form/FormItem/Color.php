@@ -1,9 +1,12 @@
 <?php namespace SleepingOwl\Admin\Models\Form\FormItem;
 
-class Text extends BaseFormItem
+use SleepingOwl\Html\HtmlBuilder;
+
+class Color extends BaseFormItem
 {
+
 	public function render()
 	{
-		return $this->formBuilder->textGroup($this->name, $this->label, $this->getValueFromForm(), $this->attributes);
+		return HtmlBuilder::color($this->name, $this->label, $this->getValueFromForm(), $this->attributes);
 	}
 } 
