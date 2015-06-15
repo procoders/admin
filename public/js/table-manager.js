@@ -126,7 +126,7 @@ var AdminTable = function () {
                     colVis: {
                         exclude: [ options.exclColumns ]
                     },
-                    paging: false,
+                    paging: true,
                     "autoWidth": true,
                     "order": [[ 0, "asc" ]],
                     "aoColumnDefs": options.sortConfig
