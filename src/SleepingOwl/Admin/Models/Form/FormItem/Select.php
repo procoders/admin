@@ -1,5 +1,6 @@
 <?php namespace SleepingOwl\Admin\Models\Form\FormItem;
 
+use SleepingOwl\Html\HtmlBuilder;
 use SleepingOwl\Admin\Exceptions\MethodNotFoundException;
 use Illuminate\Support\Arr;
 
@@ -36,23 +37,8 @@ class Select extends BaseFormItem
 				'getList'
 			]);
 		}
-		if ( ! isset($this->attributes['class']))
-		{
-			$this->attributes['class'] = '';
-		}
-		$this->attributes['class'] .= ' multiselect';
-		$this->attributes['size'] = 2;
-		$this->attributes['data-select-type'] = 'single';
 
-		if ($this->nullable)
-		{
-			$this->attributes['multiple'] = true;
-			$this->attributes['data-nullable'] = true;
-		}
-
-		$select = $this->formBuilder->selectGroup($this->name, $this->label, $list, $this->getValueFromForm(), $this->attributes);
-
-		return $select;
+        return HtmlBuilder::select($this->name, $this->label, $list, $this->getValueFromForm(), $this->attributes);
 	}
 
 	/**

@@ -83,7 +83,6 @@ Class Number extends BaseFormItem {
             $inputValue = $oldInputValue;
         }
 
-        AssetManager::addScript('/adm/js/bootstrap-number-input.js');
         return view('admin::_partials/form_elements/input_number')
             ->with('column', $this->column)
             ->with('value', $inputValue)

@@ -9,14 +9,10 @@ use SleepingOwl\Admin\Models\Form\FormItem\File;
 use SleepingOwl\Admin\Models\Form\FormItem\ClosureHandler;
 use SleepingOwl\Admin\Models\Form\FormItem\Hidden;
 use SleepingOwl\Admin\Models\Form\FormItem\Image;
-use SleepingOwl\Admin\Models\Form\FormItem\MultiSelect;
 use SleepingOwl\Admin\Models\Form\FormItem\Password;
 use SleepingOwl\Admin\Models\Form\FormItem\Select;
 use SleepingOwl\Admin\Models\Form\FormItem\Text;
-use SleepingOwl\Admin\Models\Form\FormItem\TextAddon;
 use SleepingOwl\Admin\Models\Form\FormItem\Textarea;
-use SleepingOwl\Admin\Models\Form\FormItem\Time;
-use SleepingOwl\Admin\Models\Form\FormItem\Timestamp;
 use SleepingOwl\Admin\Models\Form\FormItem\View;
 use Illuminate\Support\Arr;
 use SleepingOwl\Admin\Models\ModelItem;
@@ -32,12 +28,9 @@ use SleepingOwl\Admin\Models\ModelItem;
  * @method static Text text($name, $label = null)
  * @method static Password password($name, $label = null)
  * @method static Checkbox checkbox($name, $label = null)
- * @method static TextAddon textAddon($name, $label = null)
  * @method static Textarea textarea($name, $label = null)
  * @method static Ckeditor ckeditor($name, $label = null)
  * @method static Date date($name, $label = null)
- * @method static Time time($name, $label = null)
- * @method static Timestamp timestamp($name, $label = null)
  * @method static View view($view)
  */
 class FormItem
