@@ -4,8 +4,13 @@ use SleepingOwl\Html\HtmlBuilder;
 
 class Checkbox extends BaseFormItem
 {
+
+    use Traits\Addon;
+
 	public function render()
 	{
-        return HtmlBuilder::checkbox($this->name, $this->label, $this->getValueFromForm(), $this->attributes);
+        return ($this->addon)
+            ? HtmlBuilder::checkboxAddon($this->name, $this->label, $this->getValueFromForm(), $this->attributes, $this->addonValue)
+            : HtmlBuilder::checkbox($this->name, $this->label, $this->getValueFromForm(), $this->attributes);
 	}
 } 

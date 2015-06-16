@@ -105,6 +105,16 @@ class HtmlBuilder extends IlluminateHtmlBuilder
             ->with('options', $options);
     }
 
+    public static function textWithActions($name, $label = '', $value = '', $options = [], $actions = [])
+    {
+        return view('admin::_partials/form_elements/input_text')
+            ->with('name', $name)
+            ->with('label', $label)
+            ->with('value', $value)
+            ->with('options', $options)
+            ->with('actions', $actions);
+    }
+
     /**
      * @param $name
      * @param string $label
@@ -228,6 +238,40 @@ class HtmlBuilder extends IlluminateHtmlBuilder
      * @param array $options
      * @return $this
      */
+    public static function radio($name, $label, $value = null, array $options = [])
+    {
+        return view('admin::_partials/form_elements/radio')
+            ->with('name', $name)
+            ->with('label', $label)
+            ->with('value', (is_null($value)) ? 1 : $value)
+            ->with('options', $options);
+    }
+
+    /**
+     * @param $name string
+     * @param $label string
+     * @param null $value string
+     * @param array $options
+     * @param $addonValue string
+     * @return $this
+     */
+    public static function radioAddon($name, $label, $value = null, array $options = [], $addonValue)
+    {
+        return view('admin::_partials/form_elements/radio_addon')
+            ->with('name', $name)
+            ->with('label', $label)
+            ->with('value', (is_null($value)) ? 1 : $value)
+            ->with('options', $options)
+            ->with('addonValue', $addonValue);
+    }
+
+    /**
+     * @param $name
+     * @param $label
+     * @param null $value
+     * @param array $options
+     * @return $this
+     */
     public static function checkbox($name, $label, $value = null, array $options = [])
     {
         return view('admin::_partials/form_elements/checkbox')
@@ -236,6 +280,25 @@ class HtmlBuilder extends IlluminateHtmlBuilder
             ->with('value', (is_null($value)) ? 1 : $value)
             ->with('options', $options);
     }
+
+    /**
+     * @param $name string
+     * @param $label string
+     * @param null $value string
+     * @param array $options
+     * @param $addonValue string
+     * @return $this
+     */
+    public static function checkboxAddon($name, $label, $value = null, array $options = [], $addonValue)
+    {
+        return view('admin::_partials/form_elements/checkbox_addon')
+            ->with('name', $name)
+            ->with('label', $label)
+            ->with('value', (is_null($value)) ? 1 : $value)
+            ->with('options', $options)
+            ->with('addonValue', $addonValue);
+    }
+
 
     /**
      * @param $name
