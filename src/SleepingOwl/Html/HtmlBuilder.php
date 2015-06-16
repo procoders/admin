@@ -1,6 +1,7 @@
 <?php namespace SleepingOwl\Html;
 
 use Illuminate\Html\HtmlBuilder as IlluminateHtmlBuilder;
+use SleepingOwl\Admin\Models\Form\FormItem;
 use SleepingOwl\DateFormatter\DateFormatter;
 use SleepingOwl\Admin\Admin;
 use SleepingOwl\Admin\AssetManager\AssetManager;
@@ -337,6 +338,16 @@ class HtmlBuilder extends IlluminateHtmlBuilder
     public static function textarea($name, $label, $value = null, array $options = [])
     {
         $options['id'] = uniqid();
+
+        if (!empty($options['data-editor'])) {
+            switch ($options['data-editor']) {
+                case FormItem\Textarea::EDITOR_WYSIHTML:
+                    AssetManager::addStyle(Admin::instance()->router->routeToAsset('css/bootstrap-wysihtml5.css'));
+                    AssetManager::addScript(Admin::instance()->router->routeToAsset('js/wysihtml5-0.3.0.js'));
+                    AssetManager::addScript(Admin::instance()->router->routeToAsset('js/bootstrap-wysihtml5.js'));
+                    break;
+            }
+        }
 
         return view('admin::_partials/form_elements/textarea')
             ->with('name', $name)
