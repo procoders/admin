@@ -142,6 +142,23 @@ class HtmlBuilder extends IlluminateHtmlBuilder
             ->with('options', $options);
     }
 
+    public static function emailGroupField($name, $label = '', $value = '', $options = [])
+    {
+        $values = explode(',', $value);
+
+        AssetManager::addScript(Admin::instance()->router->routeToAsset('js/tag-it.js'));
+        AssetManager::addStyle(Admin::instance()->router->routeToAsset('css/jquery.tagit.css'));
+
+        if (empty($options['id']))
+            $options['id'] = uniqid();
+
+        return view('admin::_partials/form_elements/input_email_group')
+            ->with('name', $name)
+            ->with('label', $label)
+            ->with('values', $values)
+            ->with('options', $options);
+    }
+
     /**
      * This method will generate input type password field
      *
