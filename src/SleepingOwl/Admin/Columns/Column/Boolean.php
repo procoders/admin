@@ -36,7 +36,7 @@ class Boolean implements ColumnInterface {
     public function render($instance, $totalCount)
     {
         $column = $this->name;
-        return (string)view('admin/hotel/list/boolean-column')
+        return (string)view('admin::_partials/columns/boolean')
             ->with('value', ((int)$instance->$column == 1) ? true : false);
     }
 
