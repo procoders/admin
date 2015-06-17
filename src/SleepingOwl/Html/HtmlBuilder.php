@@ -335,7 +335,8 @@ class HtmlBuilder extends IlluminateHtmlBuilder
             ->with('label', $label)
             ->with('value', $value)
             ->with('options', $options)
-            ->with('format', $dateFormat);
+            ->with('format', $dateFormat)
+            ->with('id', $options['id']);
     }
 
     public static function textarea($name, $label, $value = null, array $options = [])
