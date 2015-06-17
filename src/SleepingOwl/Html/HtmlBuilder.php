@@ -324,6 +324,9 @@ class HtmlBuilder extends IlluminateHtmlBuilder
     {
         $value = DateFormatter::format($value, $dateFormat, $timeFormat, 'MM/dd/y');
 
+        if (empty($options['id']))
+            $options['id'] = uniqid();
+
         AssetManager::addScript(Admin::instance()->router->routeToAsset('js/bootstrap-datepicker.js'));
         AssetManager::addStyle(Admin::instance()->router->routeToAsset('css/datepicker.css'));
 
