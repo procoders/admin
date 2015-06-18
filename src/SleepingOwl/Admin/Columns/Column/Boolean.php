@@ -1,26 +1,25 @@
 <?php
 namespace SleepingOwl\Admin\Columns\Column;
 
+use App\AdminCustom\Helpers\Admin;
 use SleepingOwl\Admin\Columns\Interfaces\ColumnInterface;
 use SleepingOwl\Admin\Columns\InlineEditingForm;
+use SleepingOwl\Admin\Models\Form\FormItem;
+use SleepingOwl\Admin\Models\ModelItem;
 
 class Boolean implements ColumnInterface {
 
     protected $title;
     protected $name;
     protected $sortable = true;
-    protected $inlineForm;
+    protected $inlineEdit = false;
 
-    public function inlineForm(InlineEditingForm $form)
+    public function inlineEdit($val)
     {
-        $this->inlineForm = $form;
+        $this->inlineEdit = (bool)$val;
         return $this;
     }
 
-    public function getInlineForm()
-    {
-        return $this;
-    }
 
     public function sortable($value)
     {
@@ -52,7 +51,7 @@ class Boolean implements ColumnInterface {
         $column = $this->name;
         return (string)view('admin::_partials/columns/boolean')
             ->with('value', ((int)$instance->$column == 1) ? true : false)
-            ->with('editable', (!is_null($this->inlineForm)))
+            ->with('editable', (bool)$this->inlineEdit)
             ->with('name', $this->name);
     }
 

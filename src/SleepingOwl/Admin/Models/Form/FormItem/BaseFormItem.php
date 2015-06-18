@@ -48,6 +48,20 @@ abstract class BaseFormItem implements FormItemInterface
 	 */
 	protected $default = null;
 
+    protected $inlineEdit = false;
+
+    public function inlineEdit($val)
+    {
+        $this->inlineEdit = (bool)$val;
+
+        if ($this->inlineEdit === true) {
+            $this->attributes['inline-edit'] = true;
+        }
+
+        return $this;
+    }
+
+
 	/**
 	 * @param null $name
 	 * @param null $label

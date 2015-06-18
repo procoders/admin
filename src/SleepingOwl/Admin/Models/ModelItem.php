@@ -97,6 +97,11 @@ class ModelItem
      */
     protected $stateSave = true;
 
+    /**
+     * @var
+     */
+    protected $inlineEdit;
+
 	/**
 	 * @param $modelClass
 	 */
@@ -280,13 +285,27 @@ class ModelItem
 		$this->columns[] = $column;
 	}
 
+    public function inlineEdit($callback)
+    {
+        $field = 'test';
+        $old = static::$current;
+        static::$current = $this;
+        call_user_func($callback($field));
+        static::$current = $old;
+        return $this;
+    }
+
+    public function getInlineEdit()
+    {
+        return $this->form;
+    }
+
     /**
      * @param $callback
      * @return $this
      */
     public function viewFilters($callback)
     {
-
         $old = static::$current;
         static::$current = $this;
         call_user_func($callback);

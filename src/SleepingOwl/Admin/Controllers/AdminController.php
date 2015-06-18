@@ -2,6 +2,7 @@
 
 use App;
 use AdminAuth;
+use Aws\CloudFront\Exception\Exception;
 use SleepingOwl\Admin\Admin;
 use SleepingOwl\Admin\Columns\Column\Action;
 use SleepingOwl\Admin\Exceptions\ValidationException;
@@ -365,6 +366,26 @@ class AdminController extends BaseController
 		];
 		return $this->makeView('model.form', $data);
 	}
+
+    public function inlineEdit($modelName, $id, $field)
+    {
+        $instance = $this->modelRepository->getInstance($id);
+        if ( ! $this->modelItem->isEditable($instance))
+        {
+            throw new Exception('Error while trying to load model, with id `' . $id . '`');
+        }
+        $form = $this->modelItem->getInlineEdit();
+        $form->setInstance($instance);
+        $form->setMethod('post');
+        $form->setSaveUrl($this->admin_router->routeToUpdate($this->modelName, [$id]));
+        $form->setErrors(Session::get('errors'));
+
+        $data = [
+            'form' => $form
+        ];
+
+        return $this->makeView('model.inline_edit_form', $data);
+    }
 
 	/**
 	 * @param $modelName

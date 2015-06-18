@@ -1,3 +1,11 @@
+@if (isset($options['inline-edit']) && $options['inline-edit'] === true)
+    <div class="editable-address">
+        <label>
+            <span>{{$label}}: </span>
+            <input type="text" name="{{$name}}" class="input-small" value="{{$value}}">
+        </label>
+    </div>
+@else
 <div class="form-group">
     <label class="col-md-2 control-label">{{$label}}</label>
     <div class="col-md-10">
@@ -22,3 +30,4 @@
         @endif
     </div>
 </div>
+@endif

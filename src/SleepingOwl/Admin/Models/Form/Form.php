@@ -15,6 +15,8 @@ class Form
 	 * @var FormItemInterface[]
 	 */
 	protected $items;
+
+    protected $inlineItems;
 	/**
 	 * @var \SleepingOwl\Html\FormBuilder
 	 */
@@ -48,7 +50,13 @@ class Form
 	{
 		$this->formBuilder = Admin::instance()->formBuilder;
 		$this->items = [];
+        $this->inlineItems = [];
 	}
+
+    public function getInlineItems()
+    {
+        return $this->inlineItems;
+    }
 
 	/**
 	 * @return mixed
@@ -142,6 +150,32 @@ class Form
         return $response;
 	}
 
+    /**
+     * @return string
+     */
+    public function renderInline()
+    {
+        $content = [];
+        $content[] = $this->formBuilder->model($this->instance, [
+            'method' => $this->method,
+            'url'    => $this->saveUrl,
+            'errors' => $this->errors,
+            'class'  => 'form-horizontal form-bordered'
+        ]);
+
+        foreach ($this->inlineItems as $item)
+        {
+            if (method_exists($item, 'inlineEdit')) {
+                $item->inlineEdit(true);
+            }
+            $content[] = $item->render();
+        }
+        $content[] = $this->formBuilder->close();
+
+        $response =  implode('', $content);
+        return $response;
+    }
+
 	/**
 	 * @return string
 	 */
@@ -167,6 +201,11 @@ class Form
 	{
 		$this->items[] = $item;
 	}
+
+    public function addInlineItem($item)
+    {
+        $this->inlineItems[] = $item;
+    }
 
 	public function getValidationRules()
 	{

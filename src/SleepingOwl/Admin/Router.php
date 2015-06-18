@@ -59,6 +59,11 @@ class Router
 			'action' => 'edit',
 			'method' => 'get'
 		],
+        [
+            'url'    =>  '{model}/{id}/inline_edit/{field}',
+			'action' => 'inlineEdit',
+			'method' => 'get'
+        ],
 		[
 			'url'    => '{model}/{id}/update',
 			'action' => 'update',
