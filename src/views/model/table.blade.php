@@ -20,7 +20,10 @@
 			@endif
 		</div>
 	</div>
-    <?php $tableId = uniqid(); ?>
+    <?php
+        $tableId = uniqid();
+        $inlineEdit = true;
+    ?>
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="panel panel-inverse">
@@ -47,15 +50,6 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
-                                @if ($modelItem->isColumnFilter() && ! $modelItem->isAsync())
-                                    <tfoot>
-                                        <tr>
-                                            @foreach ($columns as $column)
-                                                <td></td>
-                                            @endforeach
-                                        </tr>
-                                    </tfoot>
-                                @endif
                             </table>
                         </div>
                     </div>
@@ -78,7 +72,6 @@
         AssetManager::addStyle('admin::css/model-filters.css');
         ?>
 
-
         var filters = {!! json_encode($jsFilters) !!};
 
         $(document).ready(function() {
@@ -86,7 +79,8 @@
                 exclColumns: {{count($columns)-1}},
                 sortConfig: [{!! json_encode($unsortableColumns) !!}],
                 filters: filters
+            });
         });
-        });
+
     </script>
 @stop
