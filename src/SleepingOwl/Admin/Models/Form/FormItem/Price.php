@@ -20,8 +20,6 @@ class Price extends BaseFormItem
 
 	public function render()
 	{
-        return
-            HtmlBuilder::color('test', 'test', '#6666ff') .
-            HtmlBuilder::price($this->name, $this->label, $this->getValueFromForm(), $this->attributes, $this->currency);
+        return HtmlBuilder::price($this->name, $this->label, $this->getValueFromForm(), $this->attributes, $this->currency);
 	}
 } 
