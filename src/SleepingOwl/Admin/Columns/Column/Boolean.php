@@ -47,11 +47,13 @@ class Boolean implements ColumnInterface {
 
     public function render($instance, $totalCount)
     {
-
+        $reflect = new \ReflectionClass($instance);
         $column = $this->name;
         return (string)view('admin::_partials/columns/boolean')
             ->with('value', ((int)$instance->$column == 1) ? true : false)
             ->with('editable', (bool)$this->inlineEdit)
+            ->with('modelName', strtolower(preg_replace('/([a-z])([A-Z])/', '$1_$2', $reflect->getShortName())))
+            ->with('attributes', $instance->getAttributes())
             ->with('name', $this->name);
     }
 

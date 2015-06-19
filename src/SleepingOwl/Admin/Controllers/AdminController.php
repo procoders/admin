@@ -377,7 +377,7 @@ class AdminController extends BaseController
         $form = $this->modelItem->getInlineEdit();
         $form->setInstance($instance);
         $form->setMethod('post');
-        $form->setSaveUrl($this->admin_router->routeToUpdate($this->modelName, [$id]));
+        $form->setSaveUrl($this->admin_router->routeToInlineUpdate($this->modelName, [$id]));
         $form->setErrors(Session::get('errors'));
 
         $data = [
@@ -409,6 +409,28 @@ class AdminController extends BaseController
 		}
 		return $this->redirectToTable();
 	}
+
+    public function inlineUpdate($modeName, $id)
+    {
+        $instance = $this->modelRepository->getInstance($id);
+        if ( ! $this->modelItem->isEditable($instance))
+        {
+            return json_encode(['error' => true]);
+        }
+
+        try {
+            if ($this->modelRepository->inlineUpdate($id)) {
+                return json_encode(['error' => false]);
+            };
+        } catch (ValidationException $e)
+        {
+            /**
+             * TODO: implement this
+             */
+        }
+
+        return json_encode(['error' => true]);
+    }
 
 	/**
 	 * @param $modelName

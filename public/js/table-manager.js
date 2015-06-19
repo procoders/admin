@@ -199,7 +199,7 @@ var AdminTable = function () {
                 }
 
                 var tbl = new $.fn.dataTable.FixedHeader(table);
-                new $.fn.dataTable.KeyTable(table);
+                //new $.fn.dataTable.KeyTable(table);
 
                 $(window).resize(function() {
                     tbl._fnUpdateClones(true);

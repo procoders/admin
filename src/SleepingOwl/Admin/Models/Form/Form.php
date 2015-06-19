@@ -156,11 +156,15 @@ class Form
     public function renderInline()
     {
         $content = [];
+
+        $id = uniqid();
         $content[] = $this->formBuilder->model($this->instance, [
             'method' => $this->method,
             'url'    => $this->saveUrl,
             'errors' => $this->errors,
-            'class'  => 'form-horizontal form-bordered'
+            'class'  => 'form-horizontal form-bordered',
+            'id' => $id,
+            'onsubmit' => 'return inlineFormSubmit(event, \'' . $id . '\');'
         ]);
 
         foreach ($this->inlineItems as $item)
@@ -170,6 +174,7 @@ class Form
             }
             $content[] = $item->render();
         }
+        $content[] = view('admin::model/inline_edit_form_controls');
         $content[] = $this->formBuilder->close();
 
         $response =  implode('', $content);

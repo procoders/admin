@@ -140,6 +140,34 @@ class ModelRepository implements ModelRepositoryInterface
 		$this->save();
 	}
 
+    public function inlineUpdate($id)
+    {
+        $this->instance = $this->find($id);
+
+        if (empty($this->instance))
+            return false;
+
+        $data = $this->request->all();
+
+        $updated = false;
+        if (method_exists($this->instance, 'getRepository')) {
+            $repository = $this->instance->getRepository();
+            if (method_exists($repository, 'inlineSave')) {
+                $repository->inlineSave($data);
+            }
+        }
+
+        if ($updated == false) {
+            $fillableFields = $this->instance->getFillable();
+            foreach ($data as $key => $value) {
+                if (in_array($key, $fillableFields)) {
+                    $this->instance->$key = $value;
+                }
+            }
+            $this->instance->update();
+        };
+    }
+
 	/**
 	 *
 	 */

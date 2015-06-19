@@ -69,6 +69,11 @@ class Router
 			'action' => 'update',
 			'method' => 'put'
 		],
+        [
+            'url'    => '{model}/{id}/inline_update/',
+            'action' => 'inlineUpdate',
+            'method' => 'post'
+        ],
 		[
 			'url'    => '{model}/{id}',
 			'action' => 'destroy',

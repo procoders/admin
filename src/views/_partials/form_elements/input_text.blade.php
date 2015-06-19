@@ -2,7 +2,7 @@
     <div class="editable-address">
         <label>
             <span>{{$label}}: </span>
-            <input type="text" name="{{$name}}" class="input-small" value="{{$value}}">
+            <input type="text" name="{{$name}}" class="form-control input-sm" value="{{$value}}">
         </label>
     </div>
 @else
