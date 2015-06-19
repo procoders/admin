@@ -44,6 +44,31 @@ var AdminTable = function () {
                                 }
                             });
                             break;
+                        case 'datetime':
+                            $('#' + id + '-datetime-' + i).data('sequance', filters[i].sequanceNumber);
+                            $('#' + id + '-datetime-' + i).datetimepicker({
+                                format: "dd.mm.yyyy hh:ii",
+                                autoclose: true,
+                                minuteStep: 1
+                            });
+                            $('#' + id + '-datetime-' + i).on('change', function(){
+                                var val = $(this).val();
+                                var sequance = $(this).data('sequance');
+                                var rule = $(this).data('rule');
+                                table.column(sequance).search('').draw();
+                                if (val.length > 0) {
+                                    var tmp = val.split('.');
+                                    var tmpYear = tmp[2].split(' ');
+                                    var tmpTime = tmpYear[1].split(':');
+
+                                    val = new Date(tmpYear[0], tmp[1]-1, tmp[0], tmpTime[0], tmpTime[1]);
+
+                                    customFilters().datetime(val.getTime(), rule, sequance, table);
+                                } else {
+                                    table.column(sequance).search('').draw();
+                                }
+                            });
+                            break;
                         case 'bool':
                             $('#' + id + '-bool-' + i).data('sequance', filters[i].sequanceNumber);
                             $('#' + id + '-bool-' + i).on('change', function(){
@@ -103,6 +128,43 @@ var AdminTable = function () {
                         });
                         table.column(sequance).draw();
                     },
+                    datetime: function(filterValue, rule, sequance, table) {
+                        $.fn.dataTable.ext.search = [];
+                        $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+                            var value = table.data()[dataIndex][sequance];
+                            if (value['@data-order'] !== undefined)
+                            {
+                                value = value['@data-order'];
+                            }
+                            var tmp = value.split('-');
+                            var tmpDay = tmp[2].split(' ');
+                            var tmpTime = tmpDay[1].split(':');
+
+                            value = new Date(tmp[0], tmp[1]-1, tmpDay[0], tmpTime[0], tmpTime[1]);
+
+                            value = value.getTime();
+
+                            var valid = false;
+                            switch (rule) {
+                                case '>':
+                                    valid = (filterValue > value);
+                                    break;
+                                case '<':
+                                    valid = (filterValue < value);
+                                    break;
+                                case '<=':
+                                    valid = (filterValue <= value);
+                                    break;
+                                case '>=':
+                                    valid = (filterValue >= value);
+                                    break;
+
+                            }
+
+                            return valid;
+                        });
+                        table.column(sequance).draw();
+                    },
                     bool: function(filterValue, sequance, table) {
                         $.fn.dataTable.ext.search = [];
                         $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
@@ -137,7 +199,7 @@ var AdminTable = function () {
                 }
 
                 var tbl = new $.fn.dataTable.FixedHeader(table);
-                //new $.fn.dataTable.KeyTable(table);
+                new $.fn.dataTable.KeyTable(table);
 
                 $(window).resize(function() {
                     tbl._fnUpdateClones(true);

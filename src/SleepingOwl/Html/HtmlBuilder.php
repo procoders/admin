@@ -339,6 +339,31 @@ class HtmlBuilder extends IlluminateHtmlBuilder
             ->with('id', $options['id']);
     }
 
+    public static function datetime($name, $label, $value = null, array $options = [], $rule = [], $dateFormat = DateFormatter::SHORT, $timeFormat = DateFormatter::SHORT)
+    {
+        if ($value) {
+            $value = DateFormatter::format($value, $dateFormat, $timeFormat, 'dd.MM.y H:mm');
+        }
+
+        if (empty($options['id'])) {
+            $options['id'] = uniqid();
+        }
+
+        AssetManager::addScript(Admin::instance()->router->routeToAsset('js/moment.js'));
+        AssetManager::addScript(Admin::instance()->router->routeToAsset('js/bootstrap-datetimepicker.min.js'));
+        AssetManager::addStyle(Admin::instance()->router->routeToAsset('css/bootstrap-datetimepicker.min.css'));
+
+        return view('admin::_partials/view_filters/datetime')
+            ->with('name', $name)
+            ->with('label', $label)
+            ->with('value', $value)
+            ->with('options', $options)
+            ->with('date_format', $dateFormat)
+            ->with('time_format', $timeFormat)
+            ->with('id', $options['id'])
+            ->with('rule', $rule);
+    }
+
     public static function textarea($name, $label, $value = null, array $options = [])
     {
         $options['id'] = uniqid();
