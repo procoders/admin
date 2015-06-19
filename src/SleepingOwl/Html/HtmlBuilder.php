@@ -315,7 +315,8 @@ class HtmlBuilder extends IlluminateHtmlBuilder
             ->with('name', $name)
             ->with('label', $label)
             ->with('value', $value)
-            ->with('options', $list)
+            ->with('list', $list)
+            ->with('options', $options)
             ->with('id', (!empty($options['id']) ? $options['id'] : $name));
     }
 

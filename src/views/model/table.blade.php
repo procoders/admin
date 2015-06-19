@@ -22,7 +22,6 @@
 	</div>
     <?php
         $tableId = uniqid();
-        $inlineEdit = true;
     ?>
 	<div class="row">
 		<div class="col-lg-12">
@@ -70,6 +69,9 @@
         AssetManager::addScript('admin::js/bootstrap-datepicker.js');
         AssetManager::addStyle('admin::css/datepicker.css');
         AssetManager::addStyle('admin::css/model-filters.css');
+        AssetManager::addScript('admin::js/editable.js');
+        AssetManager::addStyle('admin::css/bootstrap-editable.css');
+        AssetManager::addStyle('admin::css/editable.css');
         ?>
 
         var filters = {!! json_encode($jsFilters) !!};

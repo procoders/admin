@@ -9,8 +9,15 @@ class Checkbox extends BaseFormItem
 
 	public function render()
 	{
+        $value = $this->getValueFromForm();
+
+        if (!empty($value))
+            $this->attributes['checked'] = 'checked';
+        else
+            $value = 1;
+
         return ($this->addon)
-            ? HtmlBuilder::checkboxAddon($this->name, $this->label, $this->getValueFromForm(), $this->attributes, $this->addonValue)
-            : HtmlBuilder::checkbox($this->name, $this->label, $this->getValueFromForm(), $this->attributes);
+            ? HtmlBuilder::checkboxAddon($this->name, $this->label, $value, $this->attributes, $this->addonValue)
+            : HtmlBuilder::checkbox($this->name, $this->label, $value, $this->attributes);
 	}
 } 

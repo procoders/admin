@@ -374,7 +374,7 @@ class AdminController extends BaseController
         {
             throw new Exception('Error while trying to load model, with id `' . $id . '`');
         }
-        $form = $this->modelItem->getInlineEdit();
+        $form = $this->modelItem->getInlineEdit($field);
         $form->setInstance($instance);
         $form->setMethod('post');
         $form->setSaveUrl($this->admin_router->routeToInlineUpdate($this->modelName, [$id]));
@@ -420,7 +420,20 @@ class AdminController extends BaseController
 
         try {
             if ($this->modelRepository->inlineUpdate($id)) {
-                return json_encode(['error' => false]);
+                $instance = $this->modelRepository->getInstance($id);
+                $response = ['error' => false];
+                $data = $this->modelRepository->getRequest()->all();
+                if (!empty($data['field'])) {
+                    $field = $data['field'];
+                    if (!empty($this->modelItem)) {
+                        $column = $this->modelItem->getColumnByName($field);
+                        if (!is_null($column)) {
+                            $response['value'] = $column->render($instance, NULL);
+                        }
+                    }
+                }
+
+                return json_encode($response);
             };
         } catch (ValidationException $e)
         {

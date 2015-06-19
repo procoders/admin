@@ -5,6 +5,7 @@ use Carbon\Carbon;
 use DB;
 use Doctrine\DBAL\Schema\Column;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Facades\Input;
 use SleepingOwl\Admin\Columns\Interfaces\ColumnInterface;
 use SleepingOwl\Admin\Repositories\Interfaces\ModelRepositoryInterface;
 use SleepingOwl\Admin\Models\ModelItem;
@@ -153,7 +154,11 @@ class ModelRepository implements ModelRepositoryInterface
         if (method_exists($this->instance, 'getRepository')) {
             $repository = $this->instance->getRepository();
             if (method_exists($repository, 'inlineSave')) {
-                $repository->inlineSave($data);
+                if ($repository->inlineSave($data)) {
+                    $updated = true;
+                } else {
+                    return false;
+                }
             }
         }
 
@@ -164,8 +169,12 @@ class ModelRepository implements ModelRepositoryInterface
                     $this->instance->$key = $value;
                 }
             }
-            $this->instance->update();
+            if ($this->instance->update()) {
+                $updated = true;
+            };
         };
+
+        return $updated;
     }
 
 	/**
@@ -321,4 +330,9 @@ class ModelRepository implements ModelRepositoryInterface
 			'datetime'
 		]);
 	}
+
+    public function getRequest()
+    {
+        return $this->request;
+    }
 }

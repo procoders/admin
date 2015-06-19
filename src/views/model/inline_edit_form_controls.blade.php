@@ -1,4 +1,4 @@
-<div class="editable-buttons" style="text-align: right;">
+<div class="editable-buttons">
     <button type="submit" class="btn btn-primary btn-sm editable-submit">
         <i class="glyphicon glyphicon-ok"></i>
     </button>

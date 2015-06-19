@@ -102,6 +102,7 @@ class ModelItem
      */
     protected $inlineEdit;
 
+    protected $inlineEditCallback;
 	/**
 	 * @param $modelClass
 	 */
@@ -287,16 +288,17 @@ class ModelItem
 
     public function inlineEdit($callback)
     {
-        $field = 'test';
-        $old = static::$current;
-        static::$current = $this;
-        call_user_func($callback($field));
-        static::$current = $old;
+        $this->inlineEditCallback = $callback;
         return $this;
     }
 
-    public function getInlineEdit()
+    public function getInlineEdit($field)
     {
+        $old = static::$current;
+        static::$current = $this;
+        $callback = $this->inlineEditCallback;
+        call_user_func($callback($field));
+        static::$current = $old;
         return $this->form;
     }
 

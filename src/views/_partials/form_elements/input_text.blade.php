@@ -1,9 +1,9 @@
 @if (isset($options['inline-edit']) && $options['inline-edit'] === true)
-    <div class="editable-address">
-        <label>
-            <span>{{$label}}: </span>
+    <div class="form-group">
+        <label class="control-label">{{$label}}</label>
+        <div>
             <input type="text" name="{{$name}}" class="form-control input-sm" value="{{$value}}">
-        </label>
+        </div>
     </div>
 @else
 <div class="form-group">

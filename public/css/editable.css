@@ -1,0 +1,38 @@
+.editable-link {
+    border-bottom: 1px dotted #002a80;
+}
+.editable-input {
+    width: 300px;
+}
+.editable-input .editable-buttons {
+    margin-top: 5px;
+    width: 100%;
+    text-align: center;
+}
+.editable-input .form-horizontal.form-bordered .form-group > .control-label {
+    padding: 5px 5px 5px 0;
+    display: inline-block;
+    vertical-align: middle;
+    width: 50px;
+    text-align: left;
+}
+.editable-input .form-horizontal.form-bordered .form-group > div {
+    padding: 5px;
+    border: none;
+    display: inline-block;
+    vertical-align: middle;
+}
+.editable-input .form-horizontal.form-bordered .form-group>.control-label {
+    border-right: none;
+}
+.editable-input .form-horizontal.form-bordered .form-group>div {
+    border-left: 1px solid #e7e8e8;
+}
+.editable-input .form-horizontal.form-bordered .form-group {
+    border-bottom: 1px solid #e7e8e8;
+}
+.editable-input .form-control.selectpicker, .editable-input .form-control.input-sm {
+    display: inline-block;
+    vertical-align: middle;
+    width: 200px;
+}
