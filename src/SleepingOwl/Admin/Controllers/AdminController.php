@@ -295,6 +295,11 @@ class AdminController extends BaseController
 		return $result;
 	}
 
+    public function batchDelete()
+    {
+        dd('Delete post');
+    }
+
 	/**
 	 * @return View
 	 */

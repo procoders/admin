@@ -31,6 +31,10 @@
                         @if (!empty($viewFilters))
                             @include('admin::model.filters')
                         @endif
+                        <form name="batchDelete" action="<?php echo $_SERVER['REQUEST_URI']?>/batch/delete" method="post">
+                            <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                            <input type="submit" value="test" />
+                        </form>
                         <div class="table-responsive">
                             <table id="{{$tableId}}" class="table table-striped table-bordered adm-table">
                                 <thead>

@@ -53,6 +53,25 @@ abstract class BaseColumn implements ColumnInterface
 	 */
 	protected $hidden = false;
 
+    /**
+     * Enable / disable inline edit for this column
+     * @var bool
+     */
+    protected $inlineEdit = false;
+
+    /**
+     * This method allows you to change inline edit status
+     *
+     * @param $val
+     * @return $this
+     */
+    public function inlineEdit($val)
+    {
+        $this->inlineEdit = (bool)$val;
+        return $this;
+    }
+
+
 	/**
 	 * @param string $name
 	 * @param string $label
@@ -160,8 +179,39 @@ abstract class BaseColumn implements ColumnInterface
 			$content = $this->valueFromInstance($instance, $this->name);
 		}
 		$content = $this->renderAppends($instance, $totalCount, $content);
-		return $this->htmlBuilder->tag('td', $this->getAttributesForCell($instance), $content);
+        $reflect = new \ReflectionClass($instance);
+        return (string)view('admin::_partials/columns/column')
+            ->with('value', $this->getValue($instance, $this->name))
+            ->with('content', $content)
+            ->with('editable', (bool)$this->inlineEdit)
+            ->with('modelName', strtolower(preg_replace('/([a-z])([A-Z])/', '$1_$2', $reflect->getShortName())))
+            ->with('attributes', $instance->getAttributes())
+            ->with('name', $this->name);
 	}
+
+    public function getValue($instance, $name)
+    {
+        $result = $instance;
+        $parts = explode('.', $name);
+        foreach ($parts as $part)
+        {
+            if ($result instanceof Collection)
+            {
+                $result = $result->lists($part);
+            } elseif (is_null($result))
+            {
+                $result = null;
+            } else
+            {
+                $result = $result->$part;
+            }
+        }
+        if (is_string($result))
+        {
+            $result = e($result);
+        }
+        return $result;
+    }
 
 	/**
 	 * Get attributes for column cell tag

@@ -89,6 +89,11 @@ class Router
 			'action' => 'movedown',
 			'method' => 'patch'
 		],
+        [
+            'url'    => '{model}/batch/delete',
+            'action' => 'batchDelete',
+            'method' => 'post'
+        ],
 	];
 	/**
 	 * @var Repository
