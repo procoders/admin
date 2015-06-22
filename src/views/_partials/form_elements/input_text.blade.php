@@ -11,7 +11,12 @@
     <div class="col-md-10">
         @if (!empty($actions))
             <div class="input-group">
-                <input type="text" value="{{$value}}" name="{{$name}}" @foreach ($options as $key => $option) {{$key}}="{{$option}}" @endforeach class="form-control" />
+                <input type="text" value="{{$value}}" name="{{$name}}" @foreach ($options as $key => $option) {{$key}}="{{$option}}" @endforeach class="form-control @if ($error) parsley-error @endif" />
+                @if ($error)
+                    <ul class="parsley-errors-list filled">
+                        <li class="parsley-required">{{$error}}</li>
+                    </ul>
+                @endif
                 <div class="input-group-btn">
                     <ul class="dropdown-menu pull-right">
                         @foreach ($actions as $action)
@@ -26,7 +31,12 @@
                 </div>
             </div>
         @else
-            <input type="text" value="{{$value}}" name="{{$name}}" @foreach ($options as $key => $option) {{$key}}="{{$option}}" @endforeach class="form-control" />
+            <input type="text" value="{{$value}}" name="{{$name}}" @foreach ($options as $key => $option) {{$key}}="{{$option}}" @endforeach class="form-control @if ($error) parsley-error @endif" />
+            @if ($error)
+                <ul class="parsley-errors-list filled">
+                    <li class="parsley-required">{{$error}}</li>
+                </ul>
+            @endif
         @endif
     </div>
 </div>

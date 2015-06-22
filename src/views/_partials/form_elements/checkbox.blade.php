@@ -11,7 +11,12 @@
     <label class="col-md-2 control-label">{{$label}}</label>
     <div class="col-md-10">
         <input type="hidden" name="{{$name}}" value="0" />
-        <input type="checkbox" value="{{$value}}" name="{{$name}}" @foreach ($options as $key => $option) {{$key}}="{{$option}}" @endforeach />
+        <label class="@if ($error) parsley-error @endif"><input type="checkbox" value="{{$value}}" name="{{$name}}" @foreach ($options as $key => $option) {{$key}}="{{$option}}" @endforeach /></label>
+        @if ($error)
+            <ul class="parsley-errors-list filled">
+                <li class="parsley-required">{{$error}}</li>
+            </ul>
+        @endif
     </div>
 </div>
 @endif

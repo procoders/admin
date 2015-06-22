@@ -5,6 +5,7 @@ use SleepingOwl\Admin\Models\Form\FormItem;
 use SleepingOwl\DateFormatter\DateFormatter;
 use SleepingOwl\Admin\Admin;
 use SleepingOwl\Admin\AssetManager\AssetManager;
+use Session;
 
 /**
  * Class HtmlBuilder
@@ -103,7 +104,8 @@ class HtmlBuilder extends IlluminateHtmlBuilder
             ->with('name', $name)
             ->with('label', $label)
             ->with('value', $value)
-            ->with('options', $options);
+            ->with('options', $options)
+            ->with('error', self::getError($name));
     }
 
     public static function textWithActions($name, $label = '', $value = '', $options = [], $actions = [])
@@ -113,7 +115,8 @@ class HtmlBuilder extends IlluminateHtmlBuilder
             ->with('label', $label)
             ->with('value', $value)
             ->with('options', $options)
-            ->with('actions', $actions);
+            ->with('actions', $actions)
+            ->with('error', self::getError($name));
     }
 
     /**
@@ -132,7 +135,8 @@ class HtmlBuilder extends IlluminateHtmlBuilder
             ->with('value', $value)
             ->with('name', $name)
             ->with('label', $label)
-            ->with('options', $options);
+            ->with('options', $options)
+            ->with('error', self::getError($name));
     }
 
     /**
@@ -150,7 +154,8 @@ class HtmlBuilder extends IlluminateHtmlBuilder
             ->with('name', $name)
             ->with('label', $label)
             ->with('value', $value)
-            ->with('options', $options);
+            ->with('options', $options)
+            ->with('error', self::getError($name));
     }
 
     public static function emailGroupField($name, $label = '', $value = '', $options = [])
@@ -167,7 +172,8 @@ class HtmlBuilder extends IlluminateHtmlBuilder
             ->with('name', $name)
             ->with('label', $label)
             ->with('values', $values)
-            ->with('options', $options);
+            ->with('options', $options)
+            ->with('error', self::getError($name));
     }
 
     /**
@@ -185,7 +191,8 @@ class HtmlBuilder extends IlluminateHtmlBuilder
             ->with('name', $name)
             ->with('label', $label)
             ->with('value', $value)
-            ->with('options', $options);
+            ->with('options', $options)
+            ->with('error', self::getError($name));
     }
 
     /**
@@ -204,7 +211,8 @@ class HtmlBuilder extends IlluminateHtmlBuilder
             ->with('label', $label)
             ->with('value', $value)
             ->with('options', $options)
-            ->with('currency', $currency);
+            ->with('currency', $currency)
+            ->with('error', self::getError($name));
     }
 
     /**
@@ -229,7 +237,8 @@ class HtmlBuilder extends IlluminateHtmlBuilder
             ->with('name', $name)
             ->with('label', $label)
             ->with('value', $value)
-            ->with('options', $options);
+            ->with('options', $options)
+            ->with('error', self::getError($name));
     }
 
     /**
@@ -245,7 +254,8 @@ class HtmlBuilder extends IlluminateHtmlBuilder
             ->with('name', $name)
             ->with('label', $label)
             ->with('value', (is_null($value)) ? 1 : $value)
-            ->with('options', $options);
+            ->with('options', $options)
+            ->with('error', self::getError($name));
     }
 
     /**
@@ -263,7 +273,8 @@ class HtmlBuilder extends IlluminateHtmlBuilder
             ->with('label', $label)
             ->with('value', (is_null($value)) ? 1 : $value)
             ->with('options', $options)
-            ->with('addonValue', $addonValue);
+            ->with('addonValue', $addonValue)
+            ->with('error', self::getError($name));
     }
 
     /**
@@ -279,7 +290,8 @@ class HtmlBuilder extends IlluminateHtmlBuilder
             ->with('name', $name)
             ->with('label', $label)
             ->with('value', (is_null($value)) ? 1 : $value)
-            ->with('options', $options);
+            ->with('options', $options)
+            ->with('error', self::getError($name));
     }
 
     /**
@@ -297,7 +309,8 @@ class HtmlBuilder extends IlluminateHtmlBuilder
             ->with('label', $label)
             ->with('value', (is_null($value)) ? 1 : $value)
             ->with('options', $options)
-            ->with('addonValue', $addonValue);
+            ->with('addonValue', $addonValue)
+            ->with('error', self::getError($name));
     }
 
 
@@ -317,7 +330,8 @@ class HtmlBuilder extends IlluminateHtmlBuilder
             ->with('value', $value)
             ->with('list', $list)
             ->with('options', $options)
-            ->with('id', (!empty($options['id']) ? $options['id'] : $name));
+            ->with('id', (!empty($options['id']) ? $options['id'] : $name))
+            ->with('error', self::getError($name));
     }
 
     public static function date($name, $label, $value = null, array $options = [], $dateFormat = DateFormatter::SHORT,
@@ -337,7 +351,8 @@ class HtmlBuilder extends IlluminateHtmlBuilder
             ->with('value', $value)
             ->with('options', $options)
             ->with('format', $dateFormat)
-            ->with('id', $options['id']);
+            ->with('id', $options['id'])
+            ->with('error', self::getError($name));
     }
 
     public static function datetime($name, $label, $value = null, array $options = [], $rule = [], $dateFormat = DateFormatter::SHORT, $timeFormat = DateFormatter::SHORT)
@@ -362,7 +377,8 @@ class HtmlBuilder extends IlluminateHtmlBuilder
             ->with('date_format', $dateFormat)
             ->with('time_format', $timeFormat)
             ->with('id', $options['id'])
-            ->with('rule', $rule);
+            ->with('rule', $rule)
+            ->with('error', self::getError($name));
     }
 
     public static function textarea($name, $label, $value = null, array $options = [])
@@ -384,7 +400,21 @@ class HtmlBuilder extends IlluminateHtmlBuilder
             ->with('label', $label)
             ->with('value', $value)
             ->with('options', $options)
-            ->with('id', $options['id']);
+            ->with('id', $options['id'])
+            ->with('error', self::getError($name));
+    }
+
+    /**
+     * Returns error by key
+     *
+     * @param $key
+     * @return string
+     */
+    public static function getError($key)
+    {
+        $errors = Session::get('errors');
+
+        return $errors ? $errors->has($key) ? $errors->first() : '' : '';
     }
 
 }

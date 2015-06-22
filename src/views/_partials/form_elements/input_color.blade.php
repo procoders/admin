@@ -3,11 +3,16 @@
 
     <div class="col-md-10">
         <div class="input-group colorpicker-component" data-color="{{$value}}" data-color-format="rgb" id="'#'+'{{$options['id']}}" data-colorpicker-guid="2">
-            <input type="text" value="{{$value}}" name="{{$name}}" @foreach ($options as $key => $option) {{$key}}="{{$option}}" @endforeach class="form-control" />
+            <input type="text" value="{{$value}}" name="{{$name}}" @foreach ($options as $key => $option) {{$key}}="{{$option}}" @endforeach class="form-control @if ($error) parsley-error @endif" />
             <span class="input-group-addon">
                 <i style="background-color: {{$value}};" id="{{$options['id']}}-color"></i>
             </span>
         </div>
+        @if ($error)
+            <ul class="parsley-errors-list filled">
+                <li class="parsley-required">{{$error}}</li>
+            </ul>
+        @endif
     </div>
 
     <script>
