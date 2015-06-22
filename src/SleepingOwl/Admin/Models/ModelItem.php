@@ -274,6 +274,7 @@ class ModelItem
 		static::$current = $this;
 		call_user_func($callback);
 		Column::control();
+        Column::checkbox();
 		static::$current = $old;
 		return $this;
 	}

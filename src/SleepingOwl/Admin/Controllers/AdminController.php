@@ -297,7 +297,19 @@ class AdminController extends BaseController
 
     public function batchDelete()
     {
-        dd('Delete post');
+        $input = \Input::all();
+        if (!empty($input['ids'])) {
+            $ids = explode(',', $input['ids']);
+            foreach ($ids as $id) {
+                try {
+                    $this->modelRepository->destroy($id);
+                } catch (QueryException $e) {
+                    return $this->redirectToTable()->withMessage(Lang::get('admin::lang.table.delete-error'));
+                }
+            }
+        }
+
+        return $this->redirectToTable();
     }
 
 	/**

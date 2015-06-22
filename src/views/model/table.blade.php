@@ -1,6 +1,21 @@
 @extends('admin::_layout.inner')
 
 @section('innerContent')
+    <script>
+        $('form[name=batchDelete]').on('submit', function(e){
+            e.preventDefault();
+        });
+        function processBatchDelete(model) {
+            var ids = [];
+            $('input[type=checkbox][name='+model+']').each(function(){
+                if ($(this).is(':checked')) {
+                    ids.push($(this).val());
+                }
+            });
+            $('input[name=ids]').val(ids);
+            $('form[name=batchDelete]').submit();
+        }
+    </script>
 	<div class="row">
 		<div class="col-lg-12">
 			<h1 class="page-header">
@@ -33,7 +48,11 @@
                         @endif
                         <form name="batchDelete" action="<?php echo $_SERVER['REQUEST_URI']?>/batch/delete" method="post">
                             <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-                            <input type="submit" value="test" />
+                            <input type="hidden" name="ids" value="">
+                            <button class="btn btn-danger delete" type="button" value="tets" onclick="processBatchDelete('<?php echo $modelItem->getModelTable(); ?>')">
+                                <i class="glyphicon glyphicon-trash"></i>
+                                <span>Delete checked</span>
+                            </button>
                         </form>
                         <div class="table-responsive">
                             <table id="{{$tableId}}" class="table table-striped table-bordered adm-table">

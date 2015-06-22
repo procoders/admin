@@ -9,7 +9,7 @@ class Checkbox extends BaseColumn {
     {
         $name = $instance->getTable();
         $id = $instance->id;
-        $checkbox = '<input type="checkbox" name="' . $name . '" id="' . $id . '" />';
+        $checkbox = '<input type="checkbox" name="' . $name . '" value="' . $id . '" />';
         return $this->htmlBuilder->tag('td', ['class' => 'text-right'], $checkbox);
     }
 
