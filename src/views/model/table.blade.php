@@ -6,14 +6,28 @@
             e.preventDefault();
         });
         function processBatchDelete(model) {
-            var ids = [];
-            $('input[type=checkbox][name='+model+']').each(function(){
-                if ($(this).is(':checked')) {
-                    ids.push($(this).val());
-                }
-            });
-            $('input[name=ids]').val(ids);
-            $('form[name=batchDelete]').submit();
+            var confirmed = confirm('Are you really want to delete checked items?');
+            if (confirmed === true) {
+                var ids = [];
+                $('input[type=checkbox][name='+model+']').each(function(){
+                    if ($(this).is(':checked')) {
+                        ids.push($(this).val());
+                    }
+                });
+                $('input[name=ids]').val(ids);
+                $('form[name=batchDelete]').submit();
+            }
+        }
+        function setAll(model) {
+            if ($('input[name=deleteAll]').is(':checked')) {
+                $('input[type=checkbox][name='+model+']').each(function() {
+                    $(this).prop('checked', true);
+                });
+            } else {
+                $('input[type=checkbox][name='+model+']').each(function() {
+                    $(this).prop('checked', false);
+                });
+            }
         }
     </script>
 	<div class="row">
@@ -46,20 +60,24 @@
                         @if (!empty($viewFilters))
                             @include('admin::model.filters')
                         @endif
-                        <form name="batchDelete" action="<?php echo $_SERVER['REQUEST_URI']?>/batch/delete" method="post">
-                            <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-                            <input type="hidden" name="ids" value="">
-                            <button class="btn btn-danger delete" type="button" value="tets" onclick="processBatchDelete('<?php echo $modelItem->getModelTable(); ?>')">
-                                <i class="glyphicon glyphicon-trash"></i>
-                                <span>Delete checked</span>
-                            </button>
-                        </form>
+
                         <div class="table-responsive">
                             <table id="{{$tableId}}" class="table table-striped table-bordered adm-table">
                                 <thead>
                                     <tr>
                                         @foreach ($columns as $column)
-                                        <th>{{ ucfirst($column->getLabel()) }}</th>
+                                            @if ($column->isBatchAction())
+                                                <th>
+                                                    <form name="batchDelete" action="<?php echo $_SERVER['REQUEST_URI'] . '/batch/delete'; ?>" method="post">
+                                                        <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                                                        <input type="hidden" name="ids" value="">
+                                                        <a href="javascript:;" onclick="processBatchDelete('<?php echo $modelItem->getModelTable(); ?>')">Delete</a>
+                                                        <input type="checkbox" name="deleteAll" onchange="setAll('<?php echo $modelItem->getModelTable(); ?>');">
+                                                    </form>
+                                                </th>
+                                            @else
+                                                <th>{{ ucfirst($column->getLabel()) }}</th>
+                                            @endif
                                         @endforeach
                                     </tr>
                                 </thead>

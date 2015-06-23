@@ -13,4 +13,13 @@ class Checkbox extends BaseColumn {
         return $this->htmlBuilder->tag('td', ['class' => 'text-right'], $checkbox);
     }
 
+    public function isBatchAction()
+    {
+        return true;
+    }
+
+    public function isSortable()
+    {
+        return false;
+    }
 }
