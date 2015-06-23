@@ -294,4 +294,9 @@ abstract class BaseColumn implements ColumnInterface
         return $this->label;
     }
 
+    public function isBatchAction()
+    {
+        return false;
+    }
+
 }
