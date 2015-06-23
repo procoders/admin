@@ -46,14 +46,14 @@
                         @if (!empty($viewFilters))
                             @include('admin::model.filters')
                         @endif
-                        <form name="batchDelete" action="<?php echo $_SERVER['REQUEST_URI']?>/batch/delete" method="post">
-                            <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-                            <input type="hidden" name="ids" value="">
-                            <button class="btn btn-danger delete" type="button" value="tets" onclick="processBatchDelete('<?php echo $modelItem->getModelTable(); ?>')">
-                                <i class="glyphicon glyphicon-trash"></i>
-                                <span>Delete checked</span>
-                            </button>
-                        </form>
+                            <form name="batchDelete" action="batch/delete" method="post" style="text-align: right; margin-bottom: 10px;">
+                                <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                                <input type="hidden" name="ids" value="">
+                                <button class="btn btn-danger delete" type="button" value="tets" onclick="processBatchDelete('<?php echo $modelItem->getModelTable(); ?>')">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                    <span>Delete checked</span>
+                                </button>
+                            </form>
                         <div class="table-responsive">
                             <table id="{{$tableId}}" class="table table-striped table-bordered adm-table">
                                 <thead>
