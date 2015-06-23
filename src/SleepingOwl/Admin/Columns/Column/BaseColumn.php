@@ -184,7 +184,8 @@ abstract class BaseColumn implements ColumnInterface
             ->with('value', $this->getValue($instance, $this->name))
             ->with('content', $content)
             ->with('editable', (bool)$this->inlineEdit)
-            ->with('modelName', strtolower(preg_replace('/([a-z])([A-Z])/', '$1_$2', $reflect->getShortName())))
+            //->with('modelName', strtolower(preg_replace('/([a-z])([A-Z])/', '$1_$2', $reflect->getShortName())))
+            ->with('modelAlias', $this->modelItem->getAlias())
             ->with('attributes', $instance->getAttributes())
             ->with('name', $this->name);
 	}
