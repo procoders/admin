@@ -1,9 +1,11 @@
 <?php namespace SleepingOwl\Admin\Models\Form\FormItem;
 
 use SleepingOwl\Html\HtmlBuilder;
+use SleepingOwl\Admin\Models\Form\FormItem\Traits\JsValidator;
 
 class Text extends BaseFormItem
 {
+    use JsValidator;
 
     protected $actionButton;
     protected $actions = [];
@@ -33,7 +35,7 @@ class Text extends BaseFormItem
     public function render()
 	{
         return ($this->actionButton === true)
-            ? HtmlBuilder::textWithActions($this->name, $this->label, $this->getValueFromForm(), $this->attributes, $this->actions)
-            : HtmlBuilder::text($this->name, $this->label, $this->getValueFromForm(), $this->attributes);
+            ? HtmlBuilder::textWithActions($this->name, $this->label, $this->getValueFromForm(), $this->getOptions($this->attributes), $this->actions)
+            : HtmlBuilder::text($this->name, $this->label, $this->getValueFromForm(), $this->getOptions($this->attributes));
 	}
-} 
+}

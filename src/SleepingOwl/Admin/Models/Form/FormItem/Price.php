@@ -1,9 +1,11 @@
 <?php namespace SleepingOwl\Admin\Models\Form\FormItem;
 
 use SleepingOwl\Html\HtmlBuilder;
+use SleepingOwl\Admin\Models\Form\FormItem\Traits\JsValidator;
 
 class Price extends BaseFormItem
 {
+    use JsValidator;
 
     protected $currency = '$';
 
@@ -20,6 +22,6 @@ class Price extends BaseFormItem
 
 	public function render()
 	{
-        return HtmlBuilder::price($this->name, $this->label, $this->getValueFromForm(), $this->attributes, $this->currency);
+        return HtmlBuilder::price($this->name, $this->label, $this->getValueFromForm(), $this->getOptions($this->attributes), $this->currency);
 	}
 } 

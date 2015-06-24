@@ -100,6 +100,9 @@ class HtmlBuilder extends IlluminateHtmlBuilder
      */
     public static function text($name, $label = '', $value = '', $options = [])
     {
+        AssetManager::addScript(Admin::instance()->router->routeToAsset('js/parsley.min.js'));
+        AssetManager::addScript(Admin::instance()->router->routeToAsset('js/parsley-init.js'));
+
         return view('admin::_partials/form_elements/input_text')
             ->with('name', $name)
             ->with('label', $label)
@@ -128,6 +131,9 @@ class HtmlBuilder extends IlluminateHtmlBuilder
      */
     public static function number($name, $label = '', $value = 0, $options = [])
     {
+        AssetManager::addScript(Admin::instance()->router->routeToAsset('js/parsley.min.js'));
+        AssetManager::addScript(Admin::instance()->router->routeToAsset('js/parsley-init.js'));
+
         if (empty($options['id']))
             $options['id'] = uniqid();
 
