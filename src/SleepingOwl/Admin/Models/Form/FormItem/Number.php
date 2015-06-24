@@ -6,8 +6,11 @@ namespace SleepingOwl\Admin\Models\Form\FormItem;
 use SleepingOwl\Admin\AssetManager\AssetManager;
 use SleepingOwl\Admin\Admin;
 use SleepingOwl\Html\HtmlBuilder;
+use SleepingOwl\Admin\Models\Form\FormItem\Traits\JsValidator;
 
-Class Number extends BaseFormItem {
+Class Number extends BaseFormItem
+{
+    use JsValidator;
 
     /**
      * @var string
@@ -89,8 +92,7 @@ Class Number extends BaseFormItem {
             'data-max-value' => $this->maxValue
         ];
 
-
-        HtmlBuilder::number($this->name, $this->label, (int)$inputValue, $options);
+        HtmlBuilder::number($this->name, $this->label, (int)$inputValue, $this->getOptions($options));
     }
 
 }
