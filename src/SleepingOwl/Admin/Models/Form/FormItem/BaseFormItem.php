@@ -43,6 +43,8 @@ abstract class BaseFormItem implements FormItemInterface
 	 */
 	protected $attributes = [];
 
+    protected $group;
+
 	/**
 	 * @var mixed
 	 */
@@ -61,6 +63,16 @@ abstract class BaseFormItem implements FormItemInterface
         return $this;
     }
 
+    public function group($code)
+    {
+        $this->group = $code;
+        return $this;
+    }
+
+    public function getGroup()
+    {
+        return $this->group;
+    }
 
 	/**
 	 * @param null $name

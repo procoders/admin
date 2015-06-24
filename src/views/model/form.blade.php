@@ -1,23 +1,30 @@
 @extends('admin::_layout.inner')
 
 @section('innerContent')
-	<div class="row">
-		<div class="col-lg-12">
-            <div class="panel panel-inverse">
-                <div class="panel-heading">
-                    {{{ $title }}}
-                </div>
-                <div class="panel-body">
-			        {!! $form->render() !!}
-                </div>
-            </div>
-		</div>
-	</div>
     <?php
     AssetManager::addStyle('admin::css/bootstrap-select.min.css');
     AssetManager::addScript('admin::js/bootstrap-select.min.js');
     AssetManager::addScript('admin::js/form-plugins.js');
     ?>
+
+    @if (!empty($form->getGroups()))
+        <div class="row">
+            {!! $form->render(true) !!}
+        </div>
+    @else
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-inverse">
+                    <div class="panel-heading">
+                        {{{ $title }}}
+                    </div>
+                    <div class="panel-body">
+                        {!! $form->render() !!}
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
     <script>
         var myFile = document.getElementById("teq");
         if(myFile) {
@@ -37,5 +44,4 @@
             handleSelectpicker();
         });
     </script>
-
 @stop

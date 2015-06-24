@@ -46,11 +46,15 @@ class Form
 	 */
 	protected $values;
 
+    protected $groups;
+
+
 	function __construct()
 	{
 		$this->formBuilder = Admin::instance()->formBuilder;
 		$this->items = [];
         $this->inlineItems = [];
+        $this->groups = [];
 	}
 
     public function getInlineItems()
@@ -74,6 +78,16 @@ class Form
 		$this->instance = $instance;
 		$this->setDefaults();
 	}
+
+    public function addGroup(FormGroup $group)
+    {
+        $this->groups[$group->getCode()] = $group;
+    }
+
+    public function getGroups()
+    {
+        return $this->groups;
+    }
 
 	/**
 	 * Set default values for instance
@@ -129,7 +143,7 @@ class Form
 	/**
 	 * @return string
 	 */
-	public function render()
+	public function render($sepparateByGroup = false)
 	{
 		$content = [];
 		$content[] = $this->formBuilder->model($this->instance, [
@@ -139,10 +153,28 @@ class Form
             'class'  => 'form-horizontal form-bordered'
 		]);
 
-		foreach ($this->items as $item)
-		{
-			$content[] = $item->render();
-		}
+        $itemsCollection = [];
+
+        if ($sepparateByGroup === true) {
+            foreach($this->groups as $groupCode => $group) {
+                $itemsCollection = [];
+                foreach ($this->items as $item) {
+                    if ($item->getGroup() == $groupCode) {
+                        $itemsCollection[] = $item;
+                    }
+                }
+                $content[] = view('admin::model/form_group')
+                    ->with('items', $itemsCollection)
+                    ->with('group', $group)
+                    ->with('displayType', $group->getDisplayType());
+            }
+        } else {
+            foreach ($this->items as $item)
+            {
+                $content[] = $item->render();
+            }
+        }
+
 		$content[] = $this->formBuilder->submitGroup($this->backUrl);
 		$content[] = $this->formBuilder->close();
 

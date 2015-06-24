@@ -59,6 +59,8 @@ abstract class BaseColumn implements ColumnInterface
      */
     protected $inlineEdit = false;
 
+    protected $group;
+
     /**
      * This method allows you to change inline edit status
      *
@@ -298,6 +300,17 @@ abstract class BaseColumn implements ColumnInterface
     public function isBatchAction()
     {
         return false;
+    }
+
+    public function group($title)
+    {
+        $this->group = $title;
+        return $this;
+    }
+
+    public function getGroup()
+    {
+        return $this->group;
     }
 
 }
