@@ -1,12 +1,12 @@
 @if($displayType == 'FULL')
-    <div class="col-lg-12">
+    <div class="col-lg-12 ui-sortable">
 @elseif($displayType == 'HALF')
-    <div class="col-lg-6">
+    <div class="col-lg-6 ui-sortable">
 @else
-    <div class="col-lg-12">
+    <div class="col-lg-12 ui-sortable">
 @endif
 
-    <div class="panel panel-inverse">
+    <div class="panel panel-inverse" data-sortable-id="table-basic-{{ uniqid() }}">
         <div class="panel-heading">
             <div class="panel-heading-btn">
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand" data-original-title="" title=""><i class="fa fa-expand"></i></a>

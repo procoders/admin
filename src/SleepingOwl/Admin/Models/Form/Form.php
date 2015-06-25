@@ -156,6 +156,7 @@ class Form
         $itemsCollection = [];
 
         if ($sepparateByGroup === true) {
+            $content[] = '<div class="row">';
             foreach($this->groups as $groupCode => $group) {
                 $itemsCollection = [];
                 foreach ($this->items as $item) {
@@ -168,6 +169,7 @@ class Form
                     ->with('group', $group)
                     ->with('displayType', $group->getDisplayType());
             }
+            $content[] = '</div>';
         } else {
             foreach ($this->items as $item)
             {

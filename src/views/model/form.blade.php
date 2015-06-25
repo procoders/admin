@@ -8,9 +8,7 @@
     ?>
 
     @if (!empty($form->getGroups()))
-        <div class="row">
             {!! $form->render(true) !!}
-        </div>
     @else
         <div class="row">
             <div class="col-lg-12">
