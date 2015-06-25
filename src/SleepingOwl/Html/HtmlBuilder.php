@@ -113,6 +113,9 @@ class HtmlBuilder extends IlluminateHtmlBuilder
 
     public static function textWithActions($name, $label = '', $value = '', $options = [], $actions = [])
     {
+        AssetManager::addScript(Admin::instance()->router->routeToAsset('js/parsley.min.js'));
+        AssetManager::addScript(Admin::instance()->router->routeToAsset('js/parsley-init.js'));
+
         return view('admin::_partials/form_elements/input_text')
             ->with('name', $name)
             ->with('label', $label)
@@ -156,6 +159,9 @@ class HtmlBuilder extends IlluminateHtmlBuilder
      */
     public static function emailField($name, $label = '', $value = '', $options = [])
     {
+        AssetManager::addScript(Admin::instance()->router->routeToAsset('js/parsley.min.js'));
+        AssetManager::addScript(Admin::instance()->router->routeToAsset('js/parsley-init.js'));
+
         return view('admin::_partials/form_elements/input_email')
             ->with('name', $name)
             ->with('label', $label)
@@ -193,6 +199,9 @@ class HtmlBuilder extends IlluminateHtmlBuilder
      */
     public static function password($name, $label = '', $value = '', $options = [])
     {
+        AssetManager::addScript(Admin::instance()->router->routeToAsset('js/parsley.min.js'));
+        AssetManager::addScript(Admin::instance()->router->routeToAsset('js/parsley-init.js'));
+
         return view('admin::_partials/form_elements/input_password')
             ->with('name', $name)
             ->with('label', $label)
@@ -212,6 +221,9 @@ class HtmlBuilder extends IlluminateHtmlBuilder
      */
     public static function price($name, $label = '', $value = '', $options = [], $currency = '$')
     {
+        AssetManager::addScript(Admin::instance()->router->routeToAsset('js/parsley.min.js'));
+        AssetManager::addScript(Admin::instance()->router->routeToAsset('js/parsley-init.js'));
+
         return view('admin::_partials/form_elements/input_price')
             ->with('name', $name)
             ->with('label', $label)
@@ -234,6 +246,8 @@ class HtmlBuilder extends IlluminateHtmlBuilder
     {
         AssetManager::addScript(Admin::instance()->router->routeToAsset('js/bootstrap-colorpicker.js'));
         AssetManager::addStyle(Admin::instance()->router->routeToAsset('css/bootstrap-colorpicker.min.css'));
+        AssetManager::addScript(Admin::instance()->router->routeToAsset('js/parsley.min.js'));
+        AssetManager::addScript(Admin::instance()->router->routeToAsset('js/parsley-init.js'));
 
         if (empty($options['id'])) {
             $options['id'] = uniqid();
@@ -256,6 +270,9 @@ class HtmlBuilder extends IlluminateHtmlBuilder
      */
     public static function radio($name, $label, $value = null, array $options = [])
     {
+        AssetManager::addScript(Admin::instance()->router->routeToAsset('js/parsley.min.js'));
+        AssetManager::addScript(Admin::instance()->router->routeToAsset('js/parsley-init.js'));
+
         return view('admin::_partials/form_elements/radio')
             ->with('name', $name)
             ->with('label', $label)
@@ -292,6 +309,9 @@ class HtmlBuilder extends IlluminateHtmlBuilder
      */
     public static function checkbox($name, $label, $value = null, array $options = [])
     {
+        AssetManager::addScript(Admin::instance()->router->routeToAsset('js/parsley.min.js'));
+        AssetManager::addScript(Admin::instance()->router->routeToAsset('js/parsley-init.js'));
+
         return view('admin::_partials/form_elements/checkbox')
             ->with('name', $name)
             ->with('label', $label)
@@ -330,6 +350,9 @@ class HtmlBuilder extends IlluminateHtmlBuilder
      */
     public static function select($name, $label, array $list = [], $value = null, array $options = [])
     {
+        AssetManager::addScript(Admin::instance()->router->routeToAsset('js/parsley.min.js'));
+        AssetManager::addScript(Admin::instance()->router->routeToAsset('js/parsley-init.js'));
+
         return view('admin::_partials/form_elements/select')
             ->with('name', $name)
             ->with('label', $label)
@@ -350,6 +373,8 @@ class HtmlBuilder extends IlluminateHtmlBuilder
 
         AssetManager::addScript(Admin::instance()->router->routeToAsset('js/bootstrap-datepicker.js'));
         AssetManager::addStyle(Admin::instance()->router->routeToAsset('css/datepicker.css'));
+        AssetManager::addScript(Admin::instance()->router->routeToAsset('js/parsley.min.js'));
+        AssetManager::addScript(Admin::instance()->router->routeToAsset('js/parsley-init.js'));
 
         return view('admin::_partials/form_elements/date')
             ->with('name', $name)
@@ -374,6 +399,8 @@ class HtmlBuilder extends IlluminateHtmlBuilder
         AssetManager::addScript(Admin::instance()->router->routeToAsset('js/moment.js'));
         AssetManager::addScript(Admin::instance()->router->routeToAsset('js/bootstrap-datetimepicker.min.js'));
         AssetManager::addStyle(Admin::instance()->router->routeToAsset('css/bootstrap-datetimepicker.min.css'));
+        AssetManager::addScript(Admin::instance()->router->routeToAsset('js/parsley.min.js'));
+        AssetManager::addScript(Admin::instance()->router->routeToAsset('js/parsley-init.js'));
 
         return view('admin::_partials/view_filters/datetime')
             ->with('name', $name)
@@ -400,6 +427,9 @@ class HtmlBuilder extends IlluminateHtmlBuilder
                     break;
             }
         }
+
+        AssetManager::addScript(Admin::instance()->router->routeToAsset('js/parsley.min.js'));
+        AssetManager::addScript(Admin::instance()->router->routeToAsset('js/parsley-init.js'));
 
         return view('admin::_partials/form_elements/textarea')
             ->with('name', $name)

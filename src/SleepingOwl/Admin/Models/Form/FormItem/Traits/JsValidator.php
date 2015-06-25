@@ -7,13 +7,14 @@ trait JsValidator
         foreach ($this->getValidationRules() as $rule) {
             if ($rule == 'required') {
                 $options['data-parsley-required'] = true;
-            }
-            if (strstr($rule, 'regex')) {
+            } else if (strstr($rule, 'regex')) {
                 $regexArray = explode(':', $rule, 2);
 
                 if (isset($regexArray[1]) && $regexArray[1]) {
                     $options['data-parsley-pattern'] = $regexArray[1];
                 }
+            } else if (strstr($rule, 'email')) {
+                $options['data-parsley-type'] = 'email';
             }
         }
 
