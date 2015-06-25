@@ -3,6 +3,7 @@
 use SleepingOwl\Html\HtmlBuilder;
 use SleepingOwl\Admin\Exceptions\MethodNotFoundException;
 use Illuminate\Support\Arr;
+use SleepingOwl\Admin\Models\Form\FormItem\Traits\JsValidator;
 
 /**
  * Class Select
@@ -11,6 +12,8 @@ use Illuminate\Support\Arr;
  */
 class Select extends BaseFormItem
 {
+    use JsValidator;
+
 	/**
 	 * @var array
 	 */
@@ -38,7 +41,7 @@ class Select extends BaseFormItem
 			]);
 		}
 
-        return HtmlBuilder::select($this->name, $this->label, $list, $this->getValueFromForm(), $this->attributes);
+        return HtmlBuilder::select($this->name, $this->label, $list, $this->getValueFromForm(), $this->getOptions($this->attributes));
 	}
 
 	/**
