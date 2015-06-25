@@ -15,6 +15,11 @@ trait JsValidator
                 }
             } else if (strstr($rule, 'email')) {
                 $options['data-parsley-type'] = 'email';
+            } else if (strstr($rule, 'same')) {
+                $sameArray = explode(':', $rule, 2);
+                if (isset($sameArray[1]) && $sameArray[1]) {
+                    $options['data-parsley-equalto'] = '[name=' . $sameArray[1] . ']';
+                }
             }
         }
 
