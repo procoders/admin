@@ -1,7 +1,11 @@
 <?php namespace SleepingOwl\Admin\Models\Form\FormItem;
 
+use SleepingOwl\Admin\Models\Form\FormItem\Traits\JsValidator;
+
 class Textarea extends BaseFormItem
 {
+    use JsValidator;
+
     const EDITOR_WYSIHTML = 'WISYHTML';
 
     protected $availableEditors = [
@@ -30,6 +34,6 @@ class Textarea extends BaseFormItem
             $this->attributes['data-editor'] = $this->editor;
         }
 
-		return $this->formBuilder->textareaGroup($this->name, $this->label, $this->getValueFromForm(), $this->attributes);
+		return $this->formBuilder->textareaGroup($this->name, $this->label, $this->getValueFromForm(), $this->getOptions($this->attributes));
 	}
 }

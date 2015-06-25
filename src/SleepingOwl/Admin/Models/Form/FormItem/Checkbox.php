@@ -1,10 +1,11 @@
 <?php namespace SleepingOwl\Admin\Models\Form\FormItem;
 
 use SleepingOwl\Html\HtmlBuilder;
+use SleepingOwl\Admin\Models\Form\FormItem\Traits\JsValidator;
 
 class Checkbox extends BaseFormItem
 {
-
+    use JsValidator;
     use Traits\Addon;
 
 	public function render()
@@ -18,6 +19,6 @@ class Checkbox extends BaseFormItem
 
         return ($this->addon)
             ? HtmlBuilder::checkboxAddon($this->name, $this->label, $value, $this->attributes, $this->addonValue)
-            : HtmlBuilder::checkbox($this->name, $this->label, $value, $this->attributes);
+            : HtmlBuilder::checkbox($this->name, $this->label, $value, $this->getOptions($this->attributes));
 	}
 } 
