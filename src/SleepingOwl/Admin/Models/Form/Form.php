@@ -175,7 +175,7 @@ class Form
             }
         }
 
-		$content[] = $this->formBuilder->submitGroup($this->backUrl);
+		$content[] = $this->formBuilder->submitGroup($this->backUrl, $sepparateByGroup);
 		$content[] = $this->formBuilder->close();
 
 		$response =  implode('', $content);

@@ -1,3 +1,7 @@
+@if ($groupped == true)
+    </div>
+    <div class="row">
+@endif
 <div class="form-group">
     <div style="border: 0; text-align: right;">
         <a href="{{$cancelUrl}}">

@@ -180,10 +180,11 @@ class FormBuilder extends IlluminateFormBuilder
 	 * @param $cancelUrl
 	 * @return mixed
 	 */
-	public function submitGroup($cancelUrl)
+	public function submitGroup($cancelUrl, $groupped = false)
 	{
         return view('admin::_partials/form_elements/actions')
-            ->with('cancelUrl', $cancelUrl);
+            ->with('cancelUrl', $cancelUrl)
+            ->with('groupped', $groupped);
 
 	}
 
