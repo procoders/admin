@@ -182,6 +182,13 @@ var AdminTable = function () {
             };
 
             if ($('#'+id).length !== 0) {
+                var sortConfig = [];
+                for(var i=0; i < options.sortConfig.length; i++) {
+                    sortConfig.push({
+                        "targets": options.sortConfig[i],
+                        "orderable": false
+                    });
+                }
                 var table = $('#'+id).DataTable({
                     "lengthMenu": [20, 40, 60],
                     "dom": 'C<"clear">lfrtip',
@@ -191,7 +198,7 @@ var AdminTable = function () {
                     paging: true,
                     "autoWidth": true,
                     "order": [[ 0, "asc" ]],
-                    "aoColumnDefs": options.sortConfig
+                    "columnDefs": sortConfig
                 });
 
                 if (typeof options.filters != 'undefined' && options.filters.length > 0) {
