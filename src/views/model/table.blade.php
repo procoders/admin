@@ -68,7 +68,7 @@
                                         @foreach ($columns as $column)
                                             @if ($column->isBatchAction())
                                                 <th style="width: 100px; text-align: right;">
-                                                    <form name="batchDelete" action="<?php echo $_SERVER['REQUEST_URI'] . '/batch/delete'; ?>" method="post">
+                                                    <form name="batchDelete" action="/admin/{{$modelItem->getAlias()}}/batch/delete" method="post">
                                                         <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                                                         <input type="hidden" name="ids" value="">
                                                         <a href="javascript:;" onclick="processBatchDelete('{{ $modelItem->getModelTable() }}')" style="float: left;">
