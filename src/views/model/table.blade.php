@@ -67,12 +67,14 @@
                                     <tr>
                                         @foreach ($columns as $column)
                                             @if ($column->isBatchAction())
-                                                <th>
+                                                <th style="width: 100px; text-align: right;">
                                                     <form name="batchDelete" action="<?php echo $_SERVER['REQUEST_URI'] . '/batch/delete'; ?>" method="post">
                                                         <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                                                         <input type="hidden" name="ids" value="">
-                                                        <a href="javascript:;" onclick="processBatchDelete('<?php echo $modelItem->getModelTable(); ?>')">Delete</a>
-                                                        <input type="checkbox" name="deleteAll" onchange="setAll('<?php echo $modelItem->getModelTable(); ?>');">
+                                                        <a href="javascript:;" onclick="processBatchDelete('{{ $modelItem->getModelTable() }}')" style="float: left;">
+                                                            <i class="fa fa-times" style="color: #ec3131; font-size: 16px;"></i>
+                                                        </a>
+                                                        <input type="checkbox" name="deleteAll" onchange="setAll('{{ $modelItem->getModelTable() }}');" />
                                                     </form>
                                                 </th>
                                             @else
