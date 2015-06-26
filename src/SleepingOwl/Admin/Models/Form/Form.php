@@ -256,6 +256,16 @@ class Form
 		return $rules;
 	}
 
+    public function getInlineValidationRules()
+    {
+        $rules = [];
+        foreach ($this->inlineItems as $item)
+        {
+            $rules[$item->getName()] = $item->getValidationRules();
+        }
+        return $rules;
+    }
+
 	public function updateRequestData(&$data)
 	{
 		foreach ($this->items as $item)

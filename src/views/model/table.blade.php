@@ -113,6 +113,10 @@
         AssetManager::addStyle('admin::css/datepicker.css');
         AssetManager::addStyle('admin::css/model-filters.css');
         AssetManager::addScript('admin::js/editable.js');
+
+        AssetManager::addScript('admin::js/parsley.min.js');
+        AssetManager::addScript('admin::js/js/parsley-init.js');
+
         AssetManager::addStyle('admin::css/bootstrap-editable.css');
         AssetManager::addStyle('admin::css/editable.css');
         ?>

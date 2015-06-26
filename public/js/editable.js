@@ -25,6 +25,7 @@ var showInlineEditForm = function(id, url, field) {
 var inlineFormSubmit = function(event, id) {
     event.preventDefault();
     var form = $('#' + id);
+    var parsleyForm = form.parsley();
     var params = form.serializeArray();
     var frmParams = {};
     var contentId = form.data('element-id');
@@ -34,39 +35,42 @@ var inlineFormSubmit = function(event, id) {
     });
     frmParams.field = field;
 
-    $('#' + contentId + '-content').html('<div class="editableform-loading"></div>');
+    if (parsleyForm.validate()) {
+        $('#' + contentId + '-content').html('<div class="editableform-loading"></div>');
 
-    $.ajax({
-        type: "POST",
-        url: form.attr('action'),
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        data: JSON.stringify(frmParams),
-        success: function(data){
-            if (data.error == false) {
-                $('#' + contentId + '-link').html();
+        $.ajax({
+            type: "POST",
+            url: form.attr('action'),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            data: JSON.stringify(frmParams),
+            success: function (data) {
+                if (data.error == false) {
+                    $('#' + contentId + '-link').html();
 
-                if (data.value != 'undefined') {
-                    var tmp = $(data.value);
-                    if (tmp.length > 0) {
-                        $('#' + contentId + '-link').parent('td').html(tmp.html());
+                    if (data.value != 'undefined') {
+                        var tmp = $(data.value);
+                        if (tmp.length > 0) {
+                            $('#' + contentId + '-link').parent('td').html(tmp.html());
+                        }
                     }
-                }
 
-                $('#' + contentId + '-content').html('');
-                $('#' + contentId + '-content').hide();
-                $('#' + contentId + '-link').show();
-            } else {
+                    $('#' + contentId + '-content').html('');
+                    $('#' + contentId + '-content').hide();
+                    $('#' + contentId + '-link').show();
+                } else {
+                    $('#' + contentId + '-link').show();
+                    $('#' + contentId + '-content').html('<span style="color: red; margin-left: 10px;">Error</span>');
+                }
+                $(window).resize();
+            },
+            failure: function (errMsg) {
                 $('#' + contentId + '-link').show();
                 $('#' + contentId + '-content').html('<span style="color: red; margin-left: 10px;">Error</span>');
+                $(window).resize();
             }
-            $(window).resize();
-        },
-        failure: function(errMsg) {
-            $('#' + contentId + '-link').show();
-            $('#' + contentId + '-content').html('<span style="color: red; margin-left: 10px;">Error</span>');
-            $(window).resize();
-        }
-    });
+        });
+    }
+
     return false;
 };

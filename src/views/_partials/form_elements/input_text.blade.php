@@ -2,7 +2,7 @@
     <div class="form-group">
         <label class="control-label">{{$label}}</label>
         <div>
-            <input type="text" name="{{$name}}" class="form-control input-sm" value="{{$value}}">
+            <input type="text" name="{{$name}}" @foreach ($options as $key => $option) {{$key}}="{{$option}}" @endforeach class="form-control input-sm" value="{{$value}}">
         </div>
     </div>
 @else
