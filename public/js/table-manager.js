@@ -132,11 +132,12 @@ var AdminTable = function () {
                         $.fn.dataTable.ext.search = [];
                         $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
                             var value = table.data()[dataIndex][sequance];
-                            if (value['@data-order'] !== undefined)
+                            if (value['display'] !== undefined)
                             {
-                                value = value['@data-order'];
+                                value = value['display'];
                             }
-                            var tmp = value.split('-');
+
+                            var tmp = value.split('.');
                             var tmpDay = tmp[2].split(' ');
                             var tmpTime = tmpDay[1].split(':');
 
@@ -182,13 +183,6 @@ var AdminTable = function () {
             };
 
             if ($('#'+id).length !== 0) {
-                var sortConfig = [];
-                for(var i=0; i < options.sortConfig.length; i++) {
-                    sortConfig.push({
-                        "targets": options.sortConfig[i],
-                        "orderable": false
-                    });
-                }
                 var table = $('#'+id).DataTable({
                     "lengthMenu": [20, 40, 60],
                     "dom": 'C<"clear">lfrtip',
@@ -198,7 +192,7 @@ var AdminTable = function () {
                     paging: true,
                     "autoWidth": true,
                     "order": [[ 0, "asc" ]],
-                    "columnDefs": sortConfig
+                    "aoColumnDefs": options.sortConfig
                 });
 
                 if (typeof options.filters != 'undefined' && options.filters.length > 0) {
@@ -206,7 +200,7 @@ var AdminTable = function () {
                 }
 
                 var tbl = new $.fn.dataTable.FixedHeader(table);
-                //new $.fn.dataTable.KeyTable(table);
+                new $.fn.dataTable.KeyTable(table);
 
                 $(window).resize(function() {
                     tbl._fnUpdateClones(true);
