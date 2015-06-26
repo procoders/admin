@@ -2,9 +2,13 @@
 
 trait JsValidator
 {
-    public function getOptions($options)
+    public function getOptions(array $options = [], array $validationRules = [])
     {
-        foreach ($this->getValidationRules() as $rule) {
+        if (! $validationRules) {
+            $validationRules = $this->getValidationRules();
+        }
+
+        foreach ($validationRules as $rule) {
             if ($rule == 'required') {
                 $options['data-parsley-required'] = true;
             } else if (strstr($rule, 'regex')) {
