@@ -149,10 +149,17 @@ class AdminController extends BaseController
 			}
 		} elseif ($wildcard !== '/')
 		{
-			App::abort(404);
+            return $this->pageNotFound();
 		}
 		return $this->makeView('page', compact('title', 'content'));
 	}
+
+    public function pageNotFound()
+    {
+        header("HTTP/1.0 404 Not Found");
+        return view('admin::404')
+            ->with('pageTitle', '404 Not Found');
+    }
 
 	public function renderCustomContent($title, $content)
 	{
@@ -246,7 +253,7 @@ class AdminController extends BaseController
 				$tableData = $this->modelRepository->tableData();
 			} catch (ModelNotFoundException $e)
 			{
-				App::abort(404);
+                return $this->pageNotFound();
 			}
 			$data = array_merge($data, $tableData);
 		}

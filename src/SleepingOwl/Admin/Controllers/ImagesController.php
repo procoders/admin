@@ -193,7 +193,9 @@ class ImagesController extends Controller
 		// abort if file not found
 		if ($image_path === false)
 		{
-			App::abort(404);
+            header("HTTP/1.0 404 Not Found");
+            return view('admin::404')
+                ->with('pageTitle', '404 Not Found');
 		}
 
 		// define template callback
