@@ -1,6 +1,7 @@
 <?php namespace SleepingOwl\Admin\Models\Form;
 
 use SleepingOwl\Admin\Admin;
+use SleepingOwl\Admin\Models\Form\FormItem\Checkbox;
 use SleepingOwl\Admin\Models\Form\Interfaces\FormItemInterface;
 use Illuminate\Support\Arr;
 use Illuminate\Support\ViewErrorBag;
@@ -208,7 +209,17 @@ class Form
             }
             $content[] = $item->render();
         }
-        $content[] = view('admin::model/inline_edit_form_controls');
+        if (count($this->inlineItems) == 1) {
+            if ($this->inlineItems[0] instanceof Checkbox) {
+
+            } else {
+                $content[] = view('admin::model/inline_edit_form_controls')
+                    ->with('inline_controls', true);
+            }
+        } else {
+            $content[] = view('admin::model/inline_edit_form_controls')
+                ->with('inline_controls', false);
+        }
         $content[] = $this->formBuilder->close();
 
         $response =  implode('', $content);

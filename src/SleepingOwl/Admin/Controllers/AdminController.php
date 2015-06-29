@@ -6,6 +6,8 @@ use Aws\CloudFront\Exception\Exception;
 use SleepingOwl\Admin\Admin;
 use SleepingOwl\Admin\Columns\Column\Action;
 use SleepingOwl\Admin\Exceptions\ValidationException;
+use SleepingOwl\Admin\Models\Form\FormItem\Checkbox;
+use SleepingOwl\Admin\Models\InlineEdit\InlineEditItem;
 use SleepingOwl\Admin\Repositories\Interfaces\ModelRepositoryInterface;
 use SleepingOwl\Admin\Models\ModelItem;
 use SleepingOwl\Admin\Session\QueryState;
@@ -401,6 +403,7 @@ class AdminController extends BaseController
         $form = $this->modelItem->getInlineEdit($field);
         $form->setInstance($instance);
         $form->setMethod('post');
+        $items = $form->getInlineItems();
         $form->setSaveUrl($this->admin_router->routeToInlineUpdate($this->modelName, [$id]));
         $form->setErrors(Session::get('errors'));
 

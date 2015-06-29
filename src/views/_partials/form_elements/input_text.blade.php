@@ -1,10 +1,14 @@
 @if (isset($options['inline-edit']) && $options['inline-edit'] === true)
-    <div class="form-group">
-        <label class="control-label">{{$label}}</label>
-        <div>
-            <input type="text" name="{{$name}}" @foreach ($options as $key => $option) {{$key}}="{{$option}}" @endforeach class="form-control input-sm" value="{{$value}}">
+    @if (is_null($label))
+        <input type="text" name="{{$name}}" @foreach ($options as $key => $option) {{$key}}="{{$option}}" @endforeach class="form-control input-sm" value="{{$value}}">
+    @else
+        <div class="form-group">
+            <label class="control-label">{{$label}}</label>
+            <div>
+                <input type="text" name="{{$name}}" @foreach ($options as $key => $option) {{$key}}="{{$option}}" @endforeach class="form-control input-sm" value="{{$value}}">
+            </div>
         </div>
-    </div>
+    @endif
 @else
 <div class="form-group">
     <label class="col-md-2 control-label">{{$label}}</label>
