@@ -1,4 +1,4 @@
-@if ($groupped == true)
+@if (isset($groupped) && $groupped == true)
     </div>
     <div class="row">
 @endif
