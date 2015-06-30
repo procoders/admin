@@ -114,8 +114,8 @@ abstract class BaseFormItem implements FormItemInterface
 	protected function getValueFromForm()
 	{
         $value = $this->form->getValueForName($this->name);
-		if (is_null($value) && !empty($this->formBuilder)) {
-            $model = $this->formBuilder->getModel();
+		if (is_null($value) && !empty($this->form)) {
+            $model = $this->form->instance;
             if (!is_null($model)) {
                 $name = $this->name;
                 $value = $model->$name;
