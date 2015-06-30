@@ -20,7 +20,7 @@
             </div>
             <!-- end container-fluid -->
         </div>
-		<div id="page-wrapper">
+		<div id="page-wrapper" class="container-fluid">
             @include('admin::_partials.sidebar')
             <div id="content" class="content">
 			@yield('innerContent')
