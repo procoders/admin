@@ -51,6 +51,8 @@ class Admin
 	 * @var FormBuilder
 	 */
 	public $formBuilder;
+
+    protected $userInfoContent = '';
 	/**
 	 * @var Finder
 	 */
@@ -150,5 +152,16 @@ class Admin
 		$controller = \App::make('SleepingOwl\Admin\Controllers\AdminController', ['disableFilters' => true]);
 		return $controller->renderCustomContent($title, $content);
 	}
+
+    public function userInfoContent($content)
+    {
+        $this->userInfoContent = $content;
+        return $this;
+    }
+
+    public function getUserInfoContent()
+    {
+        return $this->userInfoContent;
+    }
 
 }

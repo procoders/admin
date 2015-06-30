@@ -1,10 +1,12 @@
-<ul class="nav">
-    <li class="nav-profile">
-        <div class="image">
-            <a href="javascript:;"><i class="fa fa-user fa-fw"></i></a>
-        </div>
-        <div class="info">
-            <small>{{ $user->name ?: 'admin' }}</small>
-        </div>
-    </li>
-</ul>
+@if (!empty(Admin::$instance))
+<?php $adm = Admin::$instance; ?>
+    @if (!empty($adm->getUserInfoContent()))
+    <ul class="nav">
+        <li class="nav-profile">
+            <div class="info">
+                {!! $adm->getUserInfoContent() !!}
+            </div>
+        </li>
+    </ul>
+    @endif
+@endif
