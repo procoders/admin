@@ -366,7 +366,7 @@ class HtmlBuilder extends IlluminateHtmlBuilder
     public static function date($name, $label, $value = null, array $options = [], $dateFormat = DateFormatter::SHORT,
                          $timeFormat = DateFormatter::NONE)
     {
-        $value = DateFormatter::format($value, $dateFormat, $timeFormat, 'MM/dd/y');
+        $value = DateFormatter::format($value, $dateFormat, $timeFormat, 'dd.MM.y');
 
         if (empty($options['id']))
             $options['id'] = uniqid();
