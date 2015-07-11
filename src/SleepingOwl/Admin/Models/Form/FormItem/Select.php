@@ -19,6 +19,14 @@ class Select extends BaseFormItem
 	 */
 	protected $list;
 
+    protected $listCallback;
+
+    public function listCallback($callback)
+    {
+        $this->list = $callback();
+        return $this;
+    }
+
 	/**
 	 * @var bool
 	 */
@@ -60,7 +68,9 @@ class Select extends BaseFormItem
 	{
 		if ($name === 'list')
 		{
-			$this->list = Arr::get($arguments, 0, null);
+            if (is_null($this->list)) {
+                $this->list = Arr::get($arguments, 0, null);
+            }
 			return $this;
 		}
 		return parent::__call($name, $arguments);

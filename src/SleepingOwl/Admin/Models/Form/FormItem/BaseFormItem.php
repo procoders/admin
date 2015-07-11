@@ -80,6 +80,7 @@ abstract class BaseFormItem implements FormItemInterface
 	 */
 	function __construct($name = null, $label = null)
 	{
+
 		$this->formBuilder = Admin::instance()->formBuilder;
 		$this->label = $label;
 		$this->name = $name;
@@ -88,6 +89,11 @@ abstract class BaseFormItem implements FormItemInterface
 			$this->form = $modelItem->getForm();
 		}
 	}
+
+    public function name($name)
+    {
+        $this->name = (string)$name;
+    }
 
     public function value($value)
     {
