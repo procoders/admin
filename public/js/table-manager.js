@@ -88,7 +88,9 @@ var AdminTable = function () {
                         }
                         table.column(filters[i].sequanceNumber).search('');
                     }
+                    $.fn.dataTable.ext.search = [];
                     table.draw();
+                    return false;
                 });
             };
 
