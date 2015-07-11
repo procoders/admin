@@ -40,6 +40,9 @@
         }
         $(document).ready(function() {
             handleSelectpicker();
+            window.setInterval(function() {
+                $( window ).resize();
+            }, 250);
         });
     </script>
 @stop
