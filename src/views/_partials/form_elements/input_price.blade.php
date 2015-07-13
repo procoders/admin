@@ -1,3 +1,10 @@
+<style>
+    .input-group .parsley-errors-list {
+        position: absolute;
+        left: 34px;
+        bottom: -17px;
+    }
+</style>
 @if (is_null($label))
     <div class="input-group">
         <span class="input-group-addon">{{{ $currency }}}</span>
