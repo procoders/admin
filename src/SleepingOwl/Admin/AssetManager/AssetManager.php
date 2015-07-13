@@ -27,7 +27,6 @@ class AssetManager
 	protected static $scripts = [
         'admin::js/jquery-1.9.1.min.js',
 	    'admin::js/pace.min.js',
-        'admin::js/bootstrap.min.js',
         'admin::js/jquery-migrate-1.1.0.min.js',
         'admin::js/jquery-ui.min.js',
         'admin::js/jquery.slimscroll.min.js',
@@ -40,6 +39,7 @@ class AssetManager
         'admin::js/jquery.sparkline.js',
         'admin::js/jquery-jvectormap-1.2.2.min.js',
         'admin::js/jquery-jvectormap-world-mill-en.js',
+        'admin::js/bootstrap.min.js',
         'admin::js/apps.js'
     ];
 
