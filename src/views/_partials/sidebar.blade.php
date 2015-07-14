@@ -15,3 +15,15 @@
     {{-- end sidebar nav --}}
 </div>
 <div class="sidebar-bg"></div>
+<script>
+    var loadSidebarClasses = function() {
+        var sidebarElement = $('#sidebar .has-sub .active').eq(0);
+        if (sidebarElement.length > 0) {
+            sidebarElement.closest('.has-sub').addClass('active');
+        }
+    };
+
+    jQuery(document).ready(function() {
+        loadSidebarClasses();
+    });
+</script>

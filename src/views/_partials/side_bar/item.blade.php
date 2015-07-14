@@ -1,5 +1,5 @@
 @if (!empty($subItems))
-<li class="has-sub expand @if( in_array(\Request::url(), $item->getSubUrls())) active @endif " >
+<li class="has-sub expand">
     <a href="javascript:;">
         <b class="caret pull-right"></b>
         @if (!empty($icon))<i class="fa {{$icon}}"></i>@endif
@@ -12,7 +12,7 @@
     </ul>
 </li>
 @else
-<li @if(\Request::url() === $link) class="active" @endif>
+<li @if(strstr(\Request::url(),$link)) class="active" @endif>
     <a href="{{$link}}">
         @if (!empty($icon))<i class="fa {{$icon}}"></i>@endif
         <span>{{$title}}</span>
