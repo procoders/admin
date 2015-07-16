@@ -50,19 +50,19 @@ class AssetManager
 
 	public static function addStyle($style)
 	{
-		static::$styles[] = $style;
+		static::$styles[] = $style . '?ver=' . time();
 	}
 
 	public static function scripts()
 	{
 		$scripts = static::assets(static::$scripts);
-		array_unshift($scripts, Admin::instance()->router->routeToLang(App::getLocale()));
+		array_unshift($scripts, Admin::instance()->router->routeToLang(App::getLocale()) . '?ver=' . time());
 		return $scripts;
 	}
 
 	public static function addScript($script)
 	{
-		static::$scripts[] = $script;
+		static::$scripts[] = $script . '?ver=' . time();
 	}
 
 	/**
@@ -76,6 +76,16 @@ class AssetManager
 			if (strpos($asset, 'admin::') !== false)
 			{
 				$asset = str_replace('admin::', '', $asset);
+
+                $pathToAsset = public_path() . DIRECTORY_SEPARATOR .
+                    'packages' . DIRECTORY_SEPARATOR .
+                    'sleeping-owl' . DIRECTORY_SEPARATOR .
+                    'admin' . DIRECTORY_SEPARATOR .
+                    $asset;
+                if (file_exists($pathToAsset)) {
+                    $asset .= '?ver=' . filemtime($pathToAsset);
+                }
+
 				return Admin::instance()->router->routeToAsset($asset);
 			}
 			return $asset;
