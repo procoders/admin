@@ -94,6 +94,11 @@ class Router
             'action' => 'batchDelete',
             'method' => 'post'
         ],
+        [
+            'url'    => 'singin',
+            'action' => 'singin',
+            'method' => 'get'
+        ],
 	];
 	/**
 	 * @var Repository

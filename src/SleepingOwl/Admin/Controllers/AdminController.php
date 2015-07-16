@@ -345,6 +345,11 @@ class AdminController extends BaseController
 		return $this->makeView('model.form', $data);
 	}
 
+    public function singin()
+    {
+        return Redirect::to('/admin/login');
+    }
+
 	/**
 	 * @return Redirect
 	 */
