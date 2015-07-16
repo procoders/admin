@@ -35,10 +35,12 @@
 			<h1 class="page-header">
 				{{{ $title }}}
 				@if(isset($subtitle)) <small>{{ $subtitle }}</small> @endif
-                <a class="btn btn-success m-r-5 pull-right" {{ $modelItem->isCreatable() ? '' : 'disabled' }} href="{{{ $newEntryRoute }}}">
+                @if ($modelItem->isCreatable() != false)
+                <a class="btn btn-success m-r-5 pull-right" href="{{{ $newEntryRoute }}}">
                     <i class="fa fa-plus"></i>
                     {{{ Lang::get('admin::lang.table.new-entry') }}}
                 </a>
+                @endif
 			</h1>
             {{-- TODO: change this --}}
 			@if(Session::has('message'))
