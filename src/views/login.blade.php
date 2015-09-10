@@ -29,9 +29,11 @@
                     <div class="login-buttons">
                         <button type="submit" class="btn btn-success btn-block btn-lg">Sign me in</button>
                     </div>
-                    <div class="m-t-20">
-                        Not a member yet? Click <a href="/registration">here</a> to register.
-                    </div>
+                    @if (config('admin.registration.enabled', true))
+                        <div class="m-t-20">
+                            Not a member yet? Click <a href="/registration">here</a> to register.
+                        </div>
+                    @endif
                 </form>
             </div>
         </div>
