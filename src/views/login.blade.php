@@ -11,7 +11,7 @@
         <div class="login login-v2" data-pageload-addclass="animated fadeIn">
             <div class="login-header">
                 <div class="brand">
-                    One Hotel
+                    {{ config('admin.title') }}
                     <small>{{ Lang::get('admin::lang.auth.title') }}</small>
                 </div>
                 <div class="icon">
